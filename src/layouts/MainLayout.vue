@@ -1,5 +1,10 @@
 <template>
-  <q-layout view="hHh Lpr lff" container style="height: 100vh">
+  <q-layout
+    view="hHh Lpr lff"
+    container
+    style="height: 100vh"
+    class="text-dark"
+  >
     <DrawerHeader />
 
     <q-page-container>

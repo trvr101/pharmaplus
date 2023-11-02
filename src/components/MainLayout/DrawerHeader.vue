@@ -1,7 +1,8 @@
 <template>
-  <q-header bordered :class="$q.isActive ? 'bg-secondary' : 'bg-primary'">
+  <q-header bordered>
     <q-toolbar>
       <q-btn flat @click="drawer = !drawer" round dense icon="menu" />
+      <q-toolbar-title>PharmaPlus+</q-toolbar-title>
     </q-toolbar>
   </q-header>
 
@@ -21,7 +22,7 @@
   >
     <q-scroll-area class="fit" :horizontal-thumb-style="{ opacity: 0 }">
       <q-list class="q-flex q-items-center">
-        <q-item clickable v-ripple to="/indexPage">
+        <q-item clickable v-ripple to="/dashboard">
           <q-item-section avatar>
             <q-icon name="dashboard" />
           </q-item-section>
@@ -62,7 +63,7 @@
 
         <q-separator />
 
-        <q-item clickable v-ripple to="/">
+        <q-item clickable v-ripple to="/dashboard">
           <q-item-section avatar>
             <q-icon name="logout" />
           </q-item-section>
@@ -85,3 +86,14 @@ export default {
   },
 };
 </script>
+
+<style>
+.q-header {
+  background: linear-gradient(90deg, #007261, #007976, rgba(0, 114, 127, 1));
+  /* color: #14001f; */
+  border-radius: 0 0 25px 25px;
+}
+.q-drawer {
+  border-radius: 0 25px 25px 0;
+}
+</style>

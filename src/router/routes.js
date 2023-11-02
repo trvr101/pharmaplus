@@ -4,8 +4,8 @@ const routes = [
     component: () => import("layouts/MainLayout.vue"),
     children: [
       {
-        path: "/indexPage",
-        component: () => import("pages/Admin/IndexPage.vue"),
+        path: "/dashboard",
+        component: () => import("pages/Admin/Dashboard.vue"),
       },
       {
         path: "/inventory",
