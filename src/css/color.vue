@@ -9,10 +9,15 @@
 </template>
 
 <script>
-import DrawerHeader from "components/MainLayout/DrawerHeader";
+import { ref } from "vue";
+import DrawerHeader from "components/MainLayout/DrawerHeader.vue";
 export default {
-  components: {
-    DrawerHeader,
+  setup() {
+    return {
+      drawer: ref(false),
+      miniState: ref(true),
+      tab: ref(""),
+    };
   },
 };
 </script>
