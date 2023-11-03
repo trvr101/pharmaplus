@@ -2,7 +2,13 @@
   <q-header bordered>
     <q-toolbar>
       <q-btn flat @click="drawer = !drawer" round dense icon="menu" />
-      <q-toolbar-title>PharmaPlus+</q-toolbar-title>
+      <q-toolbar-title
+        :class="{
+          '': $q.screen.gt.sm,
+          'absolute-center': $q.screen.lt.sm,
+        }"
+        >PharmaPlus+</q-toolbar-title
+      >
     </q-toolbar>
   </q-header>
 
@@ -21,7 +27,7 @@
     "
   >
     <q-scroll-area class="fit" :horizontal-thumb-style="{ opacity: 0 }">
-      <q-list class="q-flex q-items-center">
+      <q-list class="q-flex">
         <q-item
           clickable
           v-ripple
@@ -135,12 +141,12 @@ export default {
   border-radius: 20px;
 }
 
-.q-list > :first-child {
+/* .q-list > :first-child {
   border-radius: 20px 20px 0px 20px;
 }
 
 /* Target the last child of q-list */
-.q-list :last-child {
+/* .q-list :last-child {
   border-radius: 20px 0px 20px 20px;
-}
+} */
 </style>

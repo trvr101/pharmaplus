@@ -1,47 +1,53 @@
 <template>
   <div class="container">
     <div class="row">
-      <div class="col-9">
+      <div :class="{ 'col-9': $q.screen.gt.sm, 'col-12': $q.screen.lt.sm }">
         <div class="row justify-center">
-          <div class="col-4">
+          <div :class="{ 'col-4': $q.screen.gt.sm, 'col-12': $q.screen.lt.sm }">
             <q-card flat bordered class="my-card">
               <q-card-section>
-                <div class="text-h6">Our Changing Planet</div>
+                <div class="text-h6">Card</div>
               </q-card-section>
 
               <q-card-section class="q-pt-none">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
                 eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              </q-card-section>
-            </q-card>
-          </div>
-          <div class="col-4">
-            <q-card flat bordered class="my-card">
-              <q-card-section>
-                <div class="text-h6">Our Changing Planet</div>
-              </q-card-section>
-
-              <q-card-section class="q-pt-none">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
                 eiusmod tempor incididunt ut labore et dolore magna aliqua.
               </q-card-section>
             </q-card>
           </div>
-          <div class="col-4">
+          <div :class="{ 'col-4': $q.screen.gt.sm, 'col-12': $q.screen.lt.sm }">
             <q-card flat bordered class="my-card">
               <q-card-section>
-                <div class="text-h6">Our Changing Planet</div>
+                <div class="text-h6">Card 2</div>
+              </q-card-section>
+
+              <q-card-section class="q-pt-none"
+                >Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              </q-card-section>
+            </q-card>
+          </div>
+          <div :class="{ 'col-4': $q.screen.gt.sm, 'col-12': $q.screen.lt.sm }">
+            <q-card flat bordered class="my-card">
+              <q-card-section>
+                <div class="text-h6">Card 3</div>
               </q-card-section>
 
               <q-card-section class="q-pt-none">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem
+                ipsum dolor sit amet, consectetur adipiscing elit, sed do
                 eiusmod tempor incididunt ut labore et dolore magna aliqua.
               </q-card-section>
             </q-card>
           </div>
         </div>
         <div class="row justify-center">
-          <div class="col-9">
+          <div :class="{ 'col-9': $q.screen.gt.sm, 'col-12': $q.screen.lt.sm }">
             <q-card flat bordered class="my-card">
               <!-- Carousel -->
               <q-carousel
@@ -92,6 +98,7 @@
                 </q-carousel-slide>
               </q-carousel>
             </q-card>
+            <!-- Table -->
             <q-card flat bordered class="my-card">
               <q-table
                 flat
@@ -128,10 +135,10 @@
               </q-table>
             </q-card>
           </div>
-          <div class="col-3">
+          <div :class="{ 'col-3': $q.screen.gt.sm, 'col-12': $q.screen.lt.sm }">
             <q-card flat bordered class="my-card">
               <q-card-section>
-                <div class="text-h6">Our Changing Planet</div>
+                <div class="text-h6">Card 4</div>
               </q-card-section>
 
               <q-card-section class="q-pt-none">
@@ -141,7 +148,7 @@
             </q-card>
             <q-card flat bordered class="my-card">
               <q-card-section>
-                <div class="text-h6">Our Changing Planet</div>
+                <div class="text-h6">Card 5</div>
               </q-card-section>
 
               <q-card-section class="q-pt-none">
@@ -162,10 +169,10 @@
           </div>
         </div>
       </div>
-      <div class="col-3">
+      <div :class="{ 'col-3': $q.screen.gt.sm, 'col-12': $q.screen.lt.sm }">
         <q-card flat bordered class="my-card">
           <q-card-section>
-            <div class="text-h6">Our Changing Planet</div>
+            <div class="text-h6">Card 6</div>
           </q-card-section>
 
           <q-card-section class="q-pt-none">
@@ -178,7 +185,7 @@
           class="my-card"
           ><q-card flat bordered class="my-card">
             <q-card-section>
-              <div class="text-h6">Our Changing Planet</div>
+              <div class="text-h6">Card 7</div>
             </q-card-section>
 
             <q-card-section class="q-pt-none">
@@ -187,7 +194,7 @@
             </q-card-section>
           </q-card>
           <q-card-section>
-            <div class="text-h6">Our Changing Planet</div>
+            <div class="text-h6">Card 8</div>
           </q-card-section>
 
           <q-card-section class="q-pt-none">
@@ -196,25 +203,7 @@
           </q-card-section> </q-card
         ><q-card flat bordered class="my-card">
           <q-card-section>
-            <div class="text-h6">Our Changing Planet</div>
-          </q-card-section>
-
-          <q-card-section class="q-pt-none">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua
-          </q-card-section> </q-card
-        ><q-card flat bordered class="my-card">
-          <q-card-section>
-            <div class="text-h6">Our Changing Planet</div>
-          </q-card-section>
-
-          <q-card-section class="q-pt-none">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua
-          </q-card-section> </q-card
-        ><q-card flat bordered class="my-card">
-          <q-card-section>
-            <div class="text-h6">Our Changing Planet</div>
+            <div class="text-h6">Card 9</div>
           </q-card-section>
 
           <q-card-section class="q-pt-none">
@@ -252,5 +241,8 @@ export default {
 .container {
   background: #f1feff;
   height: 100%;
+}
+.q-card-section {
+  padding: 0;
 }
 </style>
