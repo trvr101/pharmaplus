@@ -22,22 +22,42 @@
   >
     <q-scroll-area class="fit" :horizontal-thumb-style="{ opacity: 0 }">
       <q-list class="q-flex q-items-center">
-        <q-item clickable v-ripple to="/dashboard">
+        <q-item
+          clickable
+          v-ripple
+          :class="{ 'active-item': $route.path === '/dashboard' }"
+          to="/dashboard"
+        >
           <q-item-section avatar>
             <q-icon name="dashboard" />
           </q-item-section>
           <q-item-section> Dashboard </q-item-section> </q-item
-        ><q-item clickable v-ripple to="/inventory">
+        ><q-item
+          clickable
+          v-ripple
+          :class="{ 'active-item': $route.path === '/inventory' }"
+          to="/inventory"
+        >
           <q-item-section avatar>
             <q-icon name="inventory_2" />
           </q-item-section>
           <q-item-section> Inventory </q-item-section> </q-item
-        ><q-item clickable v-ripple to="/userManagement">
+        ><q-item
+          clickable
+          v-ripple
+          :class="{ 'active-item': $route.path === '/userManagement' }"
+          to="/userManagement"
+        >
           <q-item-section avatar>
             <q-icon name="manage_accounts" />
           </q-item-section>
           <q-item-section> User Management</q-item-section> </q-item
-        ><q-item clickable v-ripple to="/sales">
+        ><q-item
+          clickable
+          v-ripple
+          :class="{ 'active-item': $route.path === '/sales' }"
+          to="/sales"
+        >
           <q-item-section avatar>
             <q-icon name="trending_up" />
           </q-item-section>
@@ -45,7 +65,12 @@
           <q-item-section> Sales </q-item-section>
         </q-item>
 
-        <q-item clickable v-ripple to="/settings">
+        <q-item
+          clickable
+          v-ripple
+          :class="{ 'active-item': $route.path === '/settings' }"
+          to="/settings"
+        >
           <q-item-section avatar>
             <q-icon name="settings" />
           </q-item-section>
@@ -53,7 +78,12 @@
           <q-item-section> Settings </q-item-section>
         </q-item>
 
-        <q-item clickable v-ripple to="/message">
+        <q-item
+          clickable
+          v-ripple
+          :class="{ 'active-item': $route.path === '/Message' }"
+          to="/message"
+        >
           <q-item-section avatar>
             <q-icon name="inbox" />
           </q-item-section>
@@ -63,7 +93,7 @@
 
         <q-separator />
 
-        <q-item clickable v-ripple to="/dashboard">
+        <q-item clickable v-ripple to="/">
           <q-item-section avatar>
             <q-icon name="logout" />
           </q-item-section>
@@ -95,5 +125,22 @@ export default {
 }
 .q-drawer {
   border-radius: 0 25px 25px 0;
+}
+.q-item {
+  color: rgb(6, 0, 73);
+}
+.q-item:hover,
+.active-item {
+  background-color: #00726123;
+  border-radius: 20px;
+}
+
+.q-list > :first-child {
+  border-radius: 20px 20px 0px 20px;
+}
+
+/* Target the last child of q-list */
+.q-list :last-child {
+  border-radius: 20px 0px 20px 20px;
 }
 </style>
