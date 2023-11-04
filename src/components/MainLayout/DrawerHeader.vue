@@ -1,5 +1,5 @@
 <template>
-  <q-header bordered>
+  <q-header bordered v-if="$q.screen.gt.xs">
     <q-toolbar>
       <q-btn flat @click="drawer = !drawer" round dense icon="menu" />
       <q-toolbar-title
@@ -9,6 +9,12 @@
         }"
         >PharmaPlus+</q-toolbar-title
       >
+
+      <q-btn-group unelevated v-if="$q.screen.gt.sm">
+        <q-btn unelevated flat icon="chat" />
+        <q-btn unelevated flat icon="notifications" />
+        <q-btn unelevated flat icon="account_circle " />
+      </q-btn-group>
     </q-toolbar>
   </q-header>
 
@@ -87,7 +93,7 @@
         <q-item
           clickable
           v-ripple
-          :class="{ 'active-item': $route.path === '/Message' }"
+          :class="{ 'active-item': $route.path === '/message' }"
           to="/message"
         >
           <q-item-section avatar>

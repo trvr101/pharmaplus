@@ -217,7 +217,7 @@
 </template>
 <script>
 import { ref } from "vue";
-
+import axios from "axios";
 export default {
   setup() {
     return {
@@ -225,6 +225,23 @@ export default {
       lorem:
         "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Itaque voluptatem totam, architecto cupiditate officia rerum, error dignissimos praesentium libero ab nemo.",
     };
+  },
+  data() {
+    return {
+      apiEndpoint: "http://localhost:8000/api/list",
+      rows: [], // Initialize an empty array to store the fetched data
+      // ... other data properties
+    };
+  },
+  created() {
+    axios
+      .get(this.apiEndpoint)
+      .then((response) => {
+        this.rows = response.data; // Assuming the API returns an array of data
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
   },
 };
 </script>

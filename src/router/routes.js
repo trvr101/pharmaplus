@@ -21,6 +21,18 @@ const routes = [
         component: () => import("pages/Admin/Settings.vue"),
       },
       { path: "/message", component: () => import("pages/Admin/Message.vue") },
+      {
+        path: "/notifications",
+        component: () => import("pages/Admin/Notification.vue"),
+      },
+      {
+        path: "/scanner",
+        component: () => import("pages/Admin/Scanner.vue"),
+      },
+      {
+        path: "/convo",
+        component: () => import("pages/Admin/Convo.vue"),
+      },
     ],
   },
 
