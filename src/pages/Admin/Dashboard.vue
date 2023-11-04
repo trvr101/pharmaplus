@@ -116,21 +116,6 @@
                   />
 
                   <q-space />
-
-                  <q-select
-                    v-model="visibleColumns"
-                    multiple
-                    outlined
-                    dense
-                    options-dense
-                    :display-value="$q.lang.table.columns"
-                    emit-value
-                    map-options
-                    :options="columns"
-                    option-value="name"
-                    options-cover
-                    style="min-width: 150px"
-                  />
                 </template>
               </q-table>
             </q-card>
