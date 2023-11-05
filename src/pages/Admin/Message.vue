@@ -28,7 +28,9 @@
     <q-item clickable v-ripple>
       <q-item-section avatar>
         <q-avatar>
-          <img src="https://cdn.quasar.dev/img/avatar4.jpg" />
+          <img
+            src="https://scontent.fmnl9-4.fna.fbcdn.net/v/t39.30808-6/308101287_1354517868416901_8006266923127542090_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=5f2048&_nc_eui2=AeHrQLQQg8ErUbekPHS5oneJedetgkPKYfl5162CQ8ph-TyrnsvxPdGbtlwCWdjjU9IQFbFwPnoPXIgjan1EVSRz&_nc_ohc=gXjbsFQeMm4AX93HOxz&_nc_oc=AQlqbIqP1sP6LyhVChYmsx4XC8WrC76iqZVyu1QUYpQaXGPVdknuBlW7QEJRzmHZBjY&_nc_zt=23&_nc_ht=scontent.fmnl9-4.fna&oh=00_AfDyQqCDFWXdosEyaB-YLnTP3hj1F_telavOzhJVL8kDsg&oe=654BFBA6"
+          />
         </q-avatar>
       </q-item-section>
 
@@ -46,7 +48,9 @@
     <q-item clickable v-ripple>
       <q-item-section avatar>
         <q-avatar>
-          <img src="https://cdn.quasar.dev/img/avatar4.jpg" />
+          <img
+            src="https://scontent.fmnl9-2.fna.fbcdn.net/v/t39.30808-1/353657470_6399236253471435_3610973101389954298_n.jpg?stp=dst-jpg_s320x320&_nc_cat=103&ccb=1-7&_nc_sid=5f2048&_nc_eui2=AeFtPQSKDQPgtEmaiIM0Dp-xntBwbDJnFsCe0HBsMmcWwPxF2lm8xz_Jj-SuuANPs5D-FNPA4cnmm-n7d7Xt-VRV&_nc_ohc=tAppbM7GrwUAX_bXZRI&_nc_ht=scontent.fmnl9-2.fna&oh=00_AfB9_oMMrtAonWum2jAUFrFhLc2gFkiLpil6cMpU_jJj5g&oe=654CE497"
+          />
         </q-avatar>
       </q-item-section>
 

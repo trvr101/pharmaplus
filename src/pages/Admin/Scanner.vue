@@ -1,8 +1,6 @@
 <template>
-  <div>
-    <qrcode-stream @detect="onDetect"
-      ><h1 class="text-white">Try</h1></qrcode-stream
-    >
+  <div class="container">
+    <qrcode-stream @detect="onDetect"></qrcode-stream>
   </div>
 </template>
 <script>
@@ -38,3 +36,4 @@ export default {
   },
 };
 </script>
+<style></style>
