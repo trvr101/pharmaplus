@@ -3,7 +3,7 @@
     view="hHh Lpr lFf"
     container
     style="height: 100vh"
-    class="text-dark"
+    class="text-dark MainLayout"
   >
     <DrawerHeader />
 
@@ -28,7 +28,8 @@ export default {
 </script>
 
 <style lang="css">
-.q-layout {
+.MainLayout {
   background: #f1feff;
+  /* background: linear-gradient(90deg, #007261, #007976, rgba(0, 114, 127, 1)); */
 }
 </style>

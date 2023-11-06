@@ -1,5 +1,5 @@
 <template>
-  <q-footer bordered v-if="$q.screen.lt.sm">
+  <q-footer bordered reveal v-if="$q.screen.lt.sm">
     <q-toolbar>
       <q-tabs
         v-model="currentTab"

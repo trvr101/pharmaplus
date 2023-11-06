@@ -14,6 +14,12 @@ module.exports = configure(function (ctx) {
   return {
     // https://v2.quasar.dev/quasar-cli-webpack/supporting-ts
     supportTS: false,
+    devServer: {
+      proxy: {
+        // Add any necessary proxy configurations here
+      },
+      historyApiFallback: true,
+    },
 
     // https://v2.quasar.dev/quasar-cli-webpack/prefetch-feature
     // preFetch: true,
