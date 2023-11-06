@@ -43,7 +43,7 @@ import quasarUserOptions from './quasar-user-options.js'
 
 
 
-console.info('[Quasar] Running ELECTRON.')
+console.info('[Quasar] Running SPA.')
 
 
 
