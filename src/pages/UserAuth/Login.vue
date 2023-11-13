@@ -11,7 +11,7 @@
       <q-btn
         flat
         dense
-        color="primary"
+        color="grey-7"
         label="Create Account"
         @click="$router.push('/register')"
         no-caps
@@ -20,7 +20,7 @@
 
     <q-separator class="UserAuthSeparator" color="teal" />
     <div class="UserAuthinputs">
-      <q-input color="teal" v-model="text" label="Email" class="UserAuthinput">
+      <q-input color="teal" v-model="email" label="Email" class="UserAuthinput">
         <template v-slot:prepend>
           <q-icon name="alternate_email" color="teal" />
         </template>
@@ -85,8 +85,19 @@
     </div>
   </div>
 </template>
+<script>
+import { ref } from "vue";
 
-<script></script>
+export default {
+  setup() {
+    return {
+      password: ref(""),
+      isPwd: ref(true),
+      email: ref(""),
+    };
+  },
+};
+</script>
 <style>
 .UserAuthContainer {
   padding: 3rem;

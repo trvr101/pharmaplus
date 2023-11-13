@@ -7,11 +7,11 @@
   >
     <q-text-body2>
       Register
-      <span class="text-grey-7 UserAuthVerticalSeparator">|</span>
+      <span class="text-grey-5 UserAuthVerticalSeparator">|</span>
       <q-btn
         flat
         dense
-        color="primary"
+        color="grey-7   "
         label="Sign in"
         @click="$router.push('/')"
         no-caps
@@ -22,14 +22,19 @@
     <div class="UserAuthinputs">
       <q-input
         color="teal"
-        v-model="text"
+        v-model="username"
         label="Username"
         class="UserAuthinput"
       >
         <template v-slot:prepend>
           <q-icon name="person" color="teal" />
         </template> </q-input
-      ><q-input color="teal" v-model="text" label="Email" class="UserAuthinput">
+      ><q-input
+        color="teal"
+        v-model="email"
+        label="Email"
+        class="UserAuthinput"
+      >
         <template v-slot:prepend>
           <q-icon name="alternate_email" color="teal" />
         </template>
@@ -61,7 +66,7 @@
             >
               <q-date v-model="date" minimal>
                 <div class="row items-center justify-end">
-                  <q-btn v-close-popup label="Close" color="primary" flat />
+                  <q-btn v-close-popup label="Close" color="teal" flat />
                 </div>
               </q-date>
             </q-popup-proxy>
@@ -114,7 +119,22 @@
   </div>
 </template>
 
-<script></script>
+<script>
+import { ref } from "vue";
+
+export default {
+  setup() {
+    return {
+      password: ref(""),
+      isPwd: ref(true),
+
+      username: ref(""),
+      email: ref(""),
+      date: ref(""),
+    };
+  },
+};
+</script>
 <style>
 .UserAuthContainer {
   padding: 3rem;
