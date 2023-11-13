@@ -62,7 +62,7 @@
                 navigation-icon="radio_button_unchecked"
                 padding
                 infinite
-                :autoplay="5000"
+                :autoplay="10000"
                 height="300px"
                 class="bg-white text-dark shadow-1 rounded-borders"
               >
@@ -70,31 +70,26 @@
                   name="style"
                   class="column no-wrap flex-center"
                 >
-                  <q-icon name="style" size="56px" />
-                  <div class="q-mt-md text-center">
-                    {{ lorem }}
+                  <div id="chart" style="width: 99%">
+                    <apexchart
+                      type="area"
+                      :options="chartOptions"
+                      :series="series"
+                    ></apexchart>
                   </div>
                 </q-carousel-slide>
+
                 <q-carousel-slide name="tv" class="column no-wrap flex-center">
-                  <q-icon name="live_tv" size="56px" />
-                  <div class="q-mt-md text-center">
-                    {{ lorem }}
-                  </div>
+                  <!-- page1 -->
                 </q-carousel-slide>
                 <q-carousel-slide
                   name="layers"
                   class="column no-wrap flex-center"
                 >
-                  <q-icon name="layers" size="56px" />
-                  <div class="q-mt-md text-center">
-                    {{ lorem }}
-                  </div>
+                  <!-- page1 -->
                 </q-carousel-slide>
                 <q-carousel-slide name="map" class="column no-wrap flex-center">
-                  <q-icon name="terrain" size="56px" />
-                  <div class="q-mt-md text-center">
-                    {{ lorem }}
-                  </div>
+                  <!-- page1 -->
                 </q-carousel-slide>
               </q-carousel>
             </q-card>
@@ -197,6 +192,7 @@
 import { ref } from "vue";
 import axios from "axios";
 export default {
+  name: "mychart",
   setup() {
     return {
       slide: ref("style"),
@@ -209,6 +205,46 @@ export default {
       apiEndpoint: "http://localhost:8000/api/list",
       rows: [], // Initialize an empty array to store the fetched data
       // ... other data properties
+
+      series: [
+        {
+          name: "series1",
+          data: [31, 40, 28, 51, 42, 109, 100],
+        },
+        {
+          name: "series2",
+          data: [11, 32, 45, 32, 34, 52, 41],
+        },
+      ],
+      chartOptions: {
+        chart: {
+          height: 350,
+          type: "area",
+        },
+        dataLabels: {
+          enabled: false,
+        },
+        stroke: {
+          curve: "smooth",
+        },
+        xaxis: {
+          type: "datetime",
+          categories: [
+            "2018-09-19T00:00:00.000Z",
+            "2018-09-19T01:30:00.000Z",
+            "2018-09-19T02:30:00.000Z",
+            "2018-09-19T03:30:00.000Z",
+            "2018-09-19T04:30:00.000Z",
+            "2018-09-19T05:30:00.000Z",
+            "2018-09-19T06:30:00.000Z",
+          ],
+        },
+        tooltip: {
+          x: {
+            format: "dd/MM/yy HH:mm",
+          },
+        },
+      },
     };
   },
   created() {
