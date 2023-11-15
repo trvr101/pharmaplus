@@ -63,33 +63,20 @@
                 padding
                 infinite
                 :autoplay="10000"
-                height="300px"
                 class="bg-white text-dark shadow-1 rounded-borders"
+                style="height: 100%"
               >
                 <q-carousel-slide
                   name="style"
                   class="column no-wrap flex-center"
                 >
-                  <div id="chart" style="width: 99%">
+                  <div id="chart" style="width: 100%; height: 100%">
                     <apexchart
                       type="area"
                       :options="chartOptions"
                       :series="series"
                     ></apexchart>
                   </div>
-                </q-carousel-slide>
-
-                <q-carousel-slide name="tv" class="column no-wrap flex-center">
-                  <!-- page1 -->
-                </q-carousel-slide>
-                <q-carousel-slide
-                  name="layers"
-                  class="column no-wrap flex-center"
-                >
-                  <!-- page1 -->
-                </q-carousel-slide>
-                <q-carousel-slide name="map" class="column no-wrap flex-center">
-                  <!-- page1 -->
                 </q-carousel-slide>
               </q-carousel>
             </q-card>
