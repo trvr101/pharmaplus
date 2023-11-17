@@ -1,2 +1,2 @@
-<template><h1>Intro Here<h1></template>
+<template></template>
 <script></script>
