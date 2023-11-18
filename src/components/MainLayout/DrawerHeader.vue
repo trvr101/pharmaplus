@@ -9,12 +9,6 @@
         }"
         >PharmaPlus+</q-toolbar-title
       >
-
-      <q-btn-group unelevated v-if="$q.screen.gt.sm">
-        <q-btn unelevated flat icon="chat" />
-        <q-btn unelevated flat icon="notifications" />
-        <q-btn unelevated flat icon="account_circle " />
-      </q-btn-group>
     </q-toolbar>
   </q-header>
 
