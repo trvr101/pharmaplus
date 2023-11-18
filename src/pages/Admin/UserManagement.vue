@@ -4,37 +4,42 @@
       <div class="col-10"></div>
       <div class="col-2 text-right">
         <q-btn
-          bordered
+          unelevated
+          rounded
           label="Add User"
           color="primary"
-          @click="persistent = true"
+          @click="open('right')"
         />
 
-        <q-dialog
-          v-model="persistent"
-          persistent
-          transition-show="scale"
-          transition-hide="scale"
-        >
-          <q-card class="bg-teal text-white" style="width: 300px">
-            <q-card-section>
-              <div class="text-h6">Persistent</div>
-            </q-card-section>
-
-            <q-card-section class="q-pt-none">
-              Click/Tap on the backdrop.
-            </q-card-section>
-
-            <q-card-actions align="right" class="bg-white text-teal">
-              <q-btn flat label="OK" v-close-popup />
-            </q-card-actions>
+        <q-dialog v-model="dialog" :position="position" style="height: 100vh">
+          <q-card id="user-dialog">
+            <q-card-section class="row items-center no-wrap"> </q-card-section>
           </q-card>
         </q-dialog>
       </div>
     </div>
     <div class="row">
       <div :class="{ 'col-3': $q.screen.gt.sm, 'col-12': $q.screen.lt.sm }">
-        <q-card class="my-card" flat bordered>
+        <!-- Loading skeleton card -->
+        <q-card v-if="loading" class="my-card" flat bordered>
+          <q-item>
+            <q-item-section avatar>
+              <q-skeleton type="QAvatar" size="100px" />
+            </q-item-section>
+
+            <q-item-section>
+              <q-item-label>
+                <q-skeleton type="text" />
+              </q-item-label>
+              <q-item-label caption>
+                <q-skeleton type="text" />
+              </q-item-label>
+            </q-item-section>
+          </q-item>
+        </q-card>
+
+        <!-- Actual data card -->
+        <q-card v-else class="my-card" flat bordered>
           <q-card-section class="row">
             <div class="col-4">
               <q-avatar
@@ -119,84 +124,6 @@
           </q-card-section>
         </q-card>
       </div>
-      <div :class="{ 'col-3': $q.screen.gt.sm, 'col-12': $q.screen.lt.sm }">
-        <q-card class="my-card" flat bordered>
-          <q-card-section class="row">
-            <div class="col-4">
-              <q-avatar
-                size="100px"
-                font-size="52px"
-                color="teal"
-                text-color="white"
-                ><img
-                  src="https://scontent.fmnl13-2.fna.fbcdn.net/v/t39.30808-6/289414022_1203904480373456_2428413500028325985_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=5f2048&_nc_eui2=AeFqwnoOZjDkyMBcuvpdLT-GRqFTvwUxfAlGoVO_BTF8CUL2x8W-PZWCVTeG_EEYQvJm9IBJ8soiTHcCo1iXYcU5&_nc_ohc=jYB7aOZ9-F4AX_EyMTU&_nc_zt=23&_nc_ht=scontent.fmnl13-2.fna&oh=00_AfAgZaVS7K7vyfT2S2l7LP92FqbqXubO7K98aVRoU21B_A&oe=654AA7AD"
-              /></q-avatar>
-            </div>
-            <div class="col-8">
-              <div class="col-12 text-right">
-                <q-icon name="more_vert"></q-icon>
-              </div>
-              <q-item-label>Robert Joseph C. Aguba</q-item-label>
-              <q-item-label caption>
-                robertjosephaguba101@gmail.com
-              </q-item-label>
-              <q-item-label class="text-weight-medium">Staff</q-item-label>
-            </div>
-          </q-card-section>
-        </q-card>
-      </div>
-      <div :class="{ 'col-3': $q.screen.gt.sm, 'col-12': $q.screen.lt.sm }">
-        <q-card class="my-card" flat bordered>
-          <q-card-section class="row">
-            <div class="col-4">
-              <q-avatar
-                size="100px"
-                font-size="52px"
-                color="teal"
-                text-color="white"
-                ><img
-                  src="https://scontent.fmnl13-2.fna.fbcdn.net/v/t39.30808-6/289414022_1203904480373456_2428413500028325985_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=5f2048&_nc_eui2=AeFqwnoOZjDkyMBcuvpdLT-GRqFTvwUxfAlGoVO_BTF8CUL2x8W-PZWCVTeG_EEYQvJm9IBJ8soiTHcCo1iXYcU5&_nc_ohc=jYB7aOZ9-F4AX_EyMTU&_nc_zt=23&_nc_ht=scontent.fmnl13-2.fna&oh=00_AfAgZaVS7K7vyfT2S2l7LP92FqbqXubO7K98aVRoU21B_A&oe=654AA7AD"
-              /></q-avatar>
-            </div>
-            <div class="col-8">
-              <div class="col-12 text-right">
-                <q-icon name="more_vert"></q-icon>
-              </div>
-              <q-item-label>Robert Joseph C. Aguba</q-item-label>
-              <q-item-label caption>
-                robertjosephaguba101@gmail.com
-              </q-item-label>
-              <q-item-label class="text-weight-medium">Staff</q-item-label>
-            </div>
-          </q-card-section>
-        </q-card>
-      </div>
-      <div :class="{ 'col-3': $q.screen.gt.sm, 'col-12': $q.screen.lt.sm }">
-        <q-card class="my-card" flat bordered>
-          <q-card-section class="row">
-            <div class="col-4">
-              <q-avatar
-                size="100px"
-                font-size="52px"
-                color="teal"
-                text-color="white"
-                ><img
-                  src="https://scontent.fmnl13-2.fna.fbcdn.net/v/t39.30808-6/289414022_1203904480373456_2428413500028325985_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=5f2048&_nc_eui2=AeFqwnoOZjDkyMBcuvpdLT-GRqFTvwUxfAlGoVO_BTF8CUL2x8W-PZWCVTeG_EEYQvJm9IBJ8soiTHcCo1iXYcU5&_nc_ohc=jYB7aOZ9-F4AX_EyMTU&_nc_zt=23&_nc_ht=scontent.fmnl13-2.fna&oh=00_AfAgZaVS7K7vyfT2S2l7LP92FqbqXubO7K98aVRoU21B_A&oe=654AA7AD"
-              /></q-avatar>
-            </div>
-            <div class="col-8">
-              <div class="col-12 text-right">
-                <q-icon name="more_vert" @click="console.log(hello)"></q-icon>
-              </div>
-              <q-item-label>Robert Joseph C. Aguba</q-item-label>
-              <q-item-label caption>
-                robertjosephaguba101@gmail.com
-              </q-item-label>
-              <q-item-label class="text-weight-medium">Staff</q-item-label>
-            </div>
-          </q-card-section>
-        </q-card>
-      </div>
     </div>
   </div>
 </template>
@@ -205,22 +132,36 @@ import { ref } from "vue";
 
 export default {
   setup() {
+    const dialog = ref(false);
+    const position = ref("top");
+
     return {
-      carousel: ref(false),
+      dialog,
+      position,
       card: ref(false),
-      sliders: ref(false),
-      persistent: ref(false),
 
-      slide: ref(1),
-      lorem:
-        "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Natus, ratione eum minus fuga, quasi dicta facilis corporis magnam, suscipit at quo nostrum!",
-
-      stars: ref(3),
-
-      slideVol: ref(39),
-      slideAlarm: ref(56),
-      slideVibration: ref(63),
+      open(pos) {
+        position.value = pos;
+        dialog.value = true;
+      },
     };
+  },
+  data() {
+    return {
+      loading: true, // Set this to true initially to show the skeleton loading
+      card: false, // Use this to control the visibility of the dialog
+      // ... your other data properties ...
+    };
+  },
+  mounted() {
+    // Simulate an asynchronous data fetching operation
+    setTimeout(() => {
+      // After data is fetched, set loading to false to show the actual content
+      this.loading = false;
+    }, 2000); // Simulating a 2-second delay (adjust as needed)
+  },
+  methods: {
+    // ... your other methods ...
   },
 };
 </script>
@@ -229,5 +170,10 @@ export default {
   margin: 10px;
   border-radius: 20px;
   width: auto;
+}
+#user-dialog {
+  width: 350px;
+  height: 100vh;
+  border-radius: 20px 0 0 20px;
 }
 </style>

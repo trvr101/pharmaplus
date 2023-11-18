@@ -80,8 +80,59 @@
                 </q-carousel-slide>
               </q-carousel>
             </q-card>
+
             <!-- Table -->
-            <q-card flat bordered class="my-card">
+            <q-card v-if="loading" flat bordered class="my-card"
+              ><q-markup-table>
+                <thead>
+                  <tr>
+                    <th class="text-left" style="width: 150px">
+                      <q-skeleton animation="blink" type="text" />
+                    </th>
+                    <th class="text-right">
+                      <q-skeleton animation="blink" type="text" />
+                    </th>
+                    <th class="text-right">
+                      <q-skeleton animation="blink" type="text" />
+                    </th>
+                    <th class="text-right">
+                      <q-skeleton animation="blink" type="text" />
+                    </th>
+                    <th class="text-right">
+                      <q-skeleton animation="blink" type="text" />
+                    </th>
+                    <th class="text-right">
+                      <q-skeleton animation="blink" type="text" />
+                    </th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  <tr v-for="n in 5" :key="n">
+                    <td class="text-left">
+                      <q-skeleton animation="blink" type="text" width="85px" />
+                    </td>
+                    <td class="text-right">
+                      <q-skeleton animation="blink" type="text" width="50px" />
+                    </td>
+                    <td class="text-right">
+                      <q-skeleton animation="blink" type="text" width="35px" />
+                    </td>
+                    <td class="text-right">
+                      <q-skeleton animation="blink" type="text" width="65px" />
+                    </td>
+                    <td class="text-right">
+                      <q-skeleton animation="blink" type="text" width="25px" />
+                    </td>
+                    <td class="text-right">
+                      <q-skeleton animation="blink" type="text" width="85px" />
+                    </td>
+                  </tr>
+                </tbody>
+              </q-markup-table>
+            </q-card>
+
+            <q-card v-else flat bordered class="my-card">
               <q-table
                 flat
                 bordered
@@ -189,10 +240,10 @@ export default {
   },
   data() {
     return {
-      apiEndpoint: "http://localhost:8000/api/list",
+      apiEndpoint: "http://localhost:8080/getData",
       rows: [], // Initialize an empty array to store the fetched data
       // ... other data properties
-
+      loading: true,
       series: [
         {
           name: "series1",
@@ -233,6 +284,13 @@ export default {
         },
       },
     };
+  },
+  mounted() {
+    setTimeout(() => {
+      // After data is fetched, update the rows array
+      //CHANGE THIS /* your fetched data */;
+      this.loading = false;
+    }, 2000); // Simulating a 2-second delay (adjust as needed)
   },
   created() {
     axios

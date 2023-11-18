@@ -1,33 +1,52 @@
 <template>
-  <div class="row">
-    <div :class="{ 'col-9': $q.screen.gt.sm, 'col-12': $q.screen.lt.sm }">
-      <q-card class="my-card" flat bordered>
-        <q-card-section>
-          {{ lorem }}{{ lorem }}{{ lorem }}{{ lorem }}{{ lorem }}{{ lorem
-          }}{{ lorem }}{{ lorem }}{{ lorem }}{{ lorem }}{{ lorem }}{{ lorem
-          }}{{ lorem }}
-        </q-card-section>
-      </q-card>
-    </div>
-    <div :class="{ 'col-3': $q.screen.gt.sm, 'col-12': $q.screen.lt.sm }">
-      <div class="col-12">
+  <div>
+    <div class="row">
+      <div :class="{ 'col-4': $q.screen.gt.sm, 'col-12': $q.screen.lt.sm }">
         <q-card class="my-card" flat bordered>
           <q-card-section>
             {{ lorem }}
           </q-card-section>
         </q-card>
       </div>
-      <div class="col-12">
+      <div :class="{ 'col-4': $q.screen.gt.sm, 'col-12': $q.screen.lt.sm }">
         <q-card class="my-card" flat bordered>
           <q-card-section>
             {{ lorem }}
           </q-card-section>
         </q-card>
       </div>
-      <div class="col-12">
+      <div :class="{ 'col-4': $q.screen.gt.sm, 'col-12': $q.screen.lt.sm }">
         <q-card class="my-card" flat bordered>
           <q-card-section>
             {{ lorem }}
+            <q-btn
+              unelevated
+              rounded
+              label="Add User"
+              color="primary"
+              @click="open('right')"
+            />
+
+            <q-dialog
+              v-model="dialog"
+              :position="position"
+              style="height: 100vh"
+            >
+              <q-card id="user-dialog">
+                <q-card-section class="row items-center no-wrap">
+                  <div>
+                    <div class="text-weight-bold">The Walker</div>
+                    <div class="text-grey">Fitz & The Tantrums</div>
+                  </div>
+
+                  <q-space />
+
+                  <q-btn flat round icon="fast_rewind" />
+                  <q-btn flat round icon="pause" />
+                  <q-btn flat round icon="fast_forward" />
+                </q-card-section>
+              </q-card>
+            </q-dialog>
           </q-card-section>
         </q-card>
       </div>
@@ -75,7 +94,25 @@ export default {
 };
 </script> -->
 <script>
+import { ref } from "vue";
+
 export default {
+  setup() {
+    const dialog = ref(false);
+    const position = ref("top");
+
+    return {
+      dialog,
+      position,
+      lorem:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+
+      open(pos) {
+        position.value = pos;
+        dialog.value = true;
+      },
+    };
+  },
   data() {
     return {
       rows: [],
@@ -109,7 +146,7 @@ export default {
       // Fetch data from your Laravel API
       // Example using Axios:
       this.$axios
-        .get("http://localhost:8000/api/list")
+        .get("http://localhost:8080/getData")
         .then((response) => {
           this.rows = response.data; // Assuming your API response is an array of objects
         })
@@ -126,12 +163,6 @@ export default {
       console.log("Delete row with ID:", id);
     },
   },
-  setup() {
-    return {
-      lorem:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-    };
-  },
 };
 </script>
 <style>
@@ -142,5 +173,10 @@ export default {
   margin: 10px;
   border-radius: 20px;
   width: auto;
+}
+#user-dialog {
+  width: 360px;
+  height: 100vh;
+  border-radius: 20px 0 0 20px;
 }
 </style>
