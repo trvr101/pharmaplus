@@ -33,18 +33,43 @@
               style="height: 100vh"
             >
               <q-card id="user-dialog">
-                <q-card-section class="row items-center no-wrap">
-                  <div>
-                    <div class="text-weight-bold">The Walker</div>
-                    <div class="text-grey">Fitz & The Tantrums</div>
-                  </div>
-
-                  <q-space />
-
-                  <q-btn flat round icon="fast_rewind" />
-                  <q-btn flat round icon="pause" />
-                  <q-btn flat round icon="fast_forward" />
-                </q-card-section>
+                <q-form @submit.prevent="submitData">
+                  <q-input v-model="formData.first_name" label="First Name" />
+                  <q-input v-model="formData.last_name" label="Last Name" />
+                  <q-input
+                    v-model="formData.email"
+                    label="Email"
+                    type="email"
+                  />
+                  <q-input
+                    v-model="date"
+                    mask="date"
+                    :rules="['date']"
+                    label="Birthdate"
+                  >
+                    <template v-slot:prepend>
+                      <q-icon name="event" class="cursor-pointer" color="teal">
+                        <q-popup-proxy
+                          cover
+                          transition-show="scale"
+                          transition-hide="scale"
+                        >
+                          <q-date v-model="date" minimal>
+                            <div class="row items-center justify-end">
+                              <q-btn
+                                v-close-popup
+                                label="Close"
+                                color="teal"
+                                flat
+                              />
+                            </div>
+                          </q-date>
+                        </q-popup-proxy>
+                      </q-icon>
+                    </template>
+                  </q-input>
+                  <q-btn type="submit" label="Submit" color="primary" />
+                </q-form>
               </q-card>
             </q-dialog>
           </q-card-section>
@@ -102,6 +127,7 @@ export default {
     const position = ref("top");
 
     return {
+      date: ref(""),
       dialog,
       position,
       lorem:
@@ -115,14 +141,23 @@ export default {
   },
   data() {
     return {
+      //dialog
+      formData: {
+        first_name: "",
+        last_name: "",
+        email: "",
+        birthdate: "",
+      },
+      //table
       rows: [],
       columns: [
         { name: "id", label: "ID", align: "left", field: "id", sortable: true },
+
         {
-          name: "name",
-          label: "Name",
+          name: "first_name",
+          label: "First Name",
           align: "left",
-          field: "name",
+          field: "first_name",
           sortable: true,
         },
         {
@@ -148,6 +183,20 @@ export default {
         this.rows = response.data; // Assuming your API response is an array of objects
       } catch (error) {
         console.error("Error fetching data:", error);
+      }
+    },
+    async submitData() {
+      try {
+        // Make a POST request with the entered data
+        const response = await this.$axios.post(
+          "http://localhost:8080/save",
+          this.formData
+        );
+
+        // Assuming your API response is an array of objects
+        this.rows = response.data;
+      } catch (error) {
+        console.error("Error submitting data:", error);
       }
     },
     editRow(row) {
