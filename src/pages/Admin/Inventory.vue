@@ -142,17 +142,13 @@ export default {
     this.fetchData();
   },
   methods: {
-    fetchData() {
-      // Fetch data from your Laravel API
-      // Example using Axios:
-      this.$axios
-        .get("http://localhost:8080/getData")
-        .then((response) => {
-          this.rows = response.data; // Assuming your API response is an array of objects
-        })
-        .catch((error) => {
-          console.error("Error fetching data:", error);
-        });
+    async fetchData() {
+      try {
+        const response = await this.$axios.get("http://localhost:8080/getData");
+        this.rows = response.data; // Assuming your API response is an array of objects
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
     },
     editRow(row) {
       // Implement your edit logic here
