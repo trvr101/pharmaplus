@@ -240,7 +240,7 @@ export default {
   },
   data() {
     return {
-      apiEndpoint: "http://localhost:8080/getData",
+      apiEndpoint: "http://localhost:8080/ItemList",
       rows: [], // Initialize an empty array to store the fetched data
       // ... other data properties
       loading: true,

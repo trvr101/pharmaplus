@@ -13,7 +13,20 @@
 
         <q-dialog v-model="dialog" :position="position" style="height: 100vh">
           <q-card id="user-dialog">
-            <q-card-section class="row items-center no-wrap"> </q-card-section>
+            <q-form @submit="submitForm">
+              <q-input v-model="itemData.item_name" label="Item Name" />
+              <q-input v-model="itemData.strength" label="Strength" />
+              <q-select
+                v-model="itemData.category_id"
+                label="Category"
+                :options="categories"
+                option-label="category_name"
+                option-value="category_id"
+              />
+              <!-- Add other input fields as needed -->
+
+              <q-btn label="Submit" type="submit" color="primary" />
+            </q-form>
           </q-card>
         </q-dialog>
       </div>
@@ -151,6 +164,14 @@ export default {
       loading: true, // Set this to true initially to show the skeleton loading
       card: false, // Use this to control the visibility of the dialog
       // ... your other data properties ...
+      //dialog
+      itemData: {
+        item_name: "",
+        strength: "",
+        category_id: null,
+        // Add other fields as needed
+      },
+      categories: [],
     };
   },
   mounted() {
@@ -161,7 +182,23 @@ export default {
     }, 2000); // Simulating a 2-second delay (adjust as needed)
   },
   methods: {
-    // ... your other methods ...
+    submitForm() {
+      axios
+        .post("http://yourdomain/api/item", this.itemData)
+        .then((response) => {
+          console.log(response.data);
+          // Handle success, e.g., show a success message
+        })
+        .catch((error) => {
+          console.error(error.response.data);
+          // Handle error, e.g., show an error message
+        });
+    },
+    created() {
+      axios.get("http://yourdomain/api/category").then((response) => {
+        this.categories = response.data;
+      });
+    },
   },
 };
 </script>
