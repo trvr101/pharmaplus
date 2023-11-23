@@ -65,10 +65,10 @@
           to="/sales"
         >
           <q-item-section avatar>
-            <q-icon name="trending_up" />
+            <q-icon name="store" />
           </q-item-section>
 
-          <q-item-section> Sales </q-item-section>
+          <q-item-section> Branch </q-item-section>
         </q-item>
 
         <q-item

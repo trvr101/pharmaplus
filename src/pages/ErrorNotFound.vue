@@ -1,18 +1,15 @@
 <template>
-  <div class="fullscreen bg-blue text-white text-center q-pa-md flex flex-center">
+  <div
+    class="fullscreen text-white text-center q-pa-md flex flex-center"
+    id="page404"
+  >
     <div>
-      <div style="font-size: 30vh">
-        404
-      </div>
-
-      <div class="text-h2" style="opacity:.4">
-        Oops. Nothing here...
-      </div>
-
+      <h1 style="">404</h1>
+      <h5>Sorry, The page you are looking for was not found</h5>
       <q-btn
         class="q-mt-xl"
         color="white"
-        text-color="blue"
+        text-color="teal"
         unelevated
         to="/"
         label="Go Home"
@@ -23,9 +20,14 @@
 </template>
 
 <script>
-import { defineComponent } from 'vue'
+import { defineComponent } from "vue";
 
 export default defineComponent({
-  name: 'ErrorNotFound'
-})
+  name: "ErrorNotFound",
+});
 </script>
+<style>
+#page404 {
+  background: linear-gradient(90deg, #007261, #007976, rgba(0, 114, 127, 1));
+}
+</style>

@@ -1,110 +1,59 @@
 <template>
-  <div>
-    <div class="row">
-      <div :class="{ 'col-4': $q.screen.gt.sm, 'col-12': $q.screen.lt.sm }">
-        <q-card class="my-card" flat bordered>
-          <q-card-section>
-            {{ lorem }}
-          </q-card-section>
-        </q-card>
-      </div>
-      <div :class="{ 'col-4': $q.screen.gt.sm, 'col-12': $q.screen.lt.sm }">
-        <q-card class="my-card" flat bordered>
-          <q-card-section>
-            {{ lorem }}
-          </q-card-section>
-        </q-card>
-      </div>
-      <div :class="{ 'col-4': $q.screen.gt.sm, 'col-12': $q.screen.lt.sm }">
-        <q-card class="my-card" flat bordered>
-          <q-card-section>
-            {{ lorem }}
-            <q-btn
-              unelevated
-              rounded
-              label="Add User"
-              color="primary"
-              @click="open('right')"
-            />
-
-            <q-dialog
-              v-model="dialog"
-              :position="position"
-              style="height: 100vh"
-            >
-              <q-card id="user-dialog">
-                <q-form @submit.prevent="submitData">
-                  <q-input v-model="formData.first_name" label="First Name" />
-                  <q-input v-model="formData.last_name" label="Last Name" />
-                  <q-input
-                    v-model="formData.email"
-                    label="Email"
-                    type="email"
-                  />
-                  <q-input
-                    v-model="date"
-                    mask="date"
-                    :rules="['date']"
-                    label="Birthdate"
-                  >
-                    <template v-slot:prepend>
-                      <q-icon name="event" class="cursor-pointer" color="teal">
-                        <q-popup-proxy
-                          cover
-                          transition-show="scale"
-                          transition-hide="scale"
-                        >
-                          <q-date v-model="date" minimal>
-                            <div class="row items-center justify-end">
-                              <q-btn
-                                v-close-popup
-                                label="Close"
-                                color="teal"
-                                flat
-                              />
-                            </div>
-                          </q-date>
-                        </q-popup-proxy>
-                      </q-icon>
-                    </template>
-                  </q-input>
-                  <q-btn type="submit" label="Submit" color="primary" />
-                </q-form>
-              </q-card>
-            </q-dialog>
-          </q-card-section>
-        </q-card>
+  <div class="inventory-container">
+    <div>
+      <div class="row">
+        <div :class="{ 'col-4': $q.screen.gt.sm, 'col-12': $q.screen.lt.sm }">
+          <q-card class="my-card my-card-inventory" flat bordered>
+            <q-card-section>
+              {{ lorem }}
+            </q-card-section>
+          </q-card>
+        </div>
+        <div :class="{ 'col-4': $q.screen.gt.sm, 'col-12': $q.screen.lt.sm }">
+          <q-card class="my-card my-card-inventory" flat bordered>
+            <q-card-section>
+              {{ lorem }}
+            </q-card-section>
+          </q-card>
+        </div>
+        <div :class="{ 'col-4': $q.screen.gt.sm, 'col-12': $q.screen.lt.sm }">
+          <q-card class="my-card my-card-inventory" flat bordered>
+            <q-card-section>
+              {{ lorem }}
+            </q-card-section>
+          </q-card>
+        </div>
       </div>
     </div>
-  </div>
-  <div class="row">
-    <div class="col-12">
-      <q-card class="my-card" flat bordered
-        ><q-table
-          :rows="rows"
-          :columns="columns"
-          row-key="id"
-          :rows-per-page-options="[10, 20, 30]"
-          :pagination="pagination"
-          separator="none"
-        >
-          <template v-slot:body="props">
-            <q-tr :props="props">
-              <q-td v-for="col in props.cols" :key="col.name" :props="props">
-                {{ props.row[col.name] }}
-              </q-td>
-              <q-td>
-                <q-btn @click="editRow(props.row)" color="teal-1" flat
-                  ><q-icon name="edit" color="dark"
-                /></q-btn>
-                <q-btn @click="deleteRow(props.row.id)" color="negative" flat
-                  ><q-icon name="delete" color="dark"
-                /></q-btn>
-              </q-td>
-            </q-tr>
-          </template>
-        </q-table>
-      </q-card>
+    <div class="row">
+      <div class="col-12">
+        <q-card class="my-card my-card-inventory" flat bordered
+          ><q-table
+            :rows="rows"
+            :columns="columns"
+            row-key="id"
+            :rows-per-page-options="[10, 20, 30]"
+            :pagination="pagination"
+            separator="none"
+          >
+            <template v-slot:body="props">
+              <q-tr :props="props">
+                <q-td v-for="col in props.cols" :key="col.name" :props="props">
+                  {{ props.row[col.name] }}
+                </q-td>
+                <q-td>
+                  <q-btn @click="editRow(props.row)" color="teal-1" flat
+                    ><q-icon name="edit" color="dark"
+                  /></q-btn>
+                  <q-btn @click="deleteRow(props.row.id)" color="negative" flat
+                    ><q-icon name="delete" color="dark"
+                  /></q-btn>
+                </q-td>
+              </q-tr>
+            </template>
+          </q-table>
+        </q-card>
+      </div>
     </div>
   </div>
 </template>
@@ -123,90 +72,10 @@ import { ref } from "vue";
 
 export default {
   setup() {
-    const dialog = ref(false);
-    const position = ref("top");
-
     return {
-      date: ref(""),
-      dialog,
-      position,
       lorem:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-
-      open(pos) {
-        position.value = pos;
-        dialog.value = true;
-      },
     };
-  },
-  data() {
-    return {
-      //dialog
-      formData: {
-        first_name: "",
-        last_name: "",
-        email: "",
-        birthdate: "",
-      },
-      //table
-      rows: [],
-      columns: [
-        { name: "id", label: "ID", align: "left", field: "id", sortable: true },
-
-        {
-          name: "first_name",
-          label: "First Name",
-          align: "left",
-          field: "first_name",
-          sortable: true,
-        },
-        {
-          name: "email",
-          label: "Email",
-          align: "left",
-          field: "email",
-          sortable: true,
-        },
-      ],
-      pagination: {
-        rowsPerPage: 10,
-      },
-    };
-  },
-  mounted() {
-    this.fetchData();
-  },
-  methods: {
-    async fetchData() {
-      try {
-        const response = await this.$axios.get("http://localhost:8080/getData");
-        this.rows = response.data; // Assuming your API response is an array of objects
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    },
-    async submitData() {
-      try {
-        // Make a POST request with the entered data
-        const response = await this.$axios.post(
-          "http://localhost:8080/save",
-          this.formData
-        );
-
-        // Assuming your API response is an array of objects
-        this.rows = response.data;
-      } catch (error) {
-        console.error("Error submitting data:", error);
-      }
-    },
-    editRow(row) {
-      // Implement your edit logic here
-      console.log("Edit row:", row);
-    },
-    deleteRow(id) {
-      // Implement your delete logic here
-      console.log("Delete row with ID:", id);
-    },
   },
 };
 </script>
@@ -214,14 +83,12 @@ export default {
 /* .row > * {
   border: black 1px solid;
 } */
-.my-card {
+.my-card-inventory {
   margin: 10px;
   border-radius: 20px;
   width: auto;
 }
-#user-dialog {
-  width: 360px;
-  height: 100vh;
-  border-radius: 20px 0 0 20px;
+.inventory-container {
+  height: 100%;
 }
 </style>

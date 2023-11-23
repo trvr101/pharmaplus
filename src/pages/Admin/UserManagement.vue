@@ -37,7 +37,7 @@
         <q-card v-if="loading" class="my-card" flat bordered>
           <q-item>
             <q-item-section avatar>
-              <q-skeleton type="QAvatar" size="100px" />
+              <q-skeleton type="QAvatar" size="85px" />
             </q-item-section>
 
             <q-item-section>
@@ -54,20 +54,19 @@
         <!-- Actual data card -->
         <q-card v-else class="my-card" flat bordered>
           <q-card-section class="row">
-            <div class="col-4">
+            <div class="col-3">
               <q-avatar
-                size="100px"
+                size="85px"
                 font-size="52px"
                 color="teal"
                 text-color="white"
                 ><img
+                  class="absolute-center"
                   src="https://scontent.fmnl4-4.fna.fbcdn.net/v/t39.30808-6/289414022_1203904480373456_2428413500028325985_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=5f2048&_nc_eui2=AeFqwnoOZjDkyMBcuvpdLT-GRqFTvwUxfAlGoVO_BTF8CUL2x8W-PZWCVTeG_EEYQvJm9IBJ8soiTHcCo1iXYcU5&_nc_ohc=yV64cxz9egsAX_PMAoi&_nc_ht=scontent.fmnl4-4.fna&oh=00_AfA6HW59IScCT-kltsIT6MwPGDHC6aHzLNs5_g78M5-SBA&oe=655C73ED"
               /></q-avatar>
             </div>
-            <div class="col-8">
+            <div class="col-9">
               <div class="col-12 text-right">
-                <q-icon name="more_vert" @click="card = true"></q-icon>
-
                 <q-dialog
                   v-model="card"
                   transition-show="slide-up"
@@ -128,11 +127,16 @@
                   </q-card>
                 </q-dialog>
               </div>
-              <q-item-label>Robert Joseph C. Aguba</q-item-label>
-              <q-item-label caption>
-                robertjosephaguba101@gmail.com
-              </q-item-label>
-              <q-item-label class="text-weight-medium">Staff</q-item-label>
+
+              <div class="q-pa-md">
+                <div class="q-flex flex-center">
+                  <q-item-label>Robert Joseph C. Aguba</q-item-label>
+                  <q-item-label caption>
+                    robertjosephaguba101@gmail.com
+                  </q-item-label>
+                  <q-item-label class="text-weight-medium">Staff</q-item-label>
+                </div>
+              </div>
             </div>
           </q-card-section>
         </q-card>
@@ -181,25 +185,6 @@ export default {
       this.loading = false;
     }, 2000); // Simulating a 2-second delay (adjust as needed)
   },
-  methods: {
-    submitForm() {
-      axios
-        .post("http://yourdomain/api/item", this.itemData)
-        .then((response) => {
-          console.log(response.data);
-          // Handle success, e.g., show a success message
-        })
-        .catch((error) => {
-          console.error(error.response.data);
-          // Handle error, e.g., show an error message
-        });
-    },
-    created() {
-      axios.get("http://yourdomain/api/category").then((response) => {
-        this.categories = response.data;
-      });
-    },
-  },
 };
 </script>
 <style>
@@ -207,6 +192,9 @@ export default {
   margin: 10px;
   border-radius: 20px;
   width: auto;
+}
+.my-card > * {
+  height: 100%;
 }
 #user-dialog {
   width: 350px;

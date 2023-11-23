@@ -12,8 +12,6 @@
               <q-card-section class="q-pt-none">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
                 eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua.
               </q-card-section>
             </q-card>
           </div>
@@ -23,9 +21,7 @@
                 <div class="text-h6">Card 2</div>
               </q-card-section>
 
-              <q-card-section class="q-pt-none"
-                >Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              <q-card-section class="q-pt-none">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
                 eiusmod tempor incididunt ut labore et dolore magna aliqua.
               </q-card-section>
@@ -39,15 +35,13 @@
 
               <q-card-section class="q-pt-none">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem
-                ipsum dolor sit amet, consectetur adipiscing elit, sed do
                 eiusmod tempor incididunt ut labore et dolore magna aliqua.
               </q-card-section>
             </q-card>
           </div>
         </div>
         <div class="row justify-center">
-          <div :class="{ 'col-9': $q.screen.gt.sm, 'col-12': $q.screen.lt.sm }">
+          <div :class="{ 'col-8': $q.screen.gt.sm, 'col-12': $q.screen.lt.sm }">
             <q-card flat bordered class="my-card">
               <!-- Carousel -->
               <q-carousel
@@ -146,34 +140,14 @@
               </q-table>
             </q-card>
           </div>
-          <div :class="{ 'col-3': $q.screen.gt.sm, 'col-12': $q.screen.lt.sm }">
+          <div :class="{ 'col-4': $q.screen.gt.sm, 'col-12': $q.screen.lt.sm }">
             <q-card flat bordered class="my-card">
               <q-card-section>
-                <div class="text-h6">Card 4</div>
+                <div class="text-h6">Card 7</div>
               </q-card-section>
 
-              <q-card-section class="q-pt-none">
+              <q-card-section class="q-pt-none" v-for="n in 8">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua
-              </q-card-section>
-            </q-card>
-            <q-card flat bordered class="my-card">
-              <q-card-section>
-                <div class="text-h6">Card 5</div>
-              </q-card-section>
-
-              <q-card-section class="q-pt-none">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliquaLorem
-                ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliquaLorem
-                ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliquaLorem
-                ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliquaLorem
-                ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliquaLorem
-                ipsum dolor sit amet, consectetur adipiscing elit, sed do
                 eiusmod tempor incididunt ut labore et dolore magna aliqua
               </q-card-section>
             </q-card>
@@ -181,47 +155,37 @@
         </div>
       </div>
       <div :class="{ 'col-3': $q.screen.gt.sm, 'col-12': $q.screen.lt.sm }">
+        <!-- TODO event -->
+        <q-date v-model="days" minimal flat bordered range multiple />
+        <!-- Notes -->
         <q-card flat bordered class="my-card">
           <q-card-section>
-            <div class="text-h6">Card 6</div>
+            <q-btn flat rounded class="absolute-top-right"
+              ><q-icon name="add"
+            /></q-btn>
           </q-card-section>
 
           <q-card-section class="q-pt-none">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua
-          </q-card-section> </q-card
-        ><q-date v-model="date" minimal flat bordered /><q-card
-          flat
-          bordered
-          class="my-card"
-          ><q-card flat bordered class="my-card">
-            <q-card-section>
-              <div class="text-h6">Card 7</div>
-            </q-card-section>
-
-            <q-card-section class="q-pt-none">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua
-            </q-card-section>
-          </q-card>
-          <q-card-section>
-            <div class="text-h6">Card 8</div>
-          </q-card-section>
-
-          <q-card-section class="q-pt-none">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua
-          </q-card-section> </q-card
-        ><q-card flat bordered class="my-card">
-          <q-card-section>
-            <div class="text-h6">Card 9</div>
-          </q-card-section>
-
-          <q-card-section class="q-pt-none">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua
+            <q-expansion-item
+              group="somegroup"
+              icon="notes"
+              label="First"
+              default-opened
+              header-class="text-primary"
+              v-for="n in 10"
+            >
+              <q-card>
+                <q-card-section>
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                  Quidem, eius reprehenderit eos corrupti commodi magni quaerat
+                  ex numquam, dolorum officiis modi facere maiores architecto
+                  suscipit iste eveniet doloribus ullam aliquid.
+                </q-card-section>
+              </q-card>
+            </q-expansion-item>
           </q-card-section>
         </q-card>
+        <!-- End Notes -->
       </div>
     </div>
   </div>
@@ -233,6 +197,10 @@ export default {
   name: "mychart",
   setup() {
     return {
+      days: ref([
+        { from: "2023/08/01", to: "2023/08/10" },
+        { from: "2023/07/21", to: "2023/07/25" },
+      ]),
       slide: ref("style"),
       lorem:
         "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Itaque voluptatem totam, architecto cupiditate officia rerum, error dignissimos praesentium libero ab nemo.",
@@ -307,13 +275,13 @@ export default {
 <style lang="css" scoped>
 .my-card,
 .q-date {
-  margin: 10px;
   border-radius: 20px;
   width: auto;
+  margin: 10px;
 }
 /* .row > * {
-  border: black solid 1px;
-} */
+    border: black solid 1px;
+  } */
 .container {
   height: 100%;
 }
