@@ -155,8 +155,8 @@
         </div>
       </div>
       <div :class="{ 'col-3': $q.screen.gt.sm, 'col-12': $q.screen.lt.sm }">
-        <!-- TODO event -->
-        <q-date v-model="days" minimal flat bordered range multiple />
+        <!-- TODO evemt -->
+        <q-date v-model="days" minimal flat bordered range multiple today-btn />
         <!-- Notes -->
         <q-card flat bordered class="my-card">
           <q-card-section>
@@ -198,8 +198,8 @@ export default {
   setup() {
     return {
       days: ref([
-        { from: "2023/08/01", to: "2023/08/10" },
-        { from: "2023/07/21", to: "2023/07/25" },
+        // { from: "2023/08/01", to: "2023/08/10" },
+        // { from: "2023/07/21", to: "2023/07/25" },
       ]),
       slide: ref("style"),
       lorem:

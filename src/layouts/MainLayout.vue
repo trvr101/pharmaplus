@@ -43,13 +43,15 @@
         <div class="text-h6">Add Items</div>
       </q-card-section>
 
-      <q-card-section style="max-height: 50vh" class="scroll">
-        <p v-for="n in 15" :key="n">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum
-          repellendus sit voluptate voluptas eveniet porro. Rerum blanditiis
-          perferendis totam, ea at omnis vel numquam exercitationem aut, natus
-          minima, porro labore.
-        </p>
+      <q-card-section style="height: 50vh; width: 30vw" class="scroll">
+        <q-select
+          :loading="fetchingCateg"
+          v-model="selectedCateg"
+          :options="Categ"
+          option-label="category_name"
+          option-value="category_id"
+          label="Category"
+        />
       </q-card-section>
 
       <q-separator />
@@ -61,20 +63,46 @@
     </q-card>
   </q-dialog>
 </template>
-
 <script>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
+import axios from "axios";
 import DrawerHeader from "components/MainLayout/DrawerHeader";
 import Footer from "components/MainLayout/Footer";
+
+const Categ = ref([]);
+const selectedCateg = ref(null);
+const fetchingCateg = ref(false);
+
+async function fetchCateg() {
+  try {
+    fetchingCateg.value = true;
+    const response = await axios.get("http://localhost:8080/ItemCategoryList");
+    Categ.value = response.data;
+    selectedCateg.value = Categ.value.length > 0 ? Categ.value[0] : null;
+  } catch (error) {
+    console.error("Error fetching categories:", error);
+  } finally {
+    fetchingCateg.value = false;
+  }
+}
+
 export default {
   components: {
     DrawerHeader,
     Footer,
   },
   setup() {
+    onMounted(() => {
+      // Call the fetchCateg function when the component is mounted
+      fetchCateg();
+    });
+
     return {
       basic: ref(false),
       fixed: ref(false),
+      Categ,
+      selectedCateg,
+      fetchingCateg,
     };
   },
 };

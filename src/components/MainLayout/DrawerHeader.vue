@@ -99,7 +99,7 @@
 
         <q-separator />
 
-        <q-item clickable v-ripple to="/">
+        <q-item clickable v-ripple @click="confirm = true">
           <q-item-section avatar>
             <q-icon name="logout" />
           </q-item-section>
@@ -109,12 +109,26 @@
       </q-list>
     </q-scroll-area>
   </q-drawer>
+  <q-dialog v-model="confirm" persistent>
+    <q-card id="logout">
+      <q-card-section class="row items-center">
+        <q-avatar icon="priority_high" color="primary" text-color="white" />
+        <span class="q-ml-sm">Do you really want to logout?</span>
+      </q-card-section>
+
+      <q-card-actions align="right">
+        <q-btn flat label="Cancel" color="primary" v-close-popup />
+        <q-btn flat label="Confirm" color="primary" to="/" />
+      </q-card-actions>
+    </q-card>
+  </q-dialog>
 </template>
 <script>
 import { ref } from "vue";
 export default {
   setup() {
     return {
+      confirm: ref(false),
       drawer: ref(false),
       miniState: ref(true),
       tab: ref(""),
@@ -140,7 +154,10 @@ export default {
   background-color: #00726123;
   border-radius: 20px;
 }
-
+#logout {
+  border-radius: 15px;
+  padding: 10px;
+}
 /* .q-list > :first-child {
   border-radius: 20px 20px 0px 20px;
 }
