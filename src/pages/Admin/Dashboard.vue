@@ -172,7 +172,7 @@
               label="First"
               default-opened
               header-class="text-primary"
-              v-for="n in 10"
+              v-for="n in 4"
             >
               <q-card>
                 <q-card-section>

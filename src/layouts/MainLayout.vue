@@ -30,36 +30,34 @@
         ></q-fab-action
         ><q-fab-action
           color="secondary"
-          @click="fixed = true"
+          @click="open('bottom')"
           icon="add"
         ></q-fab-action>
       </q-fab>
     </q-page-sticky>
     <Footer />
   </q-layout>
-  <q-dialog v-model="fixed">
-    <q-card id="dialogitem">
-      <q-card-section class="bg-teal" style="border-radius: 15px">
-        <div class="text-h6">Add Items</div>
-      </q-card-section>
+  <q-dialog v-model="dialog" :position="position">
+    <q-card
+      style="width: 100vw; height: 75dvh; border-radius: 35px"
+      maximized
+      class="q-pa-md"
+    >
+      <q-linear-progress :value="0.6" color="teal" />
 
-      <q-card-section style="height: 50vh; width: 30vw" class="scroll">
-        <q-select
-          :loading="fetchingCateg"
-          v-model="selectedCateg"
-          :options="Categ"
-          option-label="category_name"
-          option-value="category_id"
-          label="Category"
-        />
-      </q-card-section>
-
-      <q-separator />
-
-      <q-card-actions align="right">
-        <q-btn flat label="Decline" color="primary" v-close-popup />
-        <q-btn flat label="Accept" color="primary" v-close-popup />
-      </q-card-actions>
+      <q-select
+        :loading="fetchingCateg"
+        v-model="selectedCateg"
+        :options="Categ"
+        option-label="category_name"
+        option-value="category_id"
+        label="Category"
+        input-debounce="500"
+        :filter="!selectedCateg"
+        use-input
+        :filter-method="filterCateg"
+        @update:model-value="handleSelectChange"
+      />
     </q-card>
   </q-dialog>
 </template>
@@ -78,7 +76,7 @@ async function fetchCateg() {
     fetchingCateg.value = true;
     const response = await axios.get("http://localhost:8080/ItemCategoryList");
     Categ.value = response.data;
-    selectedCateg.value = Categ.value.length > 0 ? Categ.value[0] : null;
+    // selectedCateg.value = Categ.value.length > 0 ? Categ.value[0] : null;
   } catch (error) {
     console.error("Error fetching categories:", error);
   } finally {
@@ -96,13 +94,44 @@ export default {
       // Call the fetchCateg function when the component is mounted
       fetchCateg();
     });
+    const dialog = ref(false);
+    const position = ref("bottom");
+    const handleSelectChange = () => {
+      // Blur the q-select to remove focus
+      document.activeElement.blur();
+    };
+    const filterCateg = (val, update) => {
+      if (selectedCateg) {
+        // If an item is selected, do not perform filtering
+        update(() => Categ.value);
+        return;
+      }
+
+      if (val === "") {
+        update(() => Categ.value);
+        return;
+      }
+
+      const filtered = Categ.value.filter((item) => {
+        return item.category_name.toLowerCase().startsWith(val.toLowerCase());
+      });
+
+      update(() => filtered);
+    };
 
     return {
       basic: ref(false),
-      fixed: ref(false),
+      dialog,
+      position,
       Categ,
       selectedCateg,
       fetchingCateg,
+      open(pos) {
+        position.value = pos;
+        dialog.value = true;
+      },
+      filterCateg, // Add the filterCateg method to the returned object
+      handleSelectChange,
     };
   },
 };

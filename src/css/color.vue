@@ -1,5 +1,5 @@
 <style>
 .row {
-  background-color: rgb(255, 229, 229);
+  background-color: #1c2121;
 }
 </style>
