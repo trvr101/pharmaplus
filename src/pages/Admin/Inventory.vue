@@ -84,7 +84,7 @@ export default {
   border: black 1px solid;
 } */
 .my-card-inventory {
-  margin: 10px;
+  margin: 5px;
   border-radius: 20px;
   width: auto;
 }

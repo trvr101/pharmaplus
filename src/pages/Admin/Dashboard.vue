@@ -156,7 +156,22 @@
       </div>
       <div :class="{ 'col-3': $q.screen.gt.sm, 'col-12': $q.screen.lt.sm }">
         <!-- TODO evemt -->
-        <q-date v-model="days" minimal flat bordered range multiple today-btn />
+        <q-date
+          v-model="days"
+          minimal
+          flat
+          bordered
+          range
+          multiple
+          today-btn
+          class="q-pa-none"
+          ><q-card-section flat bordered class="my-card">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel harum
+            corporis maiores consectetur assumenda soluta ipsam quisquam saepe.
+            Tenetur harum assumenda ut ullam quos a nulla veritatis doloribus
+            beatae quibusdam.
+          </q-card-section>
+        </q-date>
         <!-- Notes -->
         <q-card flat bordered class="my-card">
           <q-card-section>
@@ -277,7 +292,7 @@ export default {
 .q-date {
   border-radius: 20px;
   width: auto;
-  margin: 10px;
+  margin: 5px;
 }
 /* .row > * {
     border: black solid 1px;

@@ -41,7 +41,7 @@ export default {
 <style scoped>
 .q-footer {
   background: linear-gradient(90deg, #007261, #007976, rgba(0, 114, 127, 1));
-  border-radius: 15px 10px 0 0;
+  border-radius: 25px 25px 0 0;
   height: 50px;
 }
 .q-tabs {

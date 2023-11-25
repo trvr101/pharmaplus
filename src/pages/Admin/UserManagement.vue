@@ -516,7 +516,7 @@ export default {
 </script>
 <style>
 .my-card {
-  margin: 10px;
+  margin: 5px;
   border-radius: 20px;
   width: auto;
 }

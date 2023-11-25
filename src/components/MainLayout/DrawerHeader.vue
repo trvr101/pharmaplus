@@ -143,9 +143,6 @@ export default {
   /* color: #14001f; */
   border-radius: 0 0 25px 25px;
 }
-.q-drawer {
-  border-radius: 0 25px 25px 0;
-}
 .q-item {
   color: rgb(6, 0, 73);
 }

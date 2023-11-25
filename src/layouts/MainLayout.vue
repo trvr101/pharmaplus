@@ -8,7 +8,7 @@
     <DrawerHeader />
 
     <q-page-container>
-      <router-view style="margin: 10px" />
+      <router-view />
     </q-page-container>
     <q-page-sticky position="bottom-right" :offset="[18, 18]">
       <q-fab
@@ -39,25 +39,54 @@
   </q-layout>
   <q-dialog v-model="dialog" :position="position">
     <q-card
-      style="width: 100vw; height: 75dvh; border-radius: 35px"
+      style="width: 100vw; height: 50dvh; border-radius: 40px"
       maximized
       class="q-pa-md"
     >
-      <q-linear-progress :value="0.6" color="teal" />
+      <q-tabs
+        v-model="tab"
+        indicator-color="teal"
+        dense
+        align="justify"
+        switch-indicator
+        slide-transition
+      >
+        <q-tab class="text-primary" name="item" label="item" />
+        <q-tab class="text-primary" name="alarms" label="Alarms" />
+      </q-tabs>
+      <q-tab-panels v-model="tab" animated slide-transition>
+        <q-tab-panel name="item">
+          <q-form>
+            <q-input v-model="item_name" label="Item name" :dense="dense" />
+            <q-input v-model="item_strength" label="Strength" :dense="dense" />
+            <q-select
+              :loading="fetchingCateg"
+              v-model="selectedCateg"
+              :options="Categ"
+              option-label="category_name"
+              option-value="category_id"
+              label="Category"
+              input-debounce="500"
+              :filter="!selectedCateg"
+              :filter-method="filterCateg"
+              rounded
+              @update:model-value="handleSelectChange"
+            />
+            <q-btn
+              unelevated
+              rounded
+              color="primary"
+              label="Add Item"
+              class="full-width q-ma-lg"
+            />
+          </q-form>
+        </q-tab-panel>
 
-      <q-select
-        :loading="fetchingCateg"
-        v-model="selectedCateg"
-        :options="Categ"
-        option-label="category_name"
-        option-value="category_id"
-        label="Category"
-        input-debounce="500"
-        :filter="!selectedCateg"
-        use-input
-        :filter-method="filterCateg"
-        @update:model-value="handleSelectChange"
-      />
+        <q-tab-panel name="alarms">
+          <div class="text-h6">Alarms</div>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit.
+        </q-tab-panel>
+      </q-tab-panels>
     </q-card>
   </q-dialog>
 </template>
@@ -76,7 +105,7 @@ async function fetchCateg() {
     fetchingCateg.value = true;
     const response = await axios.get("http://localhost:8080/ItemCategoryList");
     Categ.value = response.data;
-    // selectedCateg.value = Categ.value.length > 0 ? Categ.value[0] : null;
+    //  selectedCateg.value = Categ.value.length > 0 ? Categ.value[0] : null;
   } catch (error) {
     console.error("Error fetching categories:", error);
   } finally {
@@ -120,6 +149,8 @@ export default {
     };
 
     return {
+      tab: ref("item"),
+
       basic: ref(false),
       dialog,
       position,
