@@ -1,9 +1,9 @@
 <template>
-  <q-footer bordered reveal v-if="$q.screen.lt.sm">
+  <q-footer bordered reveal v-if="$q.screen.lt.sm" class="bg-teal-1">
     <q-toolbar>
       <q-tabs
         v-model="currentTab"
-        class="text-teal-1 row justify-center tabs-container"
+        class="text-primary row justify-center tabs-container"
         no-caps
         stretch
         align="center"
@@ -40,7 +40,6 @@ export default {
 
 <style scoped>
 .q-footer {
-  background: linear-gradient(90deg, #007261, #007976, rgba(0, 114, 127, 1));
   border-radius: 25px 25px 0 0;
   height: 50px;
 }

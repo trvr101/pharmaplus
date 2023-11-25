@@ -57,13 +57,10 @@
                 padding
                 infinite
                 :autoplay="10000"
-                class="bg-white text-dark shadow-1 rounded-borders"
+                class="bg-white text-dark shadow-1 rounded-borders q-pa-none"
                 style="height: 100%"
               >
-                <q-carousel-slide
-                  name="style"
-                  class="column no-wrap flex-center"
-                >
+                <q-carousel-slide name="style">
                   <div id="chart" style="width: 100%; height: 100%">
                     <apexchart
                       type="area"
@@ -165,12 +162,25 @@
           multiple
           today-btn
           class="q-pa-none"
-          ><q-card-section flat bordered class="my-card">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel harum
-            corporis maiores consectetur assumenda soluta ipsam quisquam saepe.
-            Tenetur harum assumenda ut ullam quos a nulla veritatis doloribus
-            beatae quibusdam.
-          </q-card-section>
+        >
+          <!-- caurosel of the scedule  -->
+          <q-carousel
+            v-model="slide"
+            swipeable
+            animated
+            :padding="padding"
+            :vertical="vertical"
+            :arrows="arrows"
+            :navigation="navigation"
+            :navigation-position="navPos"
+            height="50px"
+            class="bg-white text-teal rounded-borders"
+          >
+            <q-carousel-slide name="style" class="column no-wrap flex-center">
+              Schedule: November 29 2023
+              <div class="q-mt-md text-center"></div>
+            </q-carousel-slide>
+          </q-carousel>
         </q-date>
         <!-- Notes -->
         <q-card flat bordered class="my-card">
@@ -239,6 +249,9 @@ export default {
       ],
       chartOptions: {
         chart: {
+          toolbar: {
+            show: false,
+          },
           height: 350,
           type: "area",
         },

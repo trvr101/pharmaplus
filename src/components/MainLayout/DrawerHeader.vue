@@ -155,6 +155,7 @@ export default {
   border-radius: 15px;
   padding: 10px;
 }
+
 /* .q-list > :first-child {
   border-radius: 20px 20px 0px 20px;
 }
