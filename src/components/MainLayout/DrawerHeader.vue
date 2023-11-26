@@ -61,14 +61,14 @@
         ><q-item
           clickable
           v-ripple
-          :class="{ 'active-item': $route.path === '/sales' }"
-          to="/sales"
+          :class="{ 'active-item': $route.path === '/mapping' }"
+          to="/mapping"
         >
           <q-item-section avatar>
-            <q-icon name="store" />
+            <q-icon name="map" />
           </q-item-section>
 
-          <q-item-section> Branch </q-item-section>
+          <q-item-section> Mapping </q-item-section>
         </q-item>
 
         <q-item

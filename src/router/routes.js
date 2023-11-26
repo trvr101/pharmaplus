@@ -29,7 +29,7 @@ const routes = [
         path: "/userManagement",
         component: () => import("pages/Admin/UserManagement.vue"),
       },
-      { path: "/sales", component: () => import("pages/Admin/Sales.vue") },
+      { path: "/mapping", component: () => import("pages/Admin/Mapping.vue") },
       {
         path: "/settings",
         component: () => import("pages/Admin/Settings.vue"),

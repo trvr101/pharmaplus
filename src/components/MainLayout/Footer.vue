@@ -5,8 +5,6 @@
         v-model="currentTab"
         class="text-primary row justify-center tabs-container"
         no-caps
-        stretch
-        align="center"
       >
         <q-route-tab class="col" to="/dashboard" name="home">
           <q-icon name="home" size="xs" />
@@ -23,6 +21,13 @@
         /></q-route-tab>
       </q-tabs>
     </q-toolbar>
+    <div class="bottom-toolbar">
+      <div class="inner-container">
+        <div><!-- Left side content --></div>
+        <div class="circular-btn">+</div>
+        <div><!-- Right side content --></div>
+      </div>
+    </div>
   </q-footer>
 </template>
 

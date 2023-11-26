@@ -30,7 +30,7 @@
 
   <q-dialog v-model="dialog" :position="position">
     <q-card
-      style="width: 100vw; height: 50dvh; border-radius: 40px"
+      style="width: 100vw; height: 60dvh; border-radius: 40px"
       maximized
       class="q-pa-md"
     >
@@ -52,12 +52,10 @@
         </q-tab-panel>
 
         <q-tab-panel name="notes">
-          <div class="text-h6">Note</div>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit.
+          <AddNotes />
         </q-tab-panel>
         <q-tab-panel name="scheduler">
-          <div class="text-h6">Alarms</div>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit.
+          <AddSched />
         </q-tab-panel>
       </q-tab-panels>
     </q-card>
@@ -66,10 +64,14 @@
 <script>
 import { ref } from "vue";
 import AddItem from "components/MainLayout/forms/AddItem";
+import AddNotes from "components/MainLayout/forms/AddNotes";
+import AddSched from "components/MainLayout/forms/AddSched";
 
 export default {
   components: {
     AddItem,
+    AddNotes,
+    AddSched,
   },
   setup() {
     const dialog = ref(false);

@@ -18,7 +18,7 @@
           <div :class="{ 'col-4': $q.screen.gt.sm, 'col-12': $q.screen.lt.sm }">
             <q-card flat bordered class="my-card">
               <q-card-section>
-                <div class="text-h6">Card 2</div>
+                <div class="text-h6">Card 22</div>
               </q-card-section>
 
               <q-card-section class="q-pt-none">

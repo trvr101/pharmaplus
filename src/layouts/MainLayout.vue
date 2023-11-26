@@ -6,7 +6,6 @@
     class="text-dark MainLayout"
   >
     <DrawerHeader />
-
     <q-page-container>
       <router-view />
     </q-page-container>

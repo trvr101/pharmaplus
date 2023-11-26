@@ -1,4 +1,4 @@
 <template>
-  <h1>Sales</h1>
+  <h1>Mapping</h1>
 </template>
 <script></script>
