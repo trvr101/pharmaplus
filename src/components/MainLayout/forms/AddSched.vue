@@ -1,5 +1,5 @@
 <template>
-  <q-form>
+  <q-form @submit.prevent="AddSched">
     <q-input
       v-model="startdate"
       mask="date"
@@ -35,10 +35,10 @@
         </q-icon>
       </template>
     </q-input>
-    <q-input v-model="text" autogrow placeholder="Description" />
+    <q-input v-model="description" autogrow placeholder="Description" />
 
     <q-btn-toggle
-      v-model="secondModel"
+      v-model="privacy"
       spread
       class="my-custom-toggle q-my-lg"
       no-caps
@@ -59,18 +59,43 @@
       label="Add Schedule"
       class="full-width"
       outline
+      type="submit"
     />
   </q-form>
 </template>
 <script>
+import { api } from "src/boot/axios";
 import { ref } from "vue";
 
 export default {
+  data() {
+    return {
+      startdate: "",
+      enddate: "",
+      description: "",
+      privacy: "",
+    };
+  },
+  methods: {
+    async AddSched() {
+      try {
+        const response = await api.post("/AddSched", {
+          startdate: this.startdate,
+          enddate: this.enddate,
+          description: this.description,
+          privacy: this.privacy,
+        });
+        console.log(response.data);
+      } catch (error) {
+        console.error("Error during login:", error);
+      }
+    },
+  },
   setup() {
     return {
       startdate: ref(""),
       enddate: ref(""),
-      secondModel: ref("only me"),
+      privacy: ref("only me"),
     };
   },
 };

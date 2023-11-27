@@ -4,40 +4,13 @@
       <div :class="{ 'col-9': $q.screen.gt.sm, 'col-12': $q.screen.lt.sm }">
         <div class="row justify-center">
           <div :class="{ 'col-4': $q.screen.gt.sm, 'col-12': $q.screen.lt.sm }">
-            <q-card flat bordered class="my-card">
-              <q-card-section>
-                <div class="text-h6">Card</div>
-              </q-card-section>
-
-              <q-card-section class="q-pt-none">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              </q-card-section>
-            </q-card>
+            <card1 />
           </div>
           <div :class="{ 'col-4': $q.screen.gt.sm, 'col-12': $q.screen.lt.sm }">
-            <q-card flat bordered class="my-card">
-              <q-card-section>
-                <div class="text-h6">Card 22</div>
-              </q-card-section>
-
-              <q-card-section class="q-pt-none">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              </q-card-section>
-            </q-card>
+            <card2 />
           </div>
           <div :class="{ 'col-4': $q.screen.gt.sm, 'col-12': $q.screen.lt.sm }">
-            <q-card flat bordered class="my-card">
-              <q-card-section>
-                <div class="text-h6">Card 3</div>
-              </q-card-section>
-
-              <q-card-section class="q-pt-none">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              </q-card-section>
-            </q-card>
+            <card3 />
           </div>
         </div>
         <div class="row justify-center">
@@ -218,13 +191,21 @@
 <script>
 import { ref } from "vue";
 import axios from "axios";
+import card1 from "components/MainLayout/dashboard/card1";
+import card2 from "components/MainLayout/dashboard/card2";
+import card3 from "components/MainLayout/dashboard/card3";
 export default {
+  components: {
+    card1,
+    card2,
+    card3,
+  },
   name: "mychart",
   setup() {
     return {
       days: ref([
-        // { from: "2023/08/01", to: "2023/08/10" },
-        // { from: "2023/07/21", to: "2023/07/25" },
+        { from: "2023/11/01", to: "2023/11/10" },
+        { from: "2023/11/21", to: "2023/11/25" },
       ]),
       slide: ref("style"),
       lorem:

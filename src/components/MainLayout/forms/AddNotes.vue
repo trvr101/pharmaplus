@@ -1,7 +1,7 @@
 <template>
-  <q-form>
-    <q-input v-model="item_name" label="Title:" :dense="dense" />
-    <q-input v-model="text" type="textarea" label="Description" />
+  <q-form @submit.prevent="AddNotes">
+    <q-input v-model="notetitle" label="Title:" :dense="dense" />
+    <q-input v-model="notetext" type="textarea" label="Description" />
     <q-btn
       unelevated
       rounded
@@ -9,7 +9,32 @@
       label="Add Notes"
       class="full-width q-ma-lg"
       outline
+      type="submit"
     />
   </q-form>
 </template>
-<script></script>
+<script>
+import { api } from "src/boot/axios";
+
+export default {
+  data() {
+    return {
+      notetitle: "",
+      notetext: "",
+    };
+  },
+  methods: {
+    async AddNotes() {
+      try {
+        const response = await api.post("/AddNotes", {
+          note_title: this.notetitle,
+          note_text: this.notetext,
+        });
+        console.log(response.data);
+      } catch (error) {
+        console.error("Error during login:", error);
+      }
+    },
+  },
+};
+</script>

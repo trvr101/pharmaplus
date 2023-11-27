@@ -1,5 +1,5 @@
 <template>
-  <q-form>
+  <q-form @submit.prevent="AddItem">
     <q-input v-model="item_name" label="Item name" :dense="dense" />
     <q-input v-model="item_strength" label="Strength" :dense="dense" />
     <q-select
@@ -22,13 +22,14 @@
       label="Add Item"
       class="full-width q-ma-lg"
       outline
+      type="submit"
     />
   </q-form>
 </template>
 
 <script>
 import { ref, onMounted } from "vue";
-import axios from "axios";
+import { api } from "src/boot/axios";
 
 //Select
 const Categ = ref([]);
@@ -36,6 +37,13 @@ const selectedCateg = ref(null);
 const fetchingCateg = ref(false);
 
 export default {
+  data() {
+    return {
+      item_name: "",
+      item_strength: "",
+      selectedCateg: "",
+    };
+  },
   setup() {
     onMounted(() => {
       // Call the fetchCateg function when the component is mounted
@@ -71,11 +79,29 @@ export default {
       Categ,
     };
   },
+  methods: {
+    async AddItem() {
+      try {
+        const payload = {
+          item_name: this.item_name,
+          item_strength: this.item_strength,
+          category_id: this.selectedCateg
+            ? this.selectedCateg.category_id
+            : null,
+        };
+
+        const response = await api.post("/AddItem", payload);
+        console.log(response.data);
+      } catch (error) {
+        console.error("Error during AddItem:", error);
+      }
+    },
+  },
 };
 async function fetchCateg() {
   try {
     fetchingCateg.value = true;
-    const response = await axios.get("http://localhost:8080/ItemCategoryList");
+    const response = await api.get("/ItemCategoryList");
     Categ.value = response.data;
     //  selectedCateg.value = Categ.value.length > 0 ? Categ.value[0] : null;
   } catch (error) {

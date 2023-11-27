@@ -6,7 +6,7 @@
       class="rounded-borders"
       :class="{ 'col-3': $q.screen.gt.sm, 'col-12': $q.screen.lt.sm }"
     >
-      <q-card flat class="q-card-message">
+      <q-card flat>
         <q-item-label header>Messages</q-item-label>
         <!-- Loading skeleton item -->
         <q-item v-if="loading">
@@ -458,7 +458,7 @@
     </q-list>
     <!-- seperate scroll -->
     <div class="col-9">
-      <q-card class="q-card-message"><Convo /></q-card>
+      <q-card><Convo /></q-card>
     </div>
   </div>
 </template>
