@@ -1,38 +1,41 @@
 <template>
   <div>
-    <h1>Mapping</h1>
-    <div id="map"></div>
+    <div id="map" style="height: 94dvh; width: 96.3dvw"></div>
   </div>
 </template>
 
 <script>
+import "ol/ol.css";
+import { Map, View } from "ol";
+import TileLayer from "ol/layer/Tile";
+import OSM from "ol/source/OSM";
+
 export default {
-  name: "Mapping",
-  data() {
-    return {
-      map: null,
-    };
-  },
   mounted() {
-    this.initializeMap();
+    this.initMap();
   },
   methods: {
-    initializeMap() {
-      // Replace 'yourMapId' with a valid map provider ID (e.g., 'mapbox/streets-v11')
-      this.map = L.map("map").setView([51.505, -0.09], 13);
+    initMap() {
+      const map = new Map({
+        target: "map",
+        layers: [
+          new TileLayer({
+            source: new OSM(),
+          }),
+        ],
+        view: new View({
+          center: [121.4069, 13.0565], // Calapan coordinates
+          zoom: 10,
+        }),
+      });
 
-      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-        attribution: "© OpenStreetMap contributors",
-      }).addTo(this.map);
-
-      // Add a marker to the map
-      L.marker([51.505, -0.09]).addTo(this.map).bindPopup("A sample marker!");
+      // You can add more features or customize the map as needed
     },
   },
 };
 </script>
 
-<style scoped>
+<style>
 #map {
   height: 400px;
 }

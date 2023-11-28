@@ -10,14 +10,15 @@
       <q-expansion-item
         group="somegroup"
         :label="note.note_title"
-        default-opened
         header-class="text-primary"
         v-for="(note, index) in notes"
         :key="index"
       >
+        <q-separator />
         <q-card>
           <q-card-section>{{ note.note_text }}</q-card-section>
         </q-card>
+        <q-separator />
       </q-expansion-item>
     </q-card-section>
   </q-card>
