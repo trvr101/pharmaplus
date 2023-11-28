@@ -116,7 +116,7 @@
                 <div class="text-h6">Card 7</div>
               </q-card-section>
 
-              <q-card-section class="q-pt-none" v-for="n in 8">
+              <q-card-section class="q-pt-none" v-for="n in 7">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
                 eiusmod tempor incididunt ut labore et dolore magna aliqua
               </q-card-section>
@@ -126,63 +126,9 @@
       </div>
       <div :class="{ 'col-3': $q.screen.gt.sm, 'col-12': $q.screen.lt.sm }">
         <!-- TODO evemt -->
-        <q-date
-          v-model="days"
-          minimal
-          flat
-          bordered
-          range
-          multiple
-          today-btn
-          class="q-pa-none"
-        >
-          <!-- caurosel of the scedule  -->
-          <q-carousel
-            v-model="slide"
-            swipeable
-            animated
-            :padding="padding"
-            :vertical="vertical"
-            :arrows="arrows"
-            :navigation="navigation"
-            :navigation-position="navPos"
-            height="50px"
-            class="bg-white text-teal rounded-borders"
-          >
-            <q-carousel-slide name="style" class="column no-wrap flex-center">
-              Schedule: November 29 2023
-              <div class="q-mt-md text-center"></div>
-            </q-carousel-slide>
-          </q-carousel>
-        </q-date>
+        <calendar />
         <!-- Notes -->
-        <q-card flat bordered class="my-card">
-          <q-card-section>
-            <q-btn flat rounded class="absolute-top-right"
-              ><q-icon name="add"
-            /></q-btn>
-          </q-card-section>
-
-          <q-card-section class="q-pt-none">
-            <q-expansion-item
-              group="somegroup"
-              icon="notes"
-              label="First"
-              default-opened
-              header-class="text-primary"
-              v-for="n in 4"
-            >
-              <q-card>
-                <q-card-section>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                  Quidem, eius reprehenderit eos corrupti commodi magni quaerat
-                  ex numquam, dolorum officiis modi facere maiores architecto
-                  suscipit iste eveniet doloribus ullam aliquid.
-                </q-card-section>
-              </q-card>
-            </q-expansion-item>
-          </q-card-section>
-        </q-card>
+        <notes />
         <!-- End Notes -->
       </div>
     </div>
@@ -194,11 +140,16 @@ import axios from "axios";
 import card1 from "components/MainLayout/dashboard/card1";
 import card2 from "components/MainLayout/dashboard/card2";
 import card3 from "components/MainLayout/dashboard/card3";
+import calendar from "components/MainLayout/dashboard/calendar";
+import notes from "components/MainLayout/dashboard/notes";
+
 export default {
   components: {
     card1,
     card2,
     card3,
+    calendar,
+    notes,
   },
   name: "mychart",
   setup() {
@@ -214,9 +165,6 @@ export default {
   },
   data() {
     return {
-      apiEndpoint: "http://localhost:8080/ItemList",
-      rows: [], // Initialize an empty array to store the fetched data
-      // ... other data properties
       loading: true,
       series: [
         {
@@ -268,16 +216,6 @@ export default {
       //CHANGE THIS /* your fetched data */;
       this.loading = false;
     }, 2000); // Simulating a 2-second delay (adjust as needed)
-  },
-  created() {
-    axios
-      .get(this.apiEndpoint)
-      .then((response) => {
-        this.rows = response.data; // Assuming the API returns an array of data
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-      });
   },
 };
 </script>

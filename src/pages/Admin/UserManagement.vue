@@ -2,34 +2,7 @@
   <div>
     <div class="row" style="margin: 10px" bordered v-if="$q.screen.gt.xs">
       <div class="col-10"></div>
-      <div class="col-2 text-right">
-        <q-btn
-          unelevated
-          rounded
-          label="Add User"
-          color="primary"
-          @click="open('right')"
-        />
-
-        <q-dialog v-model="dialog" :position="position" style="height: 100vh">
-          <q-card id="user-dialog">
-            <q-form @submit="submitForm">
-              <q-input v-model="itemData.item_name" label="Item Name" />
-              <q-input v-model="itemData.strength" label="Strength" />
-              <q-select
-                v-model="itemData.category_id"
-                label="Category"
-                :options="categories"
-                option-label="category_name"
-                option-value="category_id"
-              />
-              <!-- Add other input fields as needed -->
-
-              <q-btn label="Submit" type="submit" color="primary" />
-            </q-form>
-          </q-card>
-        </q-dialog>
-      </div>
+      <div class="col-2 text-right"></div>
     </div>
     <div class="row">
       <div :class="{ 'col-3': $q.screen.gt.sm, 'col-12': $q.screen.lt.sm }">
