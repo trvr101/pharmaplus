@@ -112,14 +112,7 @@
           </div>
           <div :class="{ 'col-4': $q.screen.gt.sm, 'col-12': $q.screen.lt.sm }">
             <q-card flat bordered class="my-card">
-              <q-card-section>
-                <div class="text-h6">Card 7</div>
-              </q-card-section>
-
-              <q-card-section class="q-pt-none" v-for="n in 7">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua
-              </q-card-section>
+              <notes />
             </q-card>
           </div>
         </div>
@@ -128,7 +121,7 @@
         <!-- TODO evemt -->
         <calendar />
         <!-- Notes -->
-        <notes />
+
         <!-- End Notes -->
       </div>
     </div>

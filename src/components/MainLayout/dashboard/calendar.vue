@@ -10,61 +10,88 @@
     class="q-pa-none"
   >
     <!-- caurosel of the scedule  -->
-    <q-carousel
-      v-model="slide"
-      swipeable
-      animated
-      :padding="padding"
-      :vertical="vertical"
-      :arrows="arrows"
-      :navigation="navigation"
-      :navigation-position="navPos"
-      height="50px"
-      class="bg-white text-teal rounded-borders"
-    >
-      <q-carousel-slide
-        v-for="(schedule, index) in schedules"
-        :key="index"
-        name="style"
-        class="column no-wrap flex-center"
-      >
-        <!-- description of schedule -->
-        <div class="q-mt-md text-center">{{ schedule.description }}</div>
-      </q-carousel-slide>
-    </q-carousel>
+    <q-timeline color="primary">
+      <q-timeline-entry>
+        <template v-slot:title> Event Title </template>
+        <template v-slot:subtitle> February 22, 1986 </template>
+
+        <div>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+        </div>
+      </q-timeline-entry>
+
+      <q-timeline-entry icon="delete">
+        <template v-slot:title> Event Title </template>
+        <template v-slot:subtitle> February 21, 1986 </template>
+
+        <div>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+        </div>
+      </q-timeline-entry>
+
+      <q-timeline-entry avatar="https://cdn.quasar.dev/img/avatar5.jpg">
+        <template v-slot:title> Event Title </template>
+        <template v-slot:subtitle> February 22, 1986 </template>
+
+        <div>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+        </div>
+      </q-timeline-entry>
+
+      <q-timeline-entry>
+        <template v-slot:title> Event Title </template>
+        <template v-slot:subtitle> February 22, 1986 </template>
+
+        <div>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+        </div>
+      </q-timeline-entry>
+
+      <q-timeline-entry color="orange" icon="done_all">
+        <template v-slot:title> Event Title </template>
+        <template v-slot:subtitle> February 22, 1986 </template>
+
+        <div>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+        </div>
+      </q-timeline-entry>
+
+      <q-timeline-entry>
+        <template v-slot:title> Event Title </template>
+        <template v-slot:subtitle> February 22, 1986 </template>
+
+        <div>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+        </div>
+      </q-timeline-entry>
+
+      <q-timeline-entry>
+        <template v-slot:title> Event Title </template>
+        <template v-slot:subtitle> February 22, 1986 </template>
+
+        <div>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+        </div>
+      </q-timeline-entry>
+    </q-timeline>
   </q-date>
 </template>
-
 <script>
-import { ref, onMounted } from "vue";
+import { ref } from "vue";
 import { api } from "src/boot/axios";
 
 export default {
   setup() {
-    const days = ref([]);
-    const slide = ref("style");
-    const schedules = ref([]);
-
-    const fetchSchedules = async () => {
-      try {
-        const response = await api.get("/SchedList");
-        schedules.value = response.data.map((schedule) => ({
-          from: format(new Date(schedule.start_time), "yyyy/MM/dd"),
-          to: format(new Date(schedule.end_time), "yyyy/MM/dd"),
-        }));
-      } catch (error) {
-        console.error("Error fetching schedules:", error);
-      }
-    };
-
-    onMounted(() => {
-      fetchSchedules();
-    });
-
     return {
-      days,
-      slide,
-      schedules,
+      days: ref([{ from: "2023/11/01", to: "2023/11/10" }]), //matke this a dynamic data of calendar { from: "start_time", to: "end_time" } make
+      slide: ref("style"),
     };
   },
 };

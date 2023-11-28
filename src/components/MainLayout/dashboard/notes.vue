@@ -9,7 +9,6 @@
     <q-card-section class="q-pt-none">
       <q-expansion-item
         group="somegroup"
-        icon="notes"
         :label="note.note_title"
         default-opened
         header-class="text-primary"
