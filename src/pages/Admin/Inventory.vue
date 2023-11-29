@@ -1,7 +1,7 @@
 <template>
   <div class="inventory-container">
     <div>
-      <div class="row">
+      <div class="row" v-if="condition">
         <div :class="{ 'col-4': $q.screen.gt.sm, 'col-12': $q.screen.lt.sm }">
           <card1 />
         </div>

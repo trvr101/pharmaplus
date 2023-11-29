@@ -10,7 +10,7 @@
     class="q-pa-none"
   >
     <!-- timeline of the schedule -->
-    <q-timeline color="primary">
+    <q-timeline color="teal-9">
       <q-timeline-entry v-for="(schedule, index) in schedules" :key="index">
         <template v-slot:title class="text-h6">{{
           schedule.description
