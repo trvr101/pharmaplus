@@ -23,6 +23,7 @@
       class="full-width q-ma-lg"
       outline
       type="submit"
+      v-close-popup
     />
   </q-form>
 </template>

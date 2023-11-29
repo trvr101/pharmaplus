@@ -1,5 +1,9 @@
 <template>
-  <q-page-sticky position="bottom-right" :offset="[18, 18]">
+  <q-page-sticky
+    position="bottom-right"
+    :offset="[18, 18]"
+    @keydown="handleKeyDown"
+  >
     <q-fab
       color="primary"
       icon="keyboard_arrow_up"
@@ -62,7 +66,8 @@
   </q-dialog>
 </template>
 <script>
-import { ref } from "vue";
+import { useRoute, useRouter } from "vue-router";
+import { ref, onMounted } from "vue";
 import AddItem from "components/MainLayout/forms/AddItem";
 import AddNotes from "components/MainLayout/forms/AddNotes";
 import AddSched from "components/MainLayout/forms/AddSched";
@@ -77,17 +82,30 @@ export default {
     const dialog = ref(false);
     const position = ref("bottom");
 
+    const open = (pos) => {
+      position.value = pos;
+      dialog.value = true;
+    };
+
+    const handleKeyDown = (event) => {
+      // Check if Ctrl + Shift + F is pressed
+      if (event.ctrlKey && event.shiftKey && event.key === "F") {
+        open("bottom");
+      }
+    };
+
+    // Add global event listener on component mount
+    onMounted(() => {
+      window.addEventListener("keydown", handleKeyDown);
+    });
+
     return {
       tab: ref("item"),
-
       basic: ref(false),
       dialog,
       position,
-
-      open(pos) {
-        position.value = pos;
-        dialog.value = true;
-      },
+      open,
+      handleKeyDown,
     };
   },
 };

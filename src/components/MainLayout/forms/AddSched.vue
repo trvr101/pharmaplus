@@ -60,6 +60,8 @@
       class="full-width"
       outline
       type="submit"
+      v-close-popup
+      to="#note"
     />
   </q-form>
 </template>

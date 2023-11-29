@@ -10,6 +10,7 @@
       class="full-width q-ma-lg"
       outline
       type="submit"
+      v-close-popup
     />
   </q-form>
 </template>
@@ -32,7 +33,7 @@ export default {
         });
         console.log(response.data);
       } catch (error) {
-        console.error("Error during login:", error);
+        console.error("Error note insertion:", error);
       }
     },
   },

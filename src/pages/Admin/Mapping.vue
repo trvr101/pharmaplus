@@ -16,6 +16,17 @@ export default {
   },
   methods: {
     initMap() {
+      // Check if map state is stored in local storage
+      const storedMapState = localStorage.getItem("mapState");
+      let initialCenter = [121.4069, 13.0565];
+      let initialZoom = 10;
+
+      if (storedMapState) {
+        const { center, zoom } = JSON.parse(storedMapState);
+        initialCenter = center;
+        initialZoom = zoom;
+      }
+
       const map = new Map({
         target: "map",
         layers: [
@@ -24,9 +35,16 @@ export default {
           }),
         ],
         view: new View({
-          center: [121.4069, 13.0565], // Calapan coordinates
-          zoom: 10,
+          center: initialCenter,
+          zoom: initialZoom,
         }),
+      });
+
+      // Save the map state to local storage on view change
+      map.getView().on("change:center", () => {
+        const center = map.getView().getCenter();
+        const zoom = map.getView().getZoom();
+        localStorage.setItem("mapState", JSON.stringify({ center, zoom }));
       });
 
       // You can add more features or customize the map as needed

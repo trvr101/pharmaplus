@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, onBeforeUnmount } from "vue";
 import { api } from "src/boot/axios";
 
 export default {
@@ -42,14 +42,26 @@ export default {
       return new Date(dateString).toLocaleDateString(undefined, options);
     };
 
-    // Fetch schedule data when the component is mounted
-    onMounted(async () => {
+    const fetchSchedules = async () => {
       try {
         const response = await api.get("/SchedList"); // Replace with your API endpoint
         schedules.value = response.data;
       } catch (error) {
         console.error("Error fetching schedules:", error);
       }
+    };
+
+    // Fetch schedule data when the component is mounted
+    onMounted(() => {
+      fetchSchedules();
+
+      // Set up polling to fetch schedule data every 5 seconds (adjust as needed)
+      const pollingInterval = setInterval(fetchSchedules, 1000);
+
+      // Clean up the interval when the component is unmounted
+      onBeforeUnmount(() => {
+        clearInterval(pollingInterval);
+      });
     });
 
     return {
