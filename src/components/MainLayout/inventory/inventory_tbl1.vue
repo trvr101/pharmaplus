@@ -20,11 +20,11 @@
         separator="horizontal"
         flat
         title="Item List"
+        :filter="filter"
       >
         <template v-slot:top-left>
           <q-input
-            borderless
-            dense
+            :dense="dense"
             debounce="300"
             v-model="filter"
             placeholder="Search"
@@ -74,6 +74,11 @@ import { api } from "src/boot/axios";
 import { ref } from "vue";
 
 export default {
+  setup() {
+    return {
+      filter: ref(""),
+    };
+  },
   data() {
     return {
       items: [],

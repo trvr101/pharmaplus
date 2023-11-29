@@ -20,7 +20,20 @@
         :columns="columns"
         row-key="user_id"
         :visible-columns="visibleColumns"
+        :filter="filter"
       >
+        <template v-slot:top-left>
+          <q-input
+            :dense="dense"
+            debounce="300"
+            v-model="filter"
+            placeholder="Search"
+          >
+            <template v-slot:append>
+              <q-icon name="search" />
+            </template>
+          </q-input>
+        </template>
       </q-table>
     </q-card-section>
   </q-card>
