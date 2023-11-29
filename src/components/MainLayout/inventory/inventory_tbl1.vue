@@ -20,7 +20,6 @@
         separator="horizontal"
         flat
         title="Item List"
-        :filter="filter"
       >
         <template v-slot:top-left>
           <q-input
