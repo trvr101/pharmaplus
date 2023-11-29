@@ -6,9 +6,9 @@
         class="absolute-top-right q-ma-lg"
         icon="get_app"
         @click="exportTable"
-        label="report"
-        outline
-        color="primary"
+        label="Export"
+        color="teal"
+        unelevated
       />
     </q-card-section>
 

@@ -7,8 +7,8 @@
         icon="file_download"
         @click="exportTable"
         label="report"
-        outline
-        color="primary"
+        color="teal"
+        unelevated
       />
     </q-card-section>
     <q-card-section class="q-pt-none q-ma-lg">
@@ -21,6 +21,19 @@
         flat
         title="Item List"
       >
+        <template v-slot:top-left>
+          <q-input
+            borderless
+            dense
+            debounce="300"
+            v-model="filter"
+            placeholder="Search"
+          >
+            <template v-slot:append>
+              <q-icon name="search" />
+            </template>
+          </q-input>
+        </template>
         <!-- ... Other columns ... -->
         <template v-slot:body-cell-number="props">
           <q-td :props="props">

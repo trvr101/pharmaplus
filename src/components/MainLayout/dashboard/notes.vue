@@ -2,8 +2,14 @@
   <q-card flat bordered class="my-card">
     <q-card-section>
       <p class="text-grey-9 q-ma-sm">Notes</p>
-      <q-btn outline rounded class="absolute-top-right q-ma-md">
-        <q-icon name="add" />
+      <q-btn
+        fill
+        unelevated
+        color="teal"
+        rounded
+        class="absolute-top-right q-ma-md"
+      >
+        <q-icon name="add" color="white" />
       </q-btn>
     </q-card-section>
 
