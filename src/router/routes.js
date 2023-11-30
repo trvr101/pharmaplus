@@ -44,12 +44,25 @@ const routes = [
         component: () => import("pages/Admin/Scanner.vue"),
       },
       {
+        path: "/pointofsale",
+        component: () => import("pages/Admin/PointOfSale.vue"),
+      },
+      {
         path: "/convo",
         component: () => import("pages/Admin/Convo.vue"),
       },
     ],
   },
-
+  {
+    path: "/POS",
+    component: () => import("layouts/POS.vue"),
+    children: [
+      {
+        path: "/POS",
+        component: () => import("pages/POS/HomePOS.vue"),
+      },
+    ],
+  },
   // Always leave this as last one,
   // but you can also remove it
   {

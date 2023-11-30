@@ -74,6 +74,18 @@
         <q-item
           clickable
           v-ripple
+          :class="{ 'active-item': $route.path === '/pointofsale' }"
+          to="/pointofsale"
+        >
+          <q-item-section avatar>
+            <q-icon name="point_of_sale" />
+          </q-item-section>
+
+          <q-item-section> Point of Sale </q-item-section>
+        </q-item>
+        <q-item
+          clickable
+          v-ripple
           :class="{ 'active-item': $route.path === '/settings' }"
           to="/settings"
         >

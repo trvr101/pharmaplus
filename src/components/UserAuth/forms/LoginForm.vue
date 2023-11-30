@@ -4,6 +4,11 @@
     label="dashboard
     "
   />
+  <q-btn
+    to="/POS"
+    label="POS
+    "
+  />
   <q-form @submit.prevent="login">
     <q-input v-model="email" label="Email" :dense="dense" />
     <q-input v-model="password" label="Password" :dense="dense" />

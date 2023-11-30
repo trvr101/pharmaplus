@@ -87,10 +87,18 @@ export default {
       dialog.value = true;
     };
 
+    const close = () => {
+      dialog.value = false;
+    };
+
     const handleKeyDown = (event) => {
       // Check if Ctrl + Shift + F is pressed
       if (event.ctrlKey && event.shiftKey && event.key === "F") {
-        open("bottom");
+        if (dialog.value) {
+          close();
+        } else {
+          open("bottom");
+        }
       }
     };
 
@@ -105,6 +113,7 @@ export default {
       dialog,
       position,
       open,
+      close, // Include the close function in the return object
       handleKeyDown,
     };
   },
