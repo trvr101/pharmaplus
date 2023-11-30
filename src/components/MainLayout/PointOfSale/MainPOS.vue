@@ -70,8 +70,7 @@ export default {
 
     const fetchData = async () => {
       try {
-        const response = await api.get("/ItemList");
-        console.log("API response:", response.data); // Log the response
+        const response = await api.get("/ItemList"); // Log the response
         rows.value = response.data;
       } catch (error) {
         console.error("Error fetching data:", error);

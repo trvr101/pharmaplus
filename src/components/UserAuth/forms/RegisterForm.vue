@@ -16,6 +16,7 @@
       outline
       type="submit"
     />
+
     <div v-if="message === 'passwordMismatch'">Passwords do not match</div>
     <div v-if="message === 'failed'">Registration failed</div>
   </q-form>
@@ -36,27 +37,25 @@ export default {
   },
   methods: {
     async register() {
-      if (this.password === this.passwordConfirm) {
-        try {
-          const response = await api.post("/register", {
-            email: this.email,
-            password: this.password,
-          });
+      // ...
+      try {
+        const response = await api.post("/register", {
+          email: this.email,
+          password: this.password,
+        });
 
-          this.message = response.data.msg;
+        this.message = response.data.msg;
 
-          if (response.data.msg === "okay") {
-            sessionStorage.setItem("jwt", response.data.token);
-            Notify.create("Registered successfully");
-            this.$router.push("/login");
-          }
-        } catch (error) {
-          console.error("Registration failed:", error);
-          this.message = "failed";
+        if (response.data.msg === "okay") {
+          sessionStorage.setItem("jwt", response.data.token);
+          Notify.create("Registered successfully");
+          this.$router.push("/login");
         }
-      } else {
-        this.message = "passwordMismatch";
+      } catch (error) {
+        console.error("Registration failed:", error);
+        this.message = "failed";
       }
+      // ...
     },
   },
 };

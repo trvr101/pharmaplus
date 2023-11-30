@@ -1,3 +1,3 @@
 <template>
-  <div></div>
+  <div><q-btn to="/"></q-btn></div>
 </template>

@@ -1,19 +1,37 @@
 <template>
   <q-card flat bordered class="my-card">
-    <q-card-section>
-      <p class="text-grey-9 q-ma-sm">Notes</p>
-      <q-btn
-        fill
-        unelevated
-        color="teal"
-        rounded
-        class="absolute-top-right q-ma-md"
-      >
-        <q-icon name="add" color="white" />
-      </q-btn>
-    </q-card-section>
-
     <q-card-section class="q-pt-none q-my-lg">
+      <!--  -->
+      <q-expansion-item
+        group="somegroup"
+        header-class="text-black"
+        :key="index"
+        label="Add Notes"
+        expand-icon="add"
+        dense-toggle
+        default-opened
+      >
+        <q-card>
+          <q-card-section>
+            <q-form @submit.prevent="AddNotes">
+              <q-input v-model="notetitle" label="Title:" :dense="dense" />
+              <q-input
+                v-model="notetext"
+                type="textarea"
+                label="Description" /><q-btn
+                unelevated
+                rounded
+                color="teal"
+                label="Add Notes"
+                class="full-width q-ma-lg"
+                type="submit"
+                v-close-popup /></q-form
+          ></q-card-section>
+
+          <!-- Show delete icon -->
+        </q-card>
+      </q-expansion-item>
+      <!--  -->
       <q-expansion-item
         group="somegroup"
         :label="note.note_title"
@@ -22,7 +40,7 @@
         :key="index"
         @hold.native="deleteNoteConfirm(index)"
       >
-        <q-card>
+        <q-card class="text-subtitle1 text-grey-7 text-weight-light">
           <q-card-section>{{ note.note_text }}</q-card-section>
 
           <!-- Show delete icon -->
@@ -53,6 +71,8 @@ import { api } from "src/boot/axios";
 export default {
   data() {
     return {
+      notetitle: "",
+      notetext: "",
       notes: [], // Array to store fetched notes
     };
   },
@@ -64,6 +84,19 @@ export default {
     setInterval(this.fetchNotes, 1000);
   },
   methods: {
+    async AddNotes() {
+      try {
+        const response = await api.post("/AddNotes", {
+          note_title: this.notetitle,
+          note_text: this.notetext,
+        });
+        this.notetitle = "";
+        this.notetext = "";
+        console.log(response.data);
+      } catch (error) {
+        console.error("Error note insertion:", error);
+      }
+    },
     async fetchNotes() {
       try {
         const response = await api.get("/NotesList"); // Replace with your API endpoint

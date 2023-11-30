@@ -2,6 +2,7 @@
   <v-sheet width="300" class="mx-auto">
     <v-form fast-fail @submit.prevent="register">
       <div v-if="message === 'error'">Invalid response</div>
+      <div v-if="message === 'emailExists'">Email already exists</div>
 
       <v-text-field v-model="email" label="Username"></v-text-field>
 
@@ -35,26 +36,28 @@ export default {
       email: "",
       password: "",
       passwordConfirm: "",
-      message: [],
+      message: "",
     };
   },
 
   methods: {
     async register() {
       if (this.password === this.passwordConfirm) {
-        const data = await axios.post("api/register", {
-          email: this.email,
-          password: this.password,
-        });
+        try {
+          const response = await axios.post("/api/register", {
+            email: this.email,
+            password: this.password,
+          });
 
-        this.message = data.data.msg;
+          this.message = response.data.msg;
 
-        if (data.data.msg === "okay") {
-          // sessionStorage.setItem("jwt", data.data.token)
-
-          alert("Registered successfully");
-
-          router.push("/login");
+          if (response.data.msg === "okay") {
+            alert("Registered successfully");
+            this.$router.push("/login");
+          }
+        } catch (error) {
+          console.error("Error during registration:", error);
+          // Handle other errors if needed
         }
       } else {
         this.message = "passwordMismatch";
