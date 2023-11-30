@@ -40,6 +40,7 @@ import { api } from "src/boot/axios";
 export default {
   setup() {
     const filter = ref("");
+
     const columns = [
       {
         name: "item_name",
@@ -69,7 +70,8 @@ export default {
 
     const fetchData = async () => {
       try {
-        const response = await api.get("/ItemList"); // Adjust the URL according to your API endpoint
+        const response = await api.get("/ItemList");
+        console.log("API response:", response.data); // Log the response
         rows.value = response.data;
       } catch (error) {
         console.error("Error fetching data:", error);
