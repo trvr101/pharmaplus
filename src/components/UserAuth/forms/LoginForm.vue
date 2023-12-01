@@ -40,11 +40,18 @@ export default {
         });
 
         console.log(response.data);
-
         if (response.data.msg === "error") {
           this.errorMsg = "Invalid email or password";
         } else {
-          // Login was successful, you may redirect or perform other actions
+          // Assuming your token is available in response.data.token
+          const token = response.data.token;
+          console.log(response.data);
+
+          // Store the token in session storage
+          sessionStorage.setItem("token", token);
+
+          // Redirect to the dashboard
+          this.$router.push("/dashboard");
         }
       } catch (error) {
         console.error("Error during login:", error);

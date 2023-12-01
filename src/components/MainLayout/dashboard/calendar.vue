@@ -8,6 +8,7 @@
     multiple
     today-btn
     class="q-pa-none"
+    color="teal"
   >
     <!-- timeline of the schedule -->
     <q-timeline color="teal-9">

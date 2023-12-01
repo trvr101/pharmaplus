@@ -5,27 +5,27 @@
     @keydown="handleKeyDown"
   >
     <q-fab
-      color="primary"
+      color="teal"
       icon="keyboard_arrow_up"
       direction="up"
       class="fixed-bottom-right"
     >
       <q-fab-action
-        text-color="primary"
-        color="teal-1"
+        text-color=""
+        color="primary"
         @click="onClick"
         icon="edit_note"
         to="/message"
       /><q-fab-action
-        text-color="primary"
-        color="teal-1"
+        text-color=""
+        color="primary"
         @click="onClick"
         icon="qr_code_scanner"
         to="/scanner"
       ></q-fab-action
       ><q-fab-action
-        text-color="primary"
-        color="teal-1"
+        text-color=""
+        color="primary"
         @click="open('bottom')"
         icon="add"
       ></q-fab-action>
