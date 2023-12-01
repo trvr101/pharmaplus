@@ -4,7 +4,7 @@
       <!--  -->
       <q-expansion-item
         group="somegroup"
-        header-class="text-black"
+        header-class="text-grey-9"
         :key="index"
         label="Add Notes"
         expand-icon="add"
@@ -35,7 +35,7 @@
       <q-expansion-item
         group="somegroup"
         :label="note.note_title"
-        header-class="text-black"
+        header-class="text-grey-9"
         v-for="(note, index) in notes"
         :key="index"
         @hold.native="deleteNoteConfirm(index)"
