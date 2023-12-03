@@ -17,7 +17,7 @@
           ><q-icon name="notifications" size="xs" />
         </q-route-tab>
         <q-route-tab class="col" to="/scanner" name="qr_code_scanner"
-          ><q-icon name="qr_code_scanner" size="xs"
+          ><q-icon name="person_outline" size="xs"
         /></q-route-tab>
       </q-tabs>
     </q-toolbar>

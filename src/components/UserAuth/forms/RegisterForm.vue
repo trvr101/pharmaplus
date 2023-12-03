@@ -1,8 +1,9 @@
 <template>
   <q-form @submit.prevent="register">
-    <q-input v-model="email" label="Email" />
-    <q-input v-model="password" label="Password" type="password" />
+    <q-input required v-model="email" label="Email" />
+    <q-input required v-model="password" label="Password" type="password" />
     <q-input
+      required
       v-model="passwordConfirm"
       label="Confirm Password"
       type="password"

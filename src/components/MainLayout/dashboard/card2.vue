@@ -1,9 +1,10 @@
 <template>
-  <q-card flat bordered class="my-card text-primary">
+  <q-card flat bordered class="my-card text-primary" style="overflow: hidden">
     <q-card-section>
       <div class="text-h6">Total Unique Items</div>
       <div class="q-display-2">{{ totalItems }}</div>
     </q-card-section>
+    <q-linear-progress :value="1" color="teal-3" :max="100" />
   </q-card>
 </template>
 
@@ -35,7 +36,7 @@ export default {
       this.fetchData(); // Initial fetch
       this.pollingTimer = setInterval(() => {
         this.fetchData(); // Fetch data at regular intervals
-      }, 5000); // Poll every 5 seconds (adjust as needed)
+      }, 1000); // Poll every 5 seconds (adjust as needed)
     },
     stopPolling() {
       clearInterval(this.pollingTimer);

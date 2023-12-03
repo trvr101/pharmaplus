@@ -145,7 +145,7 @@ export default {
       try {
         const response = await api.get("/ItemList");
         // Add a 'number' property to each item for the custom column
-        this.items = response.data.map((item) => ({ ...item, number: 110 }));
+        this.items = response.data.map((item) => ({ ...item, number: 0 }));
       } catch (error) {
         console.error("Error fetching items:", error);
       }

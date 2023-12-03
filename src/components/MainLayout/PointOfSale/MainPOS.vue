@@ -29,7 +29,7 @@
         </q-input>
       </template>
     </q-table>
-    <q-btn>wahhah</q-btn>
+    <q-btn label="ctrl-shift-f" @click="simulateKeyPress" />
   </div>
 </template>
 

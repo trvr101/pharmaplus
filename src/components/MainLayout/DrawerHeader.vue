@@ -51,6 +51,16 @@
         ><q-item
           clickable
           v-ripple
+          :class="{ 'active-item': $route.path === '/restock' }"
+          to="/restock"
+        >
+          <q-item-section avatar>
+            <q-icon name="autorenew" />
+          </q-item-section>
+          <q-item-section> Restock </q-item-section> </q-item
+        ><q-item
+          clickable
+          v-ripple
           :class="{ 'active-item': $route.path === '/userManagement' }"
           to="/userManagement"
         >
@@ -96,7 +106,7 @@
           <q-item-section> Settings </q-item-section>
         </q-item>
 
-        <q-item
+        <!-- <q-item
           clickable
           v-ripple
           :class="{ 'active-item': $route.path === '/message' }"
@@ -107,7 +117,7 @@
           </q-item-section>
 
           <q-item-section> Message </q-item-section>
-        </q-item>
+        </q-item> -->
 
         <q-separator />
 
@@ -130,7 +140,7 @@
 
       <q-card-actions align="right">
         <q-btn flat label="Cancel" color="primary" v-close-popup />
-        <q-btn flat label="Confirm" color="primary" to="/" />
+        <q-btn flat label="Confirm" color="primary" to="/login" />
       </q-card-actions>
     </q-card>
   </q-dialog>

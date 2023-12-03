@@ -82,6 +82,15 @@ export default {
           "2018-09-19T06:30:00.000Z",
         ],
       },
+      yaxis: {
+        show: true, // Set to false to hide horizontal grid lines
+      },
+      grid: {
+        show: false,
+      },
+      dataLabels: {
+        enabled: false, // Set to false to hide series labels at the bottom
+      },
       tooltip: {
         x: {
           format: "dd/MM/yy HH:mm",

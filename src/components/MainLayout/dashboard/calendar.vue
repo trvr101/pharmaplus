@@ -8,10 +8,10 @@
     multiple
     today-btn
     class="q-pa-none"
-    color="teal"
+    color="teal-3"
   >
     <!-- timeline of the schedule -->
-    <q-timeline color="teal-9">
+    <q-timeline color="teal-4">
       <q-timeline-entry v-for="(schedule, index) in schedules" :key="index">
         <template v-slot:title class="text-h6">{{
           schedule.description

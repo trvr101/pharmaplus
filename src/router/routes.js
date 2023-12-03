@@ -1,11 +1,11 @@
 const routes = [
   {
-    path: "/",
+    path: "/login",
     component: () => import("layouts/UserAuth.vue"),
 
     children: [
       {
-        path: "/",
+        path: "/login",
         component: () => import("pages/UserAuth/Login.vue"),
       },
       {
@@ -26,6 +26,10 @@ const routes = [
       {
         path: "/inventory",
         component: () => import("pages/Admin/Inventory.vue"),
+      },
+      {
+        path: "/restock",
+        component: () => import("pages/Admin/Restock.vue"),
       },
       {
         path: "/userManagement",
@@ -54,6 +58,7 @@ const routes = [
         component: () => import("pages/Admin/Convo.vue"),
       },
     ],
+    meta: { requiresAuth: true },
   },
   {
     path: "/POS",
@@ -65,12 +70,28 @@ const routes = [
       },
     ],
   },
-  // Always leave this as last one,
-  // but you can also remove it
   {
     path: "/:catchAll(.*)*",
     component: () => import("pages/ErrorNotFound.vue"),
   },
 ];
+// router.beforeEach((to, from, next) => {
+//   const isLoggedIn = checkUserLogin();
+
+//   if (to.matched.some((record) => record.meta.requiresAuth)) {
+//     if (!isLoggedIn) {
+//       next("/login");
+//     } else {
+//       next();
+//     }
+//   } else {
+//     next();
+//   }
+// });
+
+// function checkUserLogin() {
+//   const userToken = sessionStorage.getItem("token");
+//   return !!userToken;
+// }
 
 export default routes;
