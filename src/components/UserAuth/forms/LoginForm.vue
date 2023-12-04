@@ -46,15 +46,21 @@ export default {
         } else {
           // Assuming your token is available in response.data.token
           const token = response.data.token;
-          const role = response.data.token;
+          const user_role = response.data.user_role;
           console.log(response.data);
 
           // Store the token in session storage
           sessionStorage.setItem("token", token);
-          //set the userrole here as cookie
+
+          // Set the user role as a cookie
+          Cookies.set("user_role", user_role);
 
           // Redirect to the dashboard
-          this.$router.push("/dashboard");
+          if (user_role === "admin") {
+            this.$router.push("/dashboard");
+          } else if (user_role === "cashier") {
+            this.$router.push("/POS");
+          }
         }
       } catch (error) {
         console.error("Error during login:", error);

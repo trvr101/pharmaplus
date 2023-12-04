@@ -35,7 +35,7 @@ const routes = [
     ],
   },
   {
-    // for login only
+    // for admin with token only
     path: "/dashboard",
     component: () => import("layouts/MainLayout.vue"),
     meta: { requiresAuth: true },
@@ -80,12 +80,13 @@ const routes = [
         component: () => import("pages/Admin/Convo.vue"),
       },
     ],
-    meta: { requiresAuth: true },
   },
   {
-    // for login only
+    // for cashier with token only
     path: "/POS",
     component: () => import("layouts/POS.vue"),
+    meta: { requiresAuth: true },
+    beforeEnter: requireAuth,
     children: [
       {
         path: "/POS",
