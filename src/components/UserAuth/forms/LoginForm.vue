@@ -51,9 +51,7 @@ export default {
 
           // Store the token in session storage
           sessionStorage.setItem("token", token);
-
-          // Set the user role as a cookie
-          Cookies.set("user_role", user_role);
+          sessionStorage.setItem("user_role", user_role);
 
           // Redirect to the dashboard
           if (user_role === "admin") {

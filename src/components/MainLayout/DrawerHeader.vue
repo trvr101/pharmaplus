@@ -107,17 +107,17 @@
         </q-item>
 
         <!-- <q-item
-          clickable
-          v-ripple
-          :class="{ 'active-item': $route.path === '/message' }"
-          to="/message"
-        >
-          <q-item-section avatar>
-            <q-icon name="inbox" />
-          </q-item-section>
+                clickable
+                v-ripple
+                :class="{ 'active-item': $route.path === '/message' }"
+                to="/message"
+              >
+                <q-item-section avatar>
+                  <q-icon name="inbox" />
+                </q-item-section>
 
-          <q-item-section> Message </q-item-section>
-        </q-item> -->
+                <q-item-section> Message </q-item-section>
+              </q-item> -->
 
         <q-separator />
 
@@ -140,20 +140,35 @@
 
       <q-card-actions align="right">
         <q-btn flat label="Cancel" color="primary" v-close-popup />
-        <q-btn flat label="Confirm" color="primary" to="/login" />
+        <q-btn flat label="Confirm" color="primary" @click="logout" />
       </q-card-actions>
     </q-card>
   </q-dialog>
 </template>
 <script>
 import { ref } from "vue";
+
 export default {
   setup() {
+    const confirm = ref(false);
+    const drawer = ref(false);
+    const miniState = ref(true);
+
+    const logout = () => {
+      // Clear session storage
+      sessionStorage.removeItem("token");
+      sessionStorage.removeItem("user_role");
+
+      // Clear router history and navigate to login
+      router.push("/login").catch(() => {});
+    };
+
     return {
-      confirm: ref(false),
-      drawer: ref(false),
-      miniState: ref(true),
-      tab: ref(""),
+      confirm,
+      drawer,
+      miniState,
+      tab: "",
+      logout,
     };
   },
 };
@@ -179,11 +194,11 @@ export default {
 }
 
 /* .q-list > :first-child {
-  border-radius: 20px 20px 0px 20px;
-}
+        border-radius: 20px 20px 0px 20px;
+      }
 
-/* Target the last child of q-list */
+      /* Target the last child of q-list */
 /* .q-list :last-child {
-  border-radius: 20px 0px 20px 20px;
-} */
+        border-radius: 20px 0px 20px 20px;
+      } */
 </style>

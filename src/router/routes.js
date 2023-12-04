@@ -17,6 +17,44 @@ const requireAuth = (to, from, next) => {
   }
 };
 
+const requireAdmin = (to, from, next) => {
+  // Check if the route requires admin role
+  if (to.meta.requiresAdmin) {
+    // Check if the user has the admin role in session storage
+    const userRole = sessionStorage.getItem("user_role");
+
+    if (!userRole || userRole !== "admin") {
+      // Redirect to login if not authenticated or not an admin
+      next("/login");
+    } else {
+      // Continue to the route if authenticated and has the admin role
+      next();
+    }
+  } else {
+    // Continue to the route if it doesn't require admin role
+    next();
+  }
+};
+
+const requireCashier = (to, from, next) => {
+  // Check if the route requires cashier role
+  if (to.meta.requiresCashier) {
+    // Check if the user has the cashier role in session storage
+    const userRole = sessionStorage.getItem("user_role");
+
+    if (!userRole || userRole !== "cashier") {
+      // Redirect to login if not authenticated or not a cashier
+      next("/login");
+    } else {
+      // Continue to the route if authenticated and has the cashier role
+      next();
+    }
+  } else {
+    // Continue to the route if it doesn't require cashier role
+    next();
+  }
+};
+
 const routes = [
   {
     // open for all even no login
@@ -38,8 +76,8 @@ const routes = [
     // for admin with token only
     path: "/dashboard",
     component: () => import("layouts/MainLayout.vue"),
-    meta: { requiresAuth: true },
-    beforeEnter: requireAuth,
+    meta: { requiresAuth: true, requiresAdmin: true },
+    beforeEnter: requireAdmin,
     children: [
       {
         path: "/dashboard",
@@ -85,8 +123,8 @@ const routes = [
     // for cashier with token only
     path: "/POS",
     component: () => import("layouts/POS.vue"),
-    meta: { requiresAuth: true },
-    beforeEnter: requireAuth,
+    meta: { requiresAuth: true, requiresCashier: true },
+    beforeEnter: requireCashier,
     children: [
       {
         path: "/POS",
