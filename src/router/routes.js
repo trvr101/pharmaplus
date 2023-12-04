@@ -1,5 +1,25 @@
+const requireAuth = (to, from, next) => {
+  // Check if the route requires authentication
+  if (to.meta.requiresAuth) {
+    // Check if there is a token in session storage
+    const token = sessionStorage.getItem("token");
+
+    if (!token) {
+      // Redirect to login if not authenticated
+      next("/login");
+    } else {
+      // Continue to the route if authenticated
+      next();
+    }
+  } else {
+    // Continue to the route if it doesn't require authentication
+    next();
+  }
+};
+
 const routes = [
   {
+    // open for all even no login
     path: "/login",
     component: () => import("layouts/UserAuth.vue"),
 
@@ -15,9 +35,11 @@ const routes = [
     ],
   },
   {
-    path: "/",
+    // for login only
+    path: "/dashboard",
     component: () => import("layouts/MainLayout.vue"),
     meta: { requiresAuth: true },
+    beforeEnter: requireAuth,
     children: [
       {
         path: "/dashboard",
@@ -61,6 +83,7 @@ const routes = [
     meta: { requiresAuth: true },
   },
   {
+    // for login only
     path: "/POS",
     component: () => import("layouts/POS.vue"),
     children: [
@@ -75,23 +98,5 @@ const routes = [
     component: () => import("pages/ErrorNotFound.vue"),
   },
 ];
-// router.beforeEach((to, from, next) => {
-//   const isLoggedIn = checkUserLogin();
-
-//   if (to.matched.some((record) => record.meta.requiresAuth)) {
-//     if (!isLoggedIn) {
-//       next("/login");
-//     } else {
-//       next();
-//     }
-//   } else {
-//     next();
-//   }
-// });
-
-// function checkUserLogin() {
-//   const userToken = sessionStorage.getItem("token");
-//   return !!userToken;
-// }
 
 export default routes;

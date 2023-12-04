@@ -16,6 +16,7 @@
 
 <script>
 import { api } from "src/boot/axios";
+import Cookies from "js-cookie";
 
 export default {
   data() {
@@ -45,10 +46,12 @@ export default {
         } else {
           // Assuming your token is available in response.data.token
           const token = response.data.token;
+          const role = response.data.token;
           console.log(response.data);
 
           // Store the token in session storage
           sessionStorage.setItem("token", token);
+          //set the userrole here as cookie
 
           // Redirect to the dashboard
           this.$router.push("/dashboard");
