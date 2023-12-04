@@ -3,8 +3,9 @@ const requireAuth = (to, from, next) => {
   if (to.meta.requiresAuth) {
     // Check if there is a token in session storage
     const token = sessionStorage.getItem("token");
+    const userRole = sessionStorage.getItem("user_role");
 
-    if (!token) {
+    if (!token && !userRole) {
       // Redirect to login if not authenticated
       next("/login");
     } else {
@@ -82,40 +83,58 @@ const routes = [
       {
         path: "/dashboard",
         component: () => import("pages/Admin/Dashboard.vue"),
+        meta: { requiresAuth: true, requiresAdmin: true },
+        beforeEnter: requireAdmin,
       },
       {
         path: "/inventory",
         component: () => import("pages/Admin/Inventory.vue"),
+        meta: { requiresAuth: true, requiresAdmin: true },
+        beforeEnter: requireAdmin,
       },
       {
         path: "/restock",
         component: () => import("pages/Admin/Restock.vue"),
+        meta: { requiresAuth: true, requiresAdmin: true },
+        beforeEnter: requireAdmin,
       },
       {
         path: "/userManagement",
         component: () => import("pages/Admin/UserManagement.vue"),
+        meta: { requiresAuth: true, requiresAdmin: true },
+        beforeEnter: requireAdmin,
       },
       { path: "/mapping", component: () => import("pages/Admin/Mapping.vue") },
       {
         path: "/settings",
         component: () => import("pages/Admin/Settings.vue"),
+        meta: { requiresAuth: true, requiresAdmin: true },
+        beforeEnter: requireAdmin,
       },
       { path: "/message", component: () => import("pages/Admin/Message.vue") },
       {
         path: "/notifications",
         component: () => import("pages/Admin/Notification.vue"),
+        meta: { requiresAuth: true, requiresAdmin: true },
+        beforeEnter: requireAdmin,
       },
       {
         path: "/scanner",
         component: () => import("pages/Admin/Scanner.vue"),
+        meta: { requiresAuth: true, requiresAdmin: true },
+        beforeEnter: requireAdmin,
       },
       {
         path: "/pointofsale",
         component: () => import("pages/Admin/PointOfSale.vue"),
+        meta: { requiresAuth: true, requiresAdmin: true },
+        beforeEnter: requireAdmin,
       },
       {
         path: "/convo",
         component: () => import("pages/Admin/Convo.vue"),
+        meta: { requiresAuth: true, requiresAdmin: true },
+        beforeEnter: requireAdmin,
       },
     ],
   },

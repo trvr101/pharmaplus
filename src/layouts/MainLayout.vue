@@ -1,13 +1,13 @@
 <template>
   <q-layout
-    view="hHh Lpr lFf"
+    view="lHh Lpr lFf"
     container
     style="height: 100vh"
     class="text-dark MainLayout"
   >
     <DrawerHeader />
     <q-page-container>
-      <router-view />
+      <router-view class="q-ma-sm q-mt-md" />
     </q-page-container>
     <Footer />
     <FabDialog />

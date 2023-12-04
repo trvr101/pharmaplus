@@ -1,14 +1,38 @@
 <template>
-  <q-header bordered v-if="$q.screen.gt.xs">
+  <q-header bordered v-if="$q.screen.gt.xs" class="q-ma-sm bg-teal">
     <q-toolbar>
-      <q-btn flat @click="drawer = !drawer" round dense icon="menu" />
+      <q-btn
+        flat
+        @click="drawer = !drawer"
+        round
+        dense
+        icon="menu"
+        class="q-ml-md"
+      />
       <q-toolbar-title
+        class="q-ml-md"
         :class="{
           '': $q.screen.gt.sm,
           'absolute-center': $q.screen.lt.sm,
         }"
         >PharmaPlus+</q-toolbar-title
       >
+      <q-space />
+
+      <q-toggle
+        v-model="darkmode"
+        checked-icon="dark_mode"
+        color="primary"
+        keep-color
+        unchecked-icon="light_mode"
+        class="q-mr-md"
+      />
+      <q-btn class="q-mr-md" flat rounded>
+        <q-icon name="notifications" size="sm" />
+      </q-btn>
+      <q-avatar class="q-mr-md">
+        <img src="https://img-9gag-fun.9cache.com/photo/aD4L5PN_460swp.webp" />
+      </q-avatar>
     </q-toolbar>
   </q-header>
 
@@ -175,6 +199,7 @@ export default {
       miniState,
       tab: "",
       logout,
+      darkmode: ref(false),
     };
   },
 };
@@ -184,7 +209,7 @@ export default {
 .q-header {
   background: linear-gradient(90deg, #007261, #007976, rgba(0, 114, 127, 1));
   /* color: #14001f; */
-  border-radius: 0 0 25px 25px;
+  border-radius: 25px;
 }
 .q-item {
   color: rgb(6, 0, 73);
@@ -207,4 +232,7 @@ export default {
 /* .q-list :last-child {
         border-radius: 20px 0px 20px 20px;
       } */
+.q-drawer {
+  border-radius: 20px;
+}
 </style>
