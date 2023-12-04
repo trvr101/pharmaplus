@@ -146,7 +146,7 @@
   </q-dialog>
 </template>
 <script>
-import { ref } from "vue";
+import { ref, getCurrentInstance } from "vue";
 
 export default {
   setup() {
@@ -154,13 +154,19 @@ export default {
     const drawer = ref(false);
     const miniState = ref(true);
 
+    const { proxy } = getCurrentInstance(); // Get the current instance
+
     const logout = () => {
       // Clear session storage
       sessionStorage.removeItem("token");
       sessionStorage.removeItem("user_role");
 
-      // Clear router history and navigate to login
-      router.push("/login").catch(() => {});
+      // Navigate to the login page
+      if (proxy.$router) {
+        proxy.$router.push("/login");
+      } else {
+        console.error("Router is not available.");
+      }
     };
 
     return {
