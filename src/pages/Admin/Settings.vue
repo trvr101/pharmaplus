@@ -1,14 +1,14 @@
 <template>
   <div class="row">
-    <q-col class="col-3">
+    <q-col :class="{ 'col-3': $q.screen.gt.sm, 'col-12': $q.screen.lt.sm }">
       <card1 />
     </q-col>
-    <q-col class="col-9">
+    <q-col :class="{ 'col-9': $q.screen.gt.sm, 'col-12': $q.screen.lt.sm }">
       <q-tabs
         v-model="tab"
         dense
         align="justify"
-        class="text-teal"
+        class="text-teal q-mx-lg"
         :breakpoint="0"
         inline-label
       >

@@ -1,6 +1,6 @@
 <template>
-  <q-card flat bordered class="my-card"
-    ><div class="q-pa-md">
+  <q-card flat bordered class="my-card q-mb-lg" style="overflow: hidden"
+    ><div class="q-pa-lg">
       <q-icon name="work_history" size="md" color="primary" />
       <q-table
         flat
@@ -19,8 +19,72 @@
           :max="pagesNumber"
           size="sm"
         />
-      </div></div
-  ></q-card>
+      </div>
+    </div>
+    <q-linear-progress :value="1" color="teal-3" :max="100"
+  /></q-card>
+  <q-card flat bordered class="my-card q-my-lg" style="overflow: hidden">
+    <div class="q-pa-lg">
+      <q-timeline color="teal">
+        <q-timeline-entry heading class="text-primary">
+          Schedule
+        </q-timeline-entry>
+
+        <q-timeline-entry title="Event" subtitle="February 22, 1986">
+          <div>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+            aliquip ex ea commodo consequat. Duis aute irure dolor in
+            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+            culpa qui officia deserunt mollit anim id est laborum.
+          </div>
+        </q-timeline-entry>
+
+        <q-timeline-entry
+          title="Event"
+          subtitle="February 21, 1986"
+          icon="delete"
+        >
+          <div>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+            aliquip ex ea commodo consequat. Duis aute irure dolor in
+            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+            culpa qui officia deserunt mollit anim id est laborum.
+          </div>
+        </q-timeline-entry>
+      </q-timeline>
+    </div>
+    <q-linear-progress :value="1" color="teal-3" :max="100" />
+  </q-card>
+  <q-card flat bordered class="my-card q-mb-lg" style="overflow: hidden"
+    ><div class="q-pa-lg">
+      <q-icon name="work_history" size="md" color="primary" />
+      <q-table
+        flat
+        title="Recent Transactions"
+        :rows="rows"
+        :columns="columns"
+        row-key="name"
+        v-model:pagination="pagination"
+        hide-pagination
+      />
+
+      <div class="row justify-center q-mt-md">
+        <q-pagination
+          v-model="pagination.page"
+          color="primary"
+          :max="pagesNumber"
+          size="sm"
+        />
+      </div>
+    </div>
+    <q-linear-progress :value="1" color="teal-3" :max="100"
+  /></q-card>
 </template>
 
 <script>

@@ -1,9 +1,9 @@
 <template>
-  <q-footer bordered reveal v-if="$q.screen.lt.sm" class="bg-teal-1">
+  <q-footer bordered reveal v-if="$q.screen.lt.sm" class="bg-teal shadow-up-1">
     <q-toolbar>
       <q-tabs
         v-model="currentTab"
-        class="text-primary row justify-center tabs-container"
+        class="text-grey-3 row justify-center tabs-container"
         no-caps
       >
         <q-route-tab class="col" to="/dashboard" name="home">
@@ -16,18 +16,11 @@
         <q-route-tab class="col" to="/notifications" name="notifications"
           ><q-icon name="notifications" size="xs" />
         </q-route-tab>
-        <q-route-tab class="col" to="/scanner" name="qr_code_scanner"
-          ><q-icon name="person_outline" size="xs"
+        <q-route-tab class="col" to="/settings" name="qr_code_scanner"
+          ><q-icon name="person" size="xs"
         /></q-route-tab>
       </q-tabs>
     </q-toolbar>
-    <div class="bottom-toolbar">
-      <div class="inner-container">
-        <div><!-- Left side content --></div>
-        <div class="circular-btn">+</div>
-        <div><!-- Right side content --></div>
-      </div>
-    </div>
   </q-footer>
 </template>
 

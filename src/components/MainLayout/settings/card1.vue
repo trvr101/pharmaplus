@@ -1,7 +1,7 @@
 <template>
-  <q-card flat bordered class="my-card bg-grey-1 q-my-lg">
+  <q-card flat bordered class="my-card q-my-lg">
     <div class="fit column justify-center items-center content-center">
-      <q-avatar size="150px" color="teal" text-color="white" class="q-ma-lg"
+      <q-avatar size="170px" color="teal" text-color="white" class="q-ma-lg"
         ><img
           style="border: 5px solid rgb(47, 153, 142)"
           src="https://img-9gag-fun.9cache.com/photo/aD4L5PN_460swp.webp"
@@ -13,7 +13,7 @@
         Aguba, Robert Joseph C.
       </div>
       <div class="text-caption text-grey-6">name</div>
-      <q-chip outline color="teal" class="bg-teal-1 q-ma-md"> ADMIN </q-chip>
+      <q-chip outline color="teal" class="bg-teal-1 q-ma-md"> Admin </q-chip>
       <div class="row q-ma-md">
         <q-card
           flat
@@ -29,8 +29,8 @@
                 style="border-radius: 20px; height: 50px; width: 50px"
               />
               <div class="text">
-                <div class="text-body1">300</div>
-                <div class="text-caption">Transaction Done:</div>
+                <div class="text-body1 text-grey-9">300</div>
+                <div class="text-caption text-grey-7">Transaction Done:</div>
               </div>
             </div>
           </div>
