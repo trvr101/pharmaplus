@@ -224,12 +224,9 @@ export default {
   /* color: #14001f; */
   border-radius: 25px;
 }
-.q-item {
-  color: rgb(6, 0, 73);
-}
 .q-item:hover,
 .active-item {
-  background-color: #00726123;
+  background-color: #80cbc4;
   border-radius: 20px;
 }
 #logout {

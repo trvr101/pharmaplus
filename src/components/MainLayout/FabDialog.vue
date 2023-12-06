@@ -5,10 +5,13 @@
     @keydown="handleKeyDown"
   >
     <q-fab
-      color="teal"
       icon="keyboard_arrow_up"
       direction="up"
       class="fixed-bottom-right"
+      :class="{
+        'text-primary  bg-teal-3 ': $q.dark.isActive,
+        'text-white  bg-teal ': !$q.dark.isActive,
+      }"
     >
       <q-fab-action
         text-color=""

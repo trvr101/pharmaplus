@@ -75,7 +75,7 @@ const routes = [
   },
   {
     // for admin with token only
-    path: "/dashboard",
+    path: "/dashboar",
     component: () => import("layouts/MainLayout.vue"),
     meta: { requiresAuth: true, requiresAdmin: true },
     beforeEnter: requireAdmin,

@@ -3,8 +3,11 @@
     <q-table
       grid
       flat
-      bordered
-      card-class="bg-teal text-white"
+      :bordered="!$q.dark.isActive"
+      :card-class="{
+        ' bg-primary ': $q.dark.isActive,
+        'bg-teal text-grey-3': !$q.dark.isActive,
+      }"
       title="Products"
       :rows="rows"
       :columns="columns"

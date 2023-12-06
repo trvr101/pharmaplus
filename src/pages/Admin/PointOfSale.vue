@@ -1,10 +1,10 @@
 <template>
-  <q-layout view="hHh lpR fFf">
+  <q-layout view="hHh lpR fFf" style="overflow: hidden">
     <q-drawer
       show-if-above
       v-model="rightDrawerOpen"
       side="right"
-      bordered
+      :bordered="!$q.dark.isActive"
       width="400"
     >
       <!-- list here the item_id that i clicked in the table -->
