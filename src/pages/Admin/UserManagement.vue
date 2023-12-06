@@ -7,7 +7,12 @@
     <div class="row">
       <div :class="{ 'col-3': $q.screen.gt.sm, 'col-12': $q.screen.lt.sm }">
         <!-- Loading skeleton card -->
-        <q-card v-if="loading" class="my-card" flat bordered>
+        <q-card
+          v-if="loading"
+          class="my-card"
+          flat
+          :bordered="!$q.dark.isActive"
+        >
           <q-item>
             <q-item-section avatar>
               <q-skeleton type="QAvatar" size="85px" />
@@ -25,7 +30,13 @@
         </q-card>
 
         <!-- Actual data card -->
-        <q-card v-else class="my-card" flat bordered onclick="">
+        <q-card
+          v-else
+          class="my-card"
+          flat
+          :bordered="!$q.dark.isActive"
+          onclick=""
+        >
           <q-card-section class="row">
             <div class="col-3">
               <q-avatar

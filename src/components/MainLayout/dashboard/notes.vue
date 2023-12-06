@@ -1,6 +1,6 @@
 <template>
-  <q-card flat bordered class="my-card">
-    <q-card-section class="q-pt-none q-my-lg">
+  <q-card flat :bordered="!$q.dark.isActive" class="my-card">
+    <q-card-section class="q-pt-none q-py-lg">
       <!--  -->
       <q-expansion-item
         group="somegroup"
@@ -15,15 +15,15 @@
           <q-card-section>
             <q-form @submit.prevent="AddNotes">
               <q-input v-model="notetitle" label="Title:" :dense="dense" />
-              <q-input
-                v-model="notetext"
-                type="textarea"
-                label="Description" /><q-btn
+              <q-input v-model="notetext" type="textarea" label="Description" />
+              <q-btn
                 unelevated
                 rounded
-                color="teal"
                 label="Add Notes"
                 class="full-width q-ma-lg"
+                :class="{
+                  'text-teal-3 bg-secondary ': $q.dark.isActive,
+                }"
                 type="submit"
                 v-close-popup /></q-form
           ></q-card-section>
@@ -40,7 +40,10 @@
         :key="index"
         @hold.native="deleteNoteConfirm(index)"
       >
-        <q-card class="text-subtitle1 text-grey-7 text-weight-light">
+        <q-card
+          class="text-subtitle1 text-grey-7 text-weight-light"
+          :class="{ 'text-grey-3 bg-primary ': $q.dark.isActive }"
+        >
           <q-card-section>{{ note.note_text }}</q-card-section>
 
           <!-- Show delete icon -->

@@ -1,7 +1,12 @@
 <template>
   <div class="container">
     <div class="row">
-      <div :class="{ 'col-9': $q.screen.gt.sm, 'col-12': $q.screen.lt.sm }">
+      <div
+        :class="{
+          'col-9': $q.screen.gt.sm,
+          'col-12': $q.screen.lt.sm,
+        }"
+      >
         <div class="row justify-center">
           <div :class="{ 'col-4': $q.screen.gt.sm, 'col-12': $q.screen.lt.sm }">
             <card1 />
@@ -21,9 +26,7 @@
             <table1 />
           </div>
           <div :class="{ 'col-4': $q.screen.gt.sm, 'col-12': $q.screen.lt.sm }">
-            <q-card flat bordered class="my-card">
-              <notes id="notes" />
-            </q-card>
+            <notes id="notes" />
           </div>
         </div>
       </div>

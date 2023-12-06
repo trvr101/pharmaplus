@@ -1,5 +1,5 @@
 <template>
-  <q-card flat bordered class="my-card q-my-lg">
+  <q-card flat :bordered="!$q.dark.isActive" class="my-card q-my-lg">
     <div class="fit column justify-center items-center content-center">
       <q-avatar size="170px" color="teal" text-color="white" class="q-ma-lg"
         ><img

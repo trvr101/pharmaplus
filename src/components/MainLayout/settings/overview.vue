@@ -1,5 +1,9 @@
 <template>
-  <q-card flat bordered class="my-card q-mb-lg" style="overflow: hidden"
+  <q-card
+    flat
+    :bordered="!$q.dark.isActive"
+    class="my-card q-mb-lg"
+    style="overflow: hidden"
     ><div class="q-pa-lg">
       <q-icon name="work_history" size="md" color="primary" />
       <q-table
@@ -23,7 +27,12 @@
     </div>
     <q-linear-progress :value="1" color="teal-3" :max="100"
   /></q-card>
-  <q-card flat bordered class="my-card q-my-lg" style="overflow: hidden">
+  <q-card
+    flat
+    :bordered="!$q.dark.isActive"
+    class="my-card q-my-lg"
+    style="overflow: hidden"
+  >
     <div class="q-pa-lg">
       <q-timeline color="teal">
         <q-timeline-entry heading class="text-primary">
@@ -61,7 +70,11 @@
     </div>
     <q-linear-progress :value="1" color="teal-3" :max="100" />
   </q-card>
-  <q-card flat bordered class="my-card q-mb-lg" style="overflow: hidden"
+  <q-card
+    flat
+    :bordered="!$q.dark.isActive"
+    class="my-card q-mb-lg"
+    style="overflow: hidden"
     ><div class="q-pa-lg">
       <q-icon name="work_history" size="md" color="primary" />
       <q-table

@@ -1,13 +1,21 @@
 <template>
-  <q-card flat bordered class="my-card">
+  <q-card
+    flat
+    :bordered="!$q.dark.isActive"
+    class="my-card"
+    :class="{ 'text-grey-6 bg-primary ': $q.dark.isActive }"
+  >
     <q-card-section class="q-pa-lg">
       <q-btn
         rounded
         class="absolute-top-right q-ma-lg"
+        :class="{
+          'text-teal-3 bg-secondary ': $q.dark.isActive,
+          'bg-teal text-grey-3': !$q.dark.isActive,
+        }"
         icon="get_app"
         @click="exportTable"
         label="Export"
-        color="teal"
         unelevated
       />
     </q-card-section>
@@ -21,6 +29,7 @@
         row-key="user_id"
         :visible-columns="visibleColumns"
         :filter="filter"
+        :class="{ 'text-grey-3 bg-primary ': $q.dark.isActive }"
       >
         <template v-slot:top-left>
           <q-input

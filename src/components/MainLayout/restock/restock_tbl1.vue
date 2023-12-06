@@ -1,5 +1,5 @@
 <template>
-  <q-card class="my-card my-card-inventory" flat bordered>
+  <q-card class="my-card my-card-inventory" flat :bordered="!$q.dark.isActive">
     <q-card-section class="q-pa-lg">
       <q-btn
         rounded
@@ -7,8 +7,11 @@
         icon="file_download"
         @click="exportTable"
         label="report"
-        color="teal"
         unelevated
+        :class="{
+          'text-teal-3 bg-secondary ': $q.dark.isActive,
+          'bg-teal text-grey-3': !$q.dark.isActive,
+        }"
       />
     </q-card-section>
     <q-card-section class="q-pt-none q-ma-lg">

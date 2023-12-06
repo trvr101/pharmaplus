@@ -1,5 +1,5 @@
 <template>
-  <q-card flat bordered class="my-card">
+  <q-card flat :bordered="!$q.dark.isActive" class="my-card">
     <!-- Carousel -->
     <q-carousel
       v-model="slide"
@@ -14,7 +14,8 @@
       padding
       infinite
       :autoplay="10000"
-      class="bg-white text-dark shadow-1 rounded-borders q-pa-none"
+      class="bg-white text-dark rounded-borders q-pa-none"
+      :class="{ 'bg-transparent': $q.dark.isActive }"
       style="height: 100%"
     >
       <q-carousel-slide name="style">

@@ -1,5 +1,11 @@
 <template>
-  <q-card flat bordered class="my-card text-primary" style="overflow: hidden">
+  <q-card
+    flat
+    :bordered="!$q.dark.isActive"
+    class="my-card text-primary"
+    style="overflow: hidden"
+    :class="{ 'text-grey-3 bg-primary ': $q.dark.isActive }"
+  >
     <q-card-section>
       <div class="text-h6">Total Unique Items</div>
       <div class="q-display-2">{{ totalItems }}</div>

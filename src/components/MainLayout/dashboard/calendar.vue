@@ -3,15 +3,20 @@
     v-model="days"
     minimal
     flat
-    bordered
+    :bordered="!$q.dark.isActive"
     range
     multiple
     today-btn
     class="q-pa-none"
     color="teal-3"
+    :class="{ 'text-grey-3 bg-primary': $q.dark.isActive }"
   >
+    >
     <!-- timeline of the schedule -->
-    <q-timeline color="teal-4">
+    <q-timeline
+      color="teal-4"
+      :class="{ 'text-grey-3 bg-primary ': $q.dark.isActive }"
+    >
       <q-timeline-entry v-for="(schedule, index) in schedules" :key="index">
         <template v-slot:title class="text-h6">{{
           schedule.description

@@ -4,6 +4,7 @@
     container
     style="height: 100vh"
     class="text-dark MainLayout"
+    :class="{ 'text-teal-2 bg-grey-10 ': $q.dark.isActive }"
   >
     <DrawerHeader />
     <q-page-container>

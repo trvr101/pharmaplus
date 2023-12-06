@@ -2,6 +2,7 @@
   <div class="row">
     <q-col :class="{ 'col-3': $q.screen.gt.sm, 'col-12': $q.screen.lt.sm }">
       <card1 />
+      <card5 />
     </q-col>
     <q-col :class="{ 'col-9': $q.screen.gt.sm, 'col-12': $q.screen.lt.sm }">
       <q-tabs
@@ -17,7 +18,11 @@
         <q-tab name="notification" icon="notifications" label="Notification" />
         <q-tab name="connections" icon="groups" label="Connections" />
       </q-tabs>
-      <q-tab-panels v-model="tab" animated class="bg-teal-1">
+      <q-tab-panels
+        v-model="tab"
+        animated
+        :class="{ 'bg-grey-10 ': $q.dark.isActive }"
+      >
         <q-tab-panel name="overview">
           <overview />
         </q-tab-panel>
@@ -37,12 +42,13 @@
 <script>
 import { ref } from "vue";
 import card1 from "components/MainLayout/settings/card1";
+import card5 from "components/MainLayout/settings/card5";
 import overview from "components/MainLayout/settings/overview";
 import security from "components/MainLayout/settings/security";
 import notification from "components/MainLayout/settings/notification";
 import connections from "components/MainLayout/settings/connections";
 export default {
-  components: { security, card1, notification, overview, connections },
+  components: { security, card1, card5, notification, overview, connections },
   setup() {
     return {
       tab: ref("overview"),

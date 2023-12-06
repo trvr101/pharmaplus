@@ -1,5 +1,13 @@
 <template>
-  <q-header bordered v-if="$q.screen.gt.xs" class="q-ma-sm bg-teal">
+  <q-header
+    :bordered="!$q.dark.isActive"
+    v-if="$q.screen.gt.xs"
+    class="q-ma-sm"
+    :class="{
+      ' bg-secondary ': $q.dark.isActive,
+      'bg-teal': !$q.dark.isActive,
+    }"
+  >
     <q-toolbar>
       <q-btn
         flat
@@ -18,7 +26,7 @@
         >PharmaPlus+</q-toolbar-title
       >
       <q-space />
-
+      <!-- Dark Mode toggle -->
       <q-toggle
         v-model="darkmode"
         checked-icon="dark_mode"
@@ -45,7 +53,7 @@
     mini-to-overlay
     :width="210"
     :breakpoint="500"
-    bordered
+    :bordered="!$q.dark.isActive"
     :class="
       'bg-' + $q.dark.isActive ? 'primary' : 'secondary' + ' text-primary'
     "
@@ -201,6 +209,11 @@ export default {
       logout,
       darkmode: ref(false),
     };
+  },
+  watch: {
+    darkmode(newVal) {
+      this.$q.dark.set(newVal ? "auto" : false);
+    },
   },
 };
 </script>
