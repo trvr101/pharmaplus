@@ -102,8 +102,21 @@
           <q-item-section avatar>
             <q-icon name="manage_accounts" />
           </q-item-section>
-          <q-item-section> User Management</q-item-section> </q-item
-        ><q-item
+          <q-item-section> User Management</q-item-section>
+        </q-item>
+        <q-item
+          clickable
+          v-ripple
+          :class="{ 'active-item': $route.path === '/branch' }"
+          to="/branch"
+        >
+          <q-item-section avatar>
+            <q-icon name="store" />
+          </q-item-section>
+
+          <q-item-section> Manage Branch </q-item-section>
+        </q-item>
+        <q-item
           clickable
           v-ripple
           :class="{ 'active-item': $route.path === '/mapping' }"

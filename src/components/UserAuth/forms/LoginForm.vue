@@ -13,10 +13,9 @@
     />
   </q-form>
 </template>
-
 <script>
 import { api } from "src/boot/axios";
-import Cookies from "js-cookie";
+import { Notify } from "quasar"; // Import the Notify component
 
 export default {
   data() {
@@ -59,9 +58,26 @@ export default {
           } else if (user_role === "cashier") {
             this.$router.push("/POS");
           }
+
+          // Display a success notification
+          Notify.create({
+            message: "Login successful!",
+            color: "teal",
+            position: "bottom",
+            timeout: 3000, // Adjust timeout as needed
+          });
         }
       } catch (error) {
         console.error("Error during login:", error);
+
+        // Display an error notification
+        Notify.create({
+          message: "Error during login. Please try again.",
+          color: "negative",
+          position: "bottom",
+          timeout: 3000, // Adjust timeout as needed
+        });
+
         // Handle other errors if needed
       }
     },

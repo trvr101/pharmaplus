@@ -6,6 +6,7 @@
         'no-margin': $q.screen.lt.sm,
       }"
     >
+      <!-- Add Notes Expansion Item -->
       <q-expansion-item
         group="somegroup"
         :header-class="{
@@ -15,7 +16,6 @@
         :class="{
           'text-teal-3': $q.dark.isActive,
         }"
-        :key="index"
         label="Add Notes"
         expand-icon="add"
         dense-toggle
@@ -24,12 +24,20 @@
         <q-card>
           <q-card-section>
             <q-form @submit.prevent="AddNotes">
+              <!-- Title Input -->
               <q-input
-                v-model="notetitle"
+                v-model="note_title"
                 label="Title:"
                 :label-color="secondary"
-                :dense="dense" />
-              <q-input v-model="notetext" type="textarea" label="Description" />
+                :dense="dense"
+              />
+              <!-- Description Input -->
+              <q-input
+                v-model="note_content"
+                type="textarea"
+                label="Description"
+              />
+              <!-- Add Notes Button -->
               <q-btn
                 unelevated
                 rounded
@@ -40,14 +48,49 @@
                   'bg-teal text-grey-3': !$q.dark.isActive,
                 }"
                 type="submit"
-                v-close-popup /></q-form
-          ></q-card-section>
-
-          <!-- Show delete icon -->
+                @click="closeAddNotesDialog"
+              />
+            </q-form>
+          </q-card-section>
         </q-card>
       </q-expansion-item>
-      <!--  -->
 
+      <!-- Edit Notes Dialog -->
+      <q-dialog v-model="editDialog" @hide="resetEditData">
+        <q-card>
+          <q-card-section>
+            <q-form @submit.prevent="editNote">
+              <!-- Edit Title Input -->
+              <q-input
+                v-model="editedNoteTitle"
+                label="Edit Title:"
+                :label-color="secondary"
+                :dense="dense"
+              />
+              <!-- Edit Description Input -->
+              <q-input
+                v-model="editedNoteText"
+                type="textarea"
+                label="Edit Description"
+              />
+              <!-- Update Notes Button -->
+              <q-btn
+                unelevated
+                rounded
+                label="Update Notes"
+                class="full-width q-ma-lg"
+                :class="{
+                  'text-teal-3 bg-secondary ': $q.dark.isActive,
+                  'bg-teal text-grey-3': !$q.dark.isActive,
+                }"
+                type="submit"
+              />
+            </q-form>
+          </q-card-section>
+        </q-card>
+      </q-dialog>
+
+      <!-- Display Notes Expansion Items -->
       <q-expansion-item
         group="somegroup"
         :label="note.note_title"
@@ -57,14 +100,14 @@
         }"
         v-for="(note, index) in notes"
         :key="index"
-        @hold.native="deleteNoteConfirm(index)"
+        @hold.native="openEditDialog(index)"
       >
+        <!-- Display Note Card -->
         <q-card
           class="text-subtitle1 text-grey-7 text-weight-light"
           :class="{ 'text-grey-3 bg-   ': $q.dark.isActive }"
         >
           <q-card-section>{{ note.note_content }}</q-card-section>
-
           <q-card-actions align="right">
             <q-checkbox
               left-label
@@ -107,8 +150,8 @@ import { api } from "src/boot/axios";
 export default {
   data() {
     return {
-      notetitle: "",
-      notetext: "",
+      note_title: "",
+      note_content: "",
       notes: [], // Array to store fetched notes
     };
   },
@@ -123,12 +166,12 @@ export default {
     async AddNotes() {
       try {
         const response = await api.post("/AddNotes", {
-          note_title: this.notetitle,
-          note_text: this.notetext,
+          note_title: this.note_title,
+          note_content: this.note_content,
         });
 
-        this.notetitle = "";
-        this.notetext = "";
+        this.note_title = "";
+        this.note_content = "";
 
         // Show success notification
         this.$q.notify({

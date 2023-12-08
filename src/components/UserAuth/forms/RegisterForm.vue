@@ -48,9 +48,24 @@ export default {
         this.message = response.data.msg;
 
         if (response.data.msg === "okay") {
-          sessionStorage.setItem("jwt", response.data.token);
+          const token = response.data.token;
+          const user_role = response.data.user_role;
+
+          // Store the token in session storage
+          sessionStorage.setItem("token", token);
+          sessionStorage.setItem("user_role", user_role);
+
+          // Redirect based on user role
+          if (user_role === "admin") {
+            this.$router.push("/dashboard");
+          } else if (user_role === "cashier") {
+            this.$router.push("/POS");
+          } else {
+            // Add a default redirection if needed
+            this.$router.push("/default");
+          }
+
           Notify.create("Registered successfully");
-          this.$router.push("/login");
         }
       } catch (error) {
         console.error("Registration failed:", error);
