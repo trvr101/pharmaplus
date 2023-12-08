@@ -4,8 +4,7 @@
     minimal
     flat
     :bordered="!$q.dark.isActive"
-    range
-    multiple
+    :events="events"
     today-btn
     class="q-pa-none"
     color="teal"
@@ -16,17 +15,22 @@
       color="teal-4"
       :class="{ 'text-grey-3 bg-primary ': $q.dark.isActive }"
     >
-      <q-timeline-entry v-for="(schedule, index) in schedules" :key="index">
-        <template v-slot:title class="text-h6">{{
-          schedule.description
-        }}</template>
+      <q-timeline-entry
+        v-for="(schedule, index) in schedules"
+        :key="index"
+        :icon="schedule.privacy === 'branch' ? 'store' : 'person'"
+      >
+        <template v-slot:title class="text-h6">
+          {{ schedule.privacy === "branch" ? "Branch: " : "Private: " }}
+          {{ schedule.event_name }}
+        </template>
         <template v-slot:subtitle class="text-caption">
-          {{ formatDate(schedule.start_time) }} -
-          {{ formatDate(schedule.end_time) }}
+          {{ formatDate(schedule.start_date) }} -
+          {{ formatDate(schedule.end_date) }}
         </template>
 
         <div class="text-body1">
-          {{ schedule.privacy === "branch" ? "Branch " : "Private " }}
+          {{ schedule.additional_details || "No additional details" }}
         </div>
       </q-timeline-entry>
     </q-timeline>
@@ -49,21 +53,25 @@ export default {
 
     const fetchSchedules = async () => {
       try {
-        const response = await api.get("/SchedList"); // Replace with your API endpoint
+        const response = await api.get("/ScheduleList");
         schedules.value = response.data;
+
+        days.value = schedules.value.map((schedule) => ({
+          from: schedule.start_date,
+          to: schedule.end_date,
+          style: {
+            backgroundColor: schedule.privacy === "branch" ? "green" : "red",
+            color: "white",
+          },
+        }));
       } catch (error) {
         console.error("Error fetching schedules:", error);
       }
     };
 
-    // Fetch schedule data when the component is mounted
     onMounted(() => {
       fetchSchedules();
-
-      // Set up polling to fetch schedule data every 5 seconds (adjust as needed)
       const pollingInterval = setInterval(fetchSchedules, 1000);
-
-      // Clean up the interval when the component is unmounted
       onBeforeUnmount(() => {
         clearInterval(pollingInterval);
       });
@@ -73,6 +81,11 @@ export default {
       days,
       schedules,
       formatDate,
+      date: ref("2023/12/11"),
+      events: schedules.value.map((schedule) => ({
+        start: schedule.start_date,
+        end: schedule.end_date,
+      })),
     };
   },
 };

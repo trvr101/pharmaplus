@@ -1,5 +1,6 @@
 <template>
   <q-form @submit.prevent="AddSched">
+    <q-input v-model="event_name" placeholder="Event Name" />
     <q-input
       v-model="startdate"
       mask="date"
@@ -16,8 +17,9 @@
             </q-date>
           </q-popup-proxy>
         </q-icon>
-      </template> </q-input
-    ><q-input
+      </template>
+    </q-input>
+    <q-input
       v-model="enddate"
       mask="date"
       :rules="['date']"
@@ -56,15 +58,15 @@
       unelevated
       rounded
       color="primary"
-      label="Add Schedule"
-      class="full-width"
+      label="Add Notes"
+      class="full-width q-ma-lg"
       outline
       type="submit"
       v-close-popup
-      to="#note"
     />
   </q-form>
 </template>
+
 <script>
 import { api } from "src/boot/axios";
 import { ref } from "vue";
@@ -72,6 +74,7 @@ import { ref } from "vue";
 export default {
   data() {
     return {
+      event_name: "",
       startdate: "",
       enddate: "",
       description: "",
@@ -79,29 +82,44 @@ export default {
     };
   },
   methods: {
-    async AddSched() {
+    async addSched() {
       try {
         const response = await api.post("/AddSched", {
+          event_name: this.event_name,
           startdate: this.startdate,
           enddate: this.enddate,
           description: this.description,
           privacy: this.privacy,
         });
         console.log(response.data);
+
+        // Show success notification
+        this.$q.notify({
+          color: "green-4",
+          icon: "check",
+          message: "Note added successfully.",
+        });
       } catch (error) {
-        console.error("Error during login:", error);
+        console.error("Error adding schedule:", error);
+
+        // Show error notification
+        this.$q.notify({
+          color: "pink-5",
+          icon: "warning",
+          message: "Failed to add note. Please try again.",
+        });
       }
     },
   },
-  setup() {
-    return {
-      startdate: ref(""),
-      enddate: ref(""),
-      privacy: ref("only me"),
-    };
-  },
 };
 </script>
+
+<style>
+.my-custom-toggle {
+  border: 1px solid #00444a;
+}
+</style>
+
 <style>
 .my-custom-toggle {
   border: 1px solid #00444a;
