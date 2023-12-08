@@ -87,24 +87,31 @@ export default {
       items: [],
       columns: [
         {
-          name: "item_id",
+          name: " product_id",
           label: "Item ID",
           align: "left",
-          field: "item_id",
+          field: "product_id",
           sortable: true,
         },
         {
-          name: "item_name",
-          label: "Item Name",
+          name: "product_name",
+          label: "Product Name",
           align: "left",
-          field: "item_name",
+          field: "product_name",
           sortable: true,
         },
         {
-          name: "strength",
-          label: "Strength",
+          name: "description",
+          label: "Description",
           align: "left",
-          field: "strength",
+          field: "description",
+          sortable: true,
+        },
+        {
+          name: "price",
+          label: "Price",
+          align: "left",
+          field: "price",
           sortable: true,
         },
         {
@@ -115,10 +122,10 @@ export default {
           sortable: true,
         },
         {
-          name: "category_id",
+          name: "category",
           label: "Category ID",
           align: "left",
-          field: "category_id",
+          field: "category",
           sortable: true,
         },
         {
@@ -146,7 +153,7 @@ export default {
   methods: {
     async fetchItems() {
       try {
-        const response = await api.get("/ItemList");
+        const response = await api.get("/ProdList");
         // Add a 'number' property to each item for the custom column
         this.items = response.data.map((item) => ({ ...item, number: 0 }));
       } catch (error) {

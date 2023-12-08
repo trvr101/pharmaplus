@@ -4,33 +4,63 @@
       <div
         :class="{
           'col-9': $q.screen.gt.sm,
-          'col-12': $q.screen.lt.sm,
+          'col-12 no-margin no-padding': $q.screen.lt.sm,
         }"
       >
         <div class="row justify-center">
-          <div :class="{ 'col-4': $q.screen.gt.sm, 'col-12': $q.screen.lt.sm }">
+          <div
+            :class="{
+              'col-4': $q.screen.gt.sm,
+              'col-12  no-margin no-padding ': $q.screen.lt.sm,
+            }"
+          >
             <card1 />
           </div>
-          <div :class="{ 'col-4': $q.screen.gt.sm, 'col-12': $q.screen.lt.sm }">
+          <div
+            :class="{
+              'col-4': $q.screen.gt.sm,
+              'col-12  no-margin no-padding': $q.screen.lt.sm,
+            }"
+          >
             <card2 />
           </div>
-          <div :class="{ 'col-4': $q.screen.gt.sm, 'col-12': $q.screen.lt.sm }">
+          <div
+            :class="{
+              'col-4': $q.screen.gt.sm,
+              'col-12  no-margin no-padding': $q.screen.lt.sm,
+            }"
+          >
             <card3 />
           </div>
         </div>
         <div class="row justify-center">
-          <div :class="{ 'col-8': $q.screen.gt.sm, 'col-12': $q.screen.lt.sm }">
+          <div
+            :class="{
+              'col-8': $q.screen.gt.sm,
+              'col-12 no-margin no-padding': $q.screen.lt.sm,
+            }"
+          >
             <mainchart />
 
             <!-- Table -->
             <table1 />
           </div>
-          <div :class="{ 'col-4': $q.screen.gt.sm, 'col-12': $q.screen.lt.sm }">
-            <notes id="notes" />
+          <div
+            :class="{
+              'col-4': $q.screen.gt.sm,
+              'col-12 no-margin no-padding': $q.screen.lt.sm,
+            }"
+          >
+            <notes />
           </div>
         </div>
       </div>
-      <div :class="{ 'col-3': $q.screen.gt.sm, 'col-12': $q.screen.lt.sm }">
+      <div
+        :class="{
+          'col-3': $q.screen.gt.sm,
+          'col-12 no-margin no-padding': $q.screen.lt.sm,
+        }"
+      >
         <!-- TODO evemt -->
         <calendar />
         <!-- Notes -->

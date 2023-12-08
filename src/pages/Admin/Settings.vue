@@ -9,7 +9,11 @@
         v-model="tab"
         dense
         align="justify"
-        class="text-teal q-mx-lg"
+        class="q-mx-lg"
+        :class="{
+          'text-teal-3': $q.dark.isActive,
+          'text-teal': !$q.dark.isActive,
+        }"
         :breakpoint="0"
         inline-label
       >
@@ -21,7 +25,10 @@
       <q-tab-panels
         v-model="tab"
         animated
-        :class="{ 'bg-grey-10 ': $q.dark.isActive }"
+        :class="{
+          'bg-grey-10 ': $q.dark.isActive,
+          'bg-teal-1 ': !$q.dark.isActive,
+        }"
       >
         <q-tab-panel name="overview">
           <overview />

@@ -12,6 +12,7 @@
           class="my-card"
           flat
           :bordered="!$q.dark.isActive"
+          v-for="n in 9"
         >
           <q-item>
             <q-item-section avatar>

@@ -8,10 +8,9 @@
     multiple
     today-btn
     class="q-pa-none"
-    color="teal-3"
+    color="teal"
     :class="{ 'text-grey-3 bg-primary': $q.dark.isActive }"
   >
-    >
     <!-- timeline of the schedule -->
     <q-timeline
       color="teal-4"

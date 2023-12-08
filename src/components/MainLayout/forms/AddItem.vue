@@ -1,13 +1,14 @@
 <template>
-  <q-form @submit.prevent="AddItem">
-    <q-input v-model="item_name" label="Item name" :dense="dense" />
-    <q-input v-model="item_strength" label="Strength" :dense="dense" />
+  <q-form @submit.prevent="AddProd">
+    <q-input v-model="prod_name" label="Item name" :dense="dense" />
+    <q-input v-model="prod_desc" label="Description" :dense="dense" />
+    <q-input v-model="prod_price" label="Price" :dense="dense" />
     <q-select
       :loading="fetchingCateg"
       v-model="selectedCateg"
       :options="Categ"
       option-label="category_name"
-      option-value="category_id"
+      option-value="category_name"
       label="Category"
       input-debounce="500"
       :filter="!selectedCateg"
@@ -40,8 +41,9 @@ const fetchingCateg = ref(false);
 export default {
   data() {
     return {
-      item_name: "",
-      item_strength: "",
+      prod_name: "",
+      prod_desc: "",
+      prod_price: "",
       selectedCateg: "",
     };
   },
@@ -81,17 +83,18 @@ export default {
     };
   },
   methods: {
-    async AddItem() {
+    async AddProd() {
       try {
         const payload = {
-          item_name: this.item_name,
-          item_strength: this.item_strength,
-          category_id: this.selectedCateg
-            ? this.selectedCateg.category_id
+          prod_name: this.prod_name,
+          prod_desc: this.prod_desc,
+          prod_price: this.prod_price,
+          category_name: this.selectedCateg
+            ? this.selectedCateg.category_name
             : null,
         };
 
-        const response = await api.post("/AddItem", payload);
+        const response = await api.post("/AddProd", payload);
         console.log(response.data);
       } catch (error) {
         console.error("Error during AddItem:", error);

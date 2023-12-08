@@ -1,7 +1,7 @@
 <template>
   <q-form @submit.prevent="AddNotes">
-    <q-input v-model="notetitle" label="Title:" :dense="dense" />
-    <q-input v-model="notetext" type="textarea" label="Description" />
+    <q-input v-model="note_title" label="Title:" :dense="dense" />
+    <q-input v-model="note_content" type="textarea" label="Description" />
     <q-btn
       unelevated
       rounded
@@ -20,16 +20,16 @@ import { api } from "src/boot/axios";
 export default {
   data() {
     return {
-      notetitle: "",
-      notetext: "",
+      note_title: "",
+      note_content: "",
     };
   },
   methods: {
     async AddNotes() {
       try {
         const response = await api.post("/AddNotes", {
-          note_title: this.notetitle,
-          note_text: this.notetext,
+          note_title: this.note_title,
+          note_content: this.note_content,
         });
         console.log(response.data);
       } catch (error) {

@@ -21,7 +21,7 @@
         class="q-ml-md"
         :class="{
           '': $q.screen.gt.sm,
-          'absolute-center': $q.screen.lt.sm,
+          'absolute-center': $q.screen.lt.sm & $q.dark.isActive,
         }"
         >PharmaPlus+</q-toolbar-title
       >
@@ -39,7 +39,9 @@
         <q-icon name="notifications" size="sm" />
       </q-btn>
       <q-avatar class="q-mr-md">
-        <img src="https://img-9gag-fun.9cache.com/photo/aD4L5PN_460swp.webp" />
+        <img
+          src="https://scontent.fmnl13-2.fna.fbcdn.net/v/t39.30808-6/289414022_1203904480373456_2428413500028325985_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=efb6e6&_nc_eui2=AeFqwnoOZjDkyMBcuvpdLT-GRqFTvwUxfAlGoVO_BTF8CUL2x8W-PZWCVTeG_EEYQvJm9IBJ8soiTHcCo1iXYcU5&_nc_ohc=_2puhHggeOMAX-3kbyH&_nc_zt=23&_nc_ht=scontent.fmnl13-2.fna&oh=00_AfBF056F2kETrCfpCXvxfO2-MZiE-USLNQBXklQ5qoNgJw&oe=6578236D"
+        />
       </q-avatar>
     </q-toolbar>
   </q-header>
@@ -54,9 +56,10 @@
     :width="210"
     :breakpoint="500"
     :bordered="!$q.dark.isActive"
-    :class="
-      'bg-' + $q.dark.isActive ? 'primary' : 'secondary' + ' text-primary'
-    "
+    :class="{
+      'bg-teal': !$q.dark.isActive,
+      'bg-teal-1 item-dark': !$q.dark.isActive,
+    }"
   >
     <q-scroll-area class="fit" :horizontal-thumb-style="{ opacity: 0 }">
       <q-list class="q-flex">
@@ -224,10 +227,10 @@ export default {
   /* color: #14001f; */
   border-radius: 25px;
 }
-.q-item:hover,
 .active-item {
-  background-color: #80cbc4;
+  background-color: #5b7e7a;
   border-radius: 20px;
+  color: aliceblue;
 }
 #logout {
   border-radius: 15px;

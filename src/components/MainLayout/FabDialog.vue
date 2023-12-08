@@ -9,22 +9,28 @@
       direction="up"
       class="fixed-bottom-right"
       :class="{
-        'text-primary  bg-teal-3 ': $q.dark.isActive,
+        'text-grey-3  bg-secondary ': $q.dark.isActive,
         'text-white  bg-teal ': !$q.dark.isActive,
       }"
     >
       <q-fab-action
-        text-color=""
         color="primary"
         @click="onClick"
         icon="qr_code_scanner"
         to="/scanner"
+        :class="{
+          'text-grey-3  bg-secondary ': $q.dark.isActive,
+          'text-white  bg-teal ': !$q.dark.isActive,
+        }"
       ></q-fab-action
       ><q-fab-action
-        text-color=""
         color="primary"
         @click="open('bottom')"
         icon="add"
+        :class="{
+          'text-grey-3  bg-secondary ': $q.dark.isActive,
+          'text-white  bg-teal ': !$q.dark.isActive,
+        }"
       ></q-fab-action>
     </q-fab>
   </q-page-sticky>

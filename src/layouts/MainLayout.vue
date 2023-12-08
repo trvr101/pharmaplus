@@ -8,7 +8,12 @@
   >
     <DrawerHeader />
     <q-page-container>
-      <router-view class="q-ma-sm q-mt-md" />
+      <router-view
+        :class="{
+          'q-ma-sm q-mt-md': $q.screen.gt.sm,
+          'no-margin no-padding': $q.screen.lt.sm,
+        }"
+      />
     </q-page-container>
     <Footer />
     <FabDialog />

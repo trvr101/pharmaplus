@@ -1,5 +1,13 @@
 <template>
-  <q-footer bordered reveal v-if="$q.screen.lt.sm" class="bg-teal shadow-up-1">
+  <q-footer
+    :bordered="!$q.dark.isActive"
+    reveal
+    v-if="$q.screen.lt.sm"
+    :class="{
+      'text-grey-3 bg-secondary ': $q.dark.isActive,
+      'bg-teal shadow-up-1': !$q.dark.isActive,
+    }"
+  >
     <q-toolbar>
       <q-tabs
         v-model="currentTab"
