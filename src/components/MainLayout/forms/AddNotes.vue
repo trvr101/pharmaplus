@@ -14,6 +14,7 @@
     />
   </q-form>
 </template>
+
 <script>
 import { api } from "src/boot/axios";
 
@@ -31,9 +32,24 @@ export default {
           note_title: this.note_title,
           note_content: this.note_content,
         });
+
+        // Show success notification
+        this.$q.notify({
+          color: "teal",
+          icon: "check_circle",
+          message: "Note added successfully",
+        });
+
         console.log(response.data);
       } catch (error) {
         console.error("Error note insertion:", error);
+
+        // Show error notification
+        this.$q.notify({
+          color: "pink-5",
+          icon: "warning",
+          message: "Failed to add note. Please try again.",
+        });
       }
     },
   },

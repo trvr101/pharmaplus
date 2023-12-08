@@ -63,7 +63,7 @@
           class="text-subtitle1 text-grey-7 text-weight-light"
           :class="{ 'text-grey-3 bg-   ': $q.dark.isActive }"
         >
-          <q-card-section>{{ note.note_text }}</q-card-section>
+          <q-card-section>{{ note.note_content }}</q-card-section>
 
           <q-card-actions align="right">
             <q-checkbox
@@ -73,14 +73,18 @@
               checked-icon="task_alt"
               unchecked-icon="highlight_off"
               @input="updateNoteStatus(note)"
-            />
-            <q-btn
-              icon="edit"
-              color="teal"
-              flat
-              size="sm"
-              @click="editNotePopup(note)"
-            />
+            >
+              <q-tooltip
+                v-if="note.status == 'undone'"
+                transition-show="scale"
+                transition-hide="scale"
+              >
+                Mark as done
+              </q-tooltip>
+              <q-tooltip v-else transition-show="scale" transition-hide="scale">
+                Mark as undone
+              </q-tooltip>
+            </q-checkbox>
             <q-btn
               icon="delete"
               color="teal"
@@ -97,6 +101,7 @@
 </template>
 
 <script>
+import { ref } from "vue";
 import { api } from "src/boot/axios";
 
 export default {
@@ -121,19 +126,57 @@ export default {
           note_title: this.notetitle,
           note_text: this.notetext,
         });
+
         this.notetitle = "";
         this.notetext = "";
+
+        // Show success notification
+        this.$q.notify({
+          color: "teal",
+          icon: "check_circle",
+          message: "Note added successfully",
+        });
+
         console.log(response.data);
       } catch (error) {
         console.error("Error note insertion:", error);
+
+        // Show error notification
+        this.$q.notify({
+          color: "red-5",
+          icon: "warning",
+          message: "Failed to add note. Please try again.",
+        });
       }
     },
+
     async fetchNotes() {
       try {
         const response = await api.get("/NotesList"); // Replace with your API endpoint
         this.notes = response.data;
       } catch (error) {
         console.error("Error fetching notes:", error);
+      }
+    },
+    async updateNoteStatus(note) {
+      try {
+        const response = await api.put(`/UpdateNoteStatus/${note.note_id}`, {
+          status: note.status === "done", // Convert to boolean
+        });
+        console.log(response.data);
+      } catch (error) {
+        console.error("Error updating note status:", error);
+      }
+    },
+
+    async deleteNoteConfirm(noteId) {
+      if (window.confirm("Are you sure you want to delete this note?")) {
+        try {
+          const response = await api.delete(`/DeleteNote/${noteId}`);
+          console.log(response.data);
+        } catch (error) {
+          console.error("Error deleting note:", error);
+        }
       }
     },
   },
