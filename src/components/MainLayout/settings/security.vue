@@ -13,9 +13,10 @@
             flat
             class="my-card full-width q-pa-lg bg-teal-2"
             style="overflow: hidden"
-            ><strong> Ensure that these requirements are met</strong><br />
-            Minimum 8 characters long, uppercase & symbol</q-card
           >
+            <strong>Ensure that these requirements are met</strong><br />
+            Minimum 8 characters long, uppercase & symbol
+          </q-card>
         </div>
         <q-form>
           <div class="row q-ma-lg">
@@ -47,12 +48,79 @@
               'text-teal-3 bg-secondary ': $q.dark.isActive,
               'bg-teal text-grey-3': !$q.dark.isActive,
             }"
-            type="submit"
-            @click=""
+            @click="open('bottom')"
           />
+          <q-dialog v-model="confirm" :position="position">
+            <q-card
+              style="width: 100vw; height: 50dvh; border-radius: 40px"
+              maximized
+              class="q-pa-md"
+            >
+              <div class="text-center text-h6 q-ma-md">
+                Admin Identity Verification
+              </div>
+              <div class="q-ma-md">
+                <q-card
+                  flat
+                  class="my-card full-width q-pa-lg bg-teal-2 q-ma-lg"
+                  style="overflow: hidden; border-radius: 15px"
+                >
+                  <strong>Ensure that these requirements are met</strong><br />
+                  Minimum 8 characters long, uppercase & symbol
+                </q-card>
+              </div>
+              <q-input
+                v-model="text"
+                type="password"
+                label="Current Password"
+                color="teal"
+                rounded
+                outlined
+                class="q-ma-md"
+              >
+                <template v-slot:append>
+                  <q-icon
+                    name="close"
+                    @click="text = ''"
+                    class="cursor-pointer"
+                  />
+                </template>
+              </q-input>
+              <div class="text-right">
+                <q-btn rounded outline class="q-ma-md">Back</q-btn>
+                <q-btn>Confirm</q-btn>
+              </div>
+            </q-card>
+          </q-dialog>
         </q-form>
       </div>
       <q-linear-progress :value="1" color="teal-3" :max="100" />
     </q-card>
   </div>
 </template>
+
+<script>
+import { ref } from "vue";
+
+export default {
+  setup() {
+    const position = ref("bottom");
+    const confirm = ref(false);
+
+    const open = () => {
+      confirm.value = true;
+    };
+
+    const close = () => {
+      confirm.value = false;
+    };
+
+    return {
+      confirm,
+      position,
+      open,
+      close,
+    };
+  },
+};
+</script>

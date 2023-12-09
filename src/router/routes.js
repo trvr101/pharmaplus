@@ -111,6 +111,12 @@ const routes = [
         meta: { requiresAuth: true, requiresAdmin: true },
         beforeEnter: requireAdmin,
       },
+      {
+        path: "/branch",
+        component: () => import("pages/Admin/BranchManagement.vue"),
+        meta: { requiresAuth: true, requiresAdmin: true },
+        beforeEnter: requireAdmin,
+      },
       { path: "/message", component: () => import("pages/Admin/Message.vue") },
       {
         path: "/notifications",
@@ -125,8 +131,8 @@ const routes = [
         beforeEnter: requireAdmin,
       },
       {
-        path: "/pointofsale",
-        component: () => import("pages/Admin/PointOfSale.vue"),
+        path: "/sales",
+        component: () => import("pages/Admin/Sales.vue"),
         meta: { requiresAuth: true, requiresAdmin: true },
         beforeEnter: requireAdmin,
       },

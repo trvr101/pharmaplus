@@ -92,8 +92,22 @@
           <q-item-section avatar>
             <q-icon name="autorenew" />
           </q-item-section>
-          <q-item-section> Restock </q-item-section> </q-item
-        ><q-item
+          <q-item-section> Restock </q-item-section>
+        </q-item>
+        <q-item
+          clickable
+          v-ripple
+          :class="{ 'active-item': $route.path === '/sales' }"
+          to="/sales"
+        >
+          <q-item-section avatar>
+            <q-icon name="trending_up" />
+          </q-item-section>
+
+          <q-item-section> Sales Transaction </q-item-section>
+        </q-item>
+
+        <q-item
           clickable
           v-ripple
           :class="{ 'active-item': $route.path === '/userManagement' }"
@@ -132,16 +146,15 @@
         <q-item
           clickable
           v-ripple
-          :class="{ 'active-item': $route.path === '/pointofsale' }"
-          to="/pointofsale"
+          :class="{ 'active-item': $route.path === '/tutorial' }"
+          to="/tutorial"
         >
           <q-item-section avatar>
-            <q-icon name="point_of_sale" />
+            <q-icon name="help_outline" />
           </q-item-section>
 
-          <q-item-section> Point of Sale </q-item-section>
-        </q-item>
-        <q-item
+          <q-item-section> Help </q-item-section> </q-item
+        ><q-item
           clickable
           v-ripple
           :class="{ 'active-item': $route.path === '/settings' }"
