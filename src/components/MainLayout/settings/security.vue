@@ -52,7 +52,7 @@
           />
           <q-dialog v-model="confirm" :position="position">
             <q-card
-              style="width: 100vw; height: 50dvh; border-radius: 40px"
+              style="width: 100vw; height: 45dvh; border-radius: 40px"
               maximized
               class="q-pa-md"
             >
@@ -63,10 +63,13 @@
                 <q-card
                   flat
                   class="my-card full-width q-pa-lg bg-teal-2 q-ma-lg"
-                  style="overflow: hidden; border-radius: 15px"
                 >
-                  <strong>Ensure that these requirements are met</strong><br />
-                  Minimum 8 characters long, uppercase & symbol
+                  <p class="">
+                    To ensure the security of admin operations, please verify
+                    your identity before changing the password. This step is
+                    crucial in preventing unauthorized access and maintaining
+                    the integrity of the admin account.
+                  </p>
                 </q-card>
               </div>
               <q-input
@@ -74,7 +77,6 @@
                 type="password"
                 label="Current Password"
                 color="teal"
-                rounded
                 outlined
                 class="q-ma-md"
               >
@@ -87,8 +89,10 @@
                 </template>
               </q-input>
               <div class="text-right">
-                <q-btn rounded outline class="q-ma-md">Back</q-btn>
-                <q-btn>Confirm</q-btn>
+                <q-btn rounded outline class="text-teal q-mb-md">Back</q-btn>
+                <q-btn rounded flat class="bg-teal text-grey-3 q-mx-md q-mb-md"
+                  >Confirm <q-icon name="check" size="xs"
+                /></q-btn>
               </div>
             </q-card>
           </q-dialog>

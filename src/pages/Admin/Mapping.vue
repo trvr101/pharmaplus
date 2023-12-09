@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="no-scroll hide-scrollbar overflow-hidden-y">
     <div id="map" style="height: 94dvh; width: 96.3dvw"></div>
   </div>
 </template>
