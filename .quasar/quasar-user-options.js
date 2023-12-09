@@ -12,9 +12,9 @@
 
 
 
-import {Notify} from 'quasar'
+import {Notify,AppFullscreen,Dialog} from 'quasar'
 
 
 
-export default { config: {"dark":false},plugins: {Notify} }
+export default { config: {"dark":false},plugins: {Notify,AppFullscreen,Dialog} }
 

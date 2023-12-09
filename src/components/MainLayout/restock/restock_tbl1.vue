@@ -107,34 +107,7 @@ export default {
           field: "description",
           sortable: true,
         },
-        {
-          name: "price",
-          label: "Price",
-          align: "left",
-          field: "price",
-          sortable: true,
-        },
-        {
-          name: "branch_id",
-          label: "Branch ID",
-          align: "left",
-          field: "branch_id",
-          sortable: true,
-        },
-        {
-          name: "category",
-          label: "Category ID",
-          align: "left",
-          field: "category",
-          sortable: true,
-        },
-        {
-          name: "created_at",
-          label: "Created At",
-          align: "left",
-          field: "created_at",
-          sortable: true,
-        },
+
         {
           name: "number",
           label: "Number",

@@ -1,0 +1,1 @@
+"use strict";(globalThis["webpackChunkpharmaplus"]=globalThis["webpackChunkpharmaplus"]||[]).push([[730],{4730:(a,r,u)=>{u.r(r),u.d(r,{default:()=>p});var s=u(9835);function e(a,r){return(0,s.wg)(),(0,s.iD)("div")}var h=u(1639);const l={},n=(0,h.Z)(l,[["render",e]]),p=n}}]);

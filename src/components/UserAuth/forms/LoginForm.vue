@@ -12,6 +12,15 @@
       type="submit"
     />
   </q-form>
+  <q-btn
+    unelevated
+    rounded
+    outline
+    color="secondary"
+    @click="$q.fullscreen.toggle()"
+    :icon="$q.fullscreen.isActive ? 'fullscreen_exit' : 'fullscreen'"
+    class="float-right"
+  />
 </template>
 <script>
 import { api } from "src/boot/axios";

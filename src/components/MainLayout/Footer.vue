@@ -17,9 +17,6 @@
         <q-route-tab class="col" to="/dashboard" name="home">
           <q-icon name="home" size="xs" />
         </q-route-tab>
-        <q-route-tab class="col" to="/message" name="mail"
-          ><q-icon name="mail" size="xs" />
-        </q-route-tab>
 
         <q-route-tab class="col" to="/notifications" name="notifications"
           ><q-icon name="notifications" size="xs" />
@@ -27,6 +24,14 @@
         <q-route-tab class="col" to="/settings" name="qr_code_scanner"
           ><q-icon name="person" size="xs"
         /></q-route-tab>
+        <q-toggle
+          v-model="darkmode"
+          checked-icon="dark_mode"
+          color="primary"
+          keep-color
+          unchecked-icon="light_mode"
+          class="q-mr-md"
+        />
       </q-tabs>
     </q-toolbar>
   </q-footer>
@@ -39,7 +44,13 @@ export default {
   setup() {
     return {
       currentTab: ref("home"),
+      darkmode: ref(false),
     };
+  },
+  watch: {
+    darkmode(newVal) {
+      this.$q.dark.set(newVal ? "auto" : false);
+    },
   },
 };
 </script>

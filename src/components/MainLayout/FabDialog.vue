@@ -32,6 +32,14 @@
           'text-white  bg-teal ': !$q.dark.isActive,
         }"
       ></q-fab-action>
+      <q-fab-action
+        @click="$q.fullscreen.toggle()"
+        :icon="$q.fullscreen.isActive ? 'fullscreen_exit' : 'fullscreen'"
+        :class="{
+          'text-grey-3  bg-secondary ': $q.dark.isActive,
+          'text-white  bg-teal ': !$q.dark.isActive,
+        }"
+      ></q-fab-action>
     </q-fab>
   </q-page-sticky>
 
