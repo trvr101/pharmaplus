@@ -5,6 +5,7 @@
         label="Select multiple values"
         hint=""
         v-model="model"
+        color="teal"
         use-input
         use-chips
         multiple

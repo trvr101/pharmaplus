@@ -3,6 +3,7 @@
     <div class="q-pa-lg">
       <q-select
         label="Select multiple values"
+        color="teal"
         hint=""
         v-model="model"
         use-input

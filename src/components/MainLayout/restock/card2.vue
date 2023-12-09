@@ -4,6 +4,7 @@
       <q-select
         label="Select multiple values"
         hint=""
+        color="teal"
         v-model="model"
         use-input
         use-chips
