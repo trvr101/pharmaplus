@@ -65,13 +65,57 @@
         </q-card>
       </div>
     </div>
-    <q-table
-      :rows="filteredProdList"
-      :columns="columns"
-      row-key="product_id"
-      :pagination.sync="pagination"
-      :rows-per-page-options="[5, 10, 20, 50]"
-    />
+    <q-card
+      class="my-card my-card-inventory"
+      flat
+      :bordered="!$q.dark.isActive"
+    >
+      <table class="q-table">
+        <thead>
+          <tr>
+            <th
+              v-for="column in columns"
+              :key="column.name"
+              style="text-align: left"
+            >
+              {{ column.label }}
+            </th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr
+            v-for="product in products"
+            :key="product.product_id"
+            @click="onRowClick(product)"
+          >
+            <td v-for="column in columns" :key="column.name">
+              {{ product[column.field] }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </q-card>
+    <q-dialog v-model="dialog" position="bottom">
+      <q-card
+        style="width: 100vw; height: 60dvh; border-radius: 40px"
+        maximized
+        class="q-pa-md"
+      >
+        <q-card-section>
+          <q-card-title> Product Details </q-card-title>
+          <!-- Display product details here -->
+          <div v-for="column in columns" :key="column.name">
+            <strong>{{ column.label }}:</strong>
+            {{ selectedProduct[column.field] }}
+          </div>
+        </q-card-section>
+
+        <q-card-actions align="right">
+          <q-btn label="Close" color="primary" @click="closeDialog" />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
   </div>
 </template>
 
@@ -81,135 +125,74 @@ import { api } from "src/boot/axios";
 export default {
   data() {
     return {
-      prodList: [],
-      filteredProdList: [],
-      pagination: {
-        page: 1,
-        rowsPerPage: 5,
-      },
-      categoryFilter: "",
-      branchFilter: "",
-      statusFilter: "",
+      products: [],
       columns: [
         {
-          name: "item_number",
-          label: "#",
+          name: "product_id",
+          label: "Product ID",
           align: "left",
-          field: "item_number",
-          sortable: false,
+          field: "product_id",
         },
         {
           name: "product_name",
           label: "Product Name",
           align: "left",
           field: "product_name",
-          sortable: true,
         },
         {
           name: "description",
           label: "Description",
           align: "left",
           field: "description",
-          sortable: true,
         },
         {
           name: "quantity",
           label: "Quantity",
           align: "left",
           field: "quantity",
-          sortable: true,
         },
-        {
-          name: "price",
-          label: "Price",
-          align: "left",
-          field: "price",
-          sortable: true,
-        },
+        { name: "price", label: "Price", align: "left", field: "price" },
         {
           name: "category",
           label: "Category",
           align: "left",
           field: "category",
-          sortable: true,
         },
-        {
-          name: "status",
-          label: "Status",
-          align: "left",
-          field: "status",
-          sortable: true,
-        },
+        { name: "status", label: "Status", align: "left", field: "status" },
         {
           name: "created_at",
           label: "Created At",
           align: "left",
           field: "created_at",
-          sortable: true,
         },
       ],
+      dialog: false,
+      selectedProduct: {},
     };
   },
-  async created() {
-    // Fetch data using axios
-    try {
-      const response = await api.get("/ProdList"); // Adjust the API endpoint accordingly
-      this.prodList = response.data.map((item, index) => ({
-        ...item,
-        item_number: index + 1,
-      }));
-      this.filteredProdList = [...this.prodList];
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  },
-  computed: {
-    categoryOptions() {
-      // Extract unique category values from the data
-      return [...new Set(this.prodList.map((item) => item.category))];
-    },
-    branchOptions() {
-      // Extract unique branch values from the data
-      return [...new Set(this.prodList.map((item) => item.branch))];
-    },
-    statusOptions() {
-      // Extract unique status values from the data
-      return [...new Set(this.prodList.map((item) => item.status))];
-    },
-  },
-  watch: {
-    categoryFilter() {
-      this.filterData();
-    },
-    branchFilter() {
-      this.filterData();
-    },
-    statusFilter() {
-      this.filterData();
-    },
+  mounted() {
+    this.fetchData();
   },
   methods: {
-    filterData() {
-      // Apply filters to the data
-      this.filteredProdList = this.prodList.filter((item) => {
-        const categoryMatch = this.categoryFilter
-          ? item.category === this.categoryFilter
-          : true;
-        const branchMatch = this.branchFilter
-          ? item.branch === this.branchFilter
-          : true;
-        const statusMatch = this.statusFilter
-          ? item.status === this.statusFilter
-          : true;
-        return categoryMatch && branchMatch && statusMatch;
-      });
+    fetchData() {
+      api
+        .get("/ProdList")
+        .then((response) => {
+          this.products = response.data;
+        })
+        .catch((error) => {
+          console.error("Error fetching data:", error);
+        });
     },
-    filterFn(value, update) {
-      // Custom filter function for q-select
-      update(() => {
-        const needle = value.toLowerCase();
-        return this.options.filter((v) => v.toLowerCase().indexOf(needle) > -1);
-      });
+    onRowClick(product) {
+      console.log("Clicked row with product_id:", product.product_id);
+    },
+    onRowClick(product) {
+      this.selectedProduct = product;
+      this.dialog = true;
+    },
+    closeDialog() {
+      this.dialog = false;
     },
   },
 };
