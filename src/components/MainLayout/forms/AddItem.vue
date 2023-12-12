@@ -28,37 +28,25 @@
     />
   </q-form>
 </template>
-
 <script>
-import { ref, onMounted } from "vue";
+import { ref } from "vue";
 import { api } from "src/boot/axios";
 
-//Select
-const Categ = ref([]);
-const selectedCateg = ref(null);
-const fetchingCateg = ref(false);
-
 export default {
-  data() {
-    return {
-      prod_name: "",
-      prod_desc: "",
-      prod_price: "",
-      selectedCateg: "",
-    };
-  },
   setup() {
-    onMounted(() => {
-      // Call the fetchCateg function when the component is mounted
-      fetchCateg();
-    });
+    const Categ = ref([]);
+    const selectedCateg = ref(null);
+    const fetchingCateg = ref(false);
+    const token = sessionStorage.getItem("token");
+    const branchId = ref("");
+    const userId = ref("");
+
     const handleSelectChange = () => {
-      // Blur the q-select to remove focus
       document.activeElement.blur();
     };
+
     const filterCateg = (val, update) => {
       if (selectedCateg) {
-        // If an item is selected, do not perform filtering
         update(() => Categ.value);
         return;
       }
@@ -74,44 +62,76 @@ export default {
 
       update(() => filtered);
     };
-    return {
-      selectedCateg,
-      fetchingCateg,
-      filterCateg, // Add the filterCateg method to the returned object
-      handleSelectChange,
-      Categ,
-    };
-  },
-  methods: {
-    async AddProd() {
+
+    const addProduct = async () => {
       try {
         const payload = {
-          prod_name: this.prod_name,
-          prod_desc: this.prod_desc,
-          prod_price: this.prod_price,
-          category_name: this.selectedCateg
-            ? this.selectedCateg.category_name
-            : null,
+          my_user_id: userId.value,
+          branch_id: branchId.value,
+          prod_name: prodName.value,
+          prod_desc: prodDesc.value,
+          prod_price: prodPrice.value,
+          category_name: selectedCateg ? selectedCateg.category_name : null,
         };
+
+        // Set a loading indicator
+        fetchingCateg.value = true;
 
         const response = await api.post("/AddProd", payload);
         console.log(response.data);
       } catch (error) {
         console.error("Error during AddItem:", error);
+        // Enhance debugging by logging the entire error object
+        console.error(error);
+        // You can also check if the error has a response for more details
+        if (error.response) {
+          console.error("Response data:", error.response.data);
+          console.error("Response status:", error.response.status);
+          console.error("Response headers:", error.response.headers);
+        }
+      } finally {
+        // Reset loading indicator regardless of success or failure
+        fetchingCateg.value = false;
       }
-    },
+    };
+
+    const fetchCateg = async () => {
+      try {
+        fetchingCateg.value = true;
+        const response = await api.get("/ItemCategoryList");
+        Categ.value = response.data;
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+      } finally {
+        fetchingCateg.value = false;
+      }
+    };
+
+    const fetchProfile = async () => {
+      try {
+        const response = await api.get(`/profile/${token}`);
+        const profileData = response.data;
+        branchId.value = profileData.branch_id;
+        userId.value = profileData.user_id;
+      } catch (error) {
+        console.error("Error fetching user profile:", error);
+      }
+    };
+
+    // Fetch data on component mount
+    fetchCateg();
+    fetchProfile();
+
+    return {
+      Categ,
+      selectedCateg,
+      fetchingCateg,
+      branchId,
+      userId,
+      handleSelectChange,
+      filterCateg,
+      addProduct,
+    };
   },
 };
-async function fetchCateg() {
-  try {
-    fetchingCateg.value = true;
-    const response = await api.get("/ItemCategoryList");
-    Categ.value = response.data;
-    //  selectedCateg.value = Categ.value.length > 0 ? Categ.value[0] : null;
-  } catch (error) {
-    console.error("Error fetching categories:", error);
-  } finally {
-    fetchingCateg.value = false;
-  }
-}
 </script>

@@ -59,19 +59,19 @@ const requireCashier = (to, from, next) => {
 const routes = [
   {
     // open for all even no login
-    path: "/login",
-    component: () => import("layouts/UserAuth.vue"),
-
+    path: "/",
+    component: () => import("layouts/RegularUser.vue"),
     children: [
       {
-        path: "/login",
-        component: () => import("pages/UserAuth/Login.vue"),
-      },
-      {
-        path: "register",
-        component: () => import("pages/UserAuth/Register.vue"),
+        path: "/",
+        component: () => import("pages/RegularUser/Mapping.vue"),
       },
     ],
+  },
+  {
+    // open for all even no login
+    path: "/login",
+    component: () => import("layouts/UserAuth.vue"),
   },
   {
     // for admin with token only

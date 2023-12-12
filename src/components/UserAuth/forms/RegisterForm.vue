@@ -58,11 +58,13 @@ export default {
           // Redirect based on user role
           if (user_role === "admin") {
             this.$router.push("/dashboard");
+          } else if (user_role === "branch_admin") {
+            this.$router.push("/branch_admin");
           } else if (user_role === "cashier") {
             this.$router.push("/POS");
           } else {
             // Add a default redirection if needed
-            this.$router.push("/default");
+            this.$router.push("/");
           }
 
           Notify.create("Registered successfully");

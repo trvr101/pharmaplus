@@ -1,11 +1,11 @@
 <template>
   <q-form @submit.prevent="AddSched">
-    <q-input v-model="event_name" placeholder="Event Name" />
+    <q-input v-model="event_name" label="Event Name" />
     <q-input
       v-model="startdate"
       mask="date"
       :rules="['date']"
-      placeholder="Start Date"
+      label="Start Date"
     >
       <template v-slot:append>
         <q-icon name="event" class="cursor-pointer">
@@ -19,12 +19,7 @@
         </q-icon>
       </template>
     </q-input>
-    <q-input
-      v-model="enddate"
-      mask="date"
-      :rules="['date']"
-      placeholder="End Date"
-    >
+    <q-input v-model="enddate" mask="date" :rules="['date']" label="End Date">
       <template v-slot:append>
         <q-icon name="event" class="cursor-pointer">
           <q-popup-proxy cover transition-show="scale" transition-hide="scale">
@@ -37,12 +32,11 @@
         </q-icon>
       </template>
     </q-input>
-    <q-input v-model="description" autogrow placeholder="Description" />
-
+    <q-input v-model="description" autogrow label="Description" />
     <q-btn-toggle
       v-model="privacy"
       spread
-      class="my-custom-toggle q-my-lg"
+      class="my-custom-toggle q-ma-md"
       no-caps
       rounded
       unelevated
@@ -59,7 +53,7 @@
       rounded
       color="primary"
       label="Add Notes"
-      class="full-width q-ma-lg"
+      class="full-width q-ma-md"
       outline
       type="submit"
       v-close-popup

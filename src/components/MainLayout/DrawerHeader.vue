@@ -1,7 +1,7 @@
 <template>
   <q-header
     :bordered="!$q.dark.isActive"
-    v-if="$q.screen.gt.xs"
+    reveal
     class="q-ma-sm"
     :class="{
       ' bg-secondary ': $q.dark.isActive,
@@ -10,7 +10,7 @@
   >
     <q-toolbar>
       <q-btn
-        flat
+        :flat="$q.screen.lt.sm"
         @click="drawer = !drawer"
         round
         dense
@@ -18,10 +18,10 @@
         class="q-ml-md"
       />
       <q-toolbar-title
-        class="q-ml-md"
+        class=""
         :class="{
-          '': $q.screen.gt.sm,
-          'absolute-center': $q.screen.lt.sm & $q.dark.isActive,
+          'q-ml-md': $q.screen.gt.sm,
+          ' absolute-center text-body1': $q.screen.lt.sm,
         }"
         >PharmaPlus+</q-toolbar-title
       >
@@ -34,8 +34,9 @@
         keep-color
         unchecked-icon="light_mode"
         class="q-mr-md"
+        v-if="$q.screen.gt.xs"
       />
-      <q-btn class="q-mr-md" flat rounded>
+      <q-btn class="q-mr-md" flat rounded v-if="$q.screen.gt.xs">
         <q-icon name="notifications" size="sm" />
       </q-btn>
       <router-link to="/settings">

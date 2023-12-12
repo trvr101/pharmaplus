@@ -7,7 +7,7 @@
     :class="{ 'text-grey-3 bg-primary ': $q.dark.isActive }"
   >
     <q-card-section>
-      <div class="text-h6">Total Unique Items</div>
+      <div class="text-h6">Total Active User</div>
       <div class="q-display-2">{{ totalItems }}</div>
     </q-card-section>
     <q-linear-progress :value="1" color="teal-3" :max="100" />

@@ -13,6 +13,13 @@
       class="absolute-center q-pa-lg"
       style="width: 100vw; max-width: 560px; height: 31dvh; border-radius: 40px"
     >
+      <q-btn
+        flat
+        to="/"
+        icon="arrow_back"
+        class="absolute-top-left q-mt-lg q-ml-sm"
+      ></q-btn>
+
       <h4 class="text-primary text-center q-pa-lg">PharmaPlus+</h4>
 
       <div class="fixed-bottom-right">
