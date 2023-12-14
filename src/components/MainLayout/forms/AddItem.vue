@@ -1,14 +1,14 @@
 <template>
-  <q-form @submit.prevent="addProduct">
-    <q-input v-model="prod_name" label="Item name" :dense="dense" />
+  <q-form @submit.prevent="AddProd">
+    <q-input v-model="prod_name" label="Product name" :dense="dense" />
     <q-input v-model="prod_desc" label="Description" :dense="dense" />
-    <q-input v-model="prod_price" label="Price" :dense="dense" />
+    <q-input v-model="prod_price" label="Price" :dense="dense" type="number" />
     <q-select
       :loading="fetchingCateg"
       v-model="selectedCateg"
       :options="Categ"
       option-label="category_name"
-      option-value="category_name"
+      option-value="category_id"
       label="Category"
       input-debounce="500"
       :filter="!selectedCateg"
@@ -16,11 +16,12 @@
       rounded
       @update:model-value="handleSelectChange"
     />
+
     <q-btn
       unelevated
       rounded
       color="primary"
-      label="Add Item"
+      label="Add Product"
       class="full-width q-ma-lg"
       outline
       type="submit"
@@ -33,24 +34,30 @@
 import { ref, onMounted } from "vue";
 import { api } from "src/boot/axios";
 
+const Categ = ref([]);
+const selectedCateg = ref(null);
+const fetchingCateg = ref(false);
+
 export default {
   setup() {
-    const Categ = ref([]);
-    const selectedCateg = ref(null);
-    const fetchingCateg = ref(false);
-    const token = sessionStorage.getItem("token");
-    const branch_id = ref("");
-    const user_id = ref("");
     const prod_name = ref("");
     const prod_desc = ref("");
     const prod_price = ref("");
+    const branchId = ref("");
+    const userId = ref("");
+    const profileData = ref(null);
+
+    onMounted(async () => {
+      await fetchCateg();
+      await fetchProfile();
+    });
 
     const handleSelectChange = () => {
       document.activeElement.blur();
     };
 
     const filterCateg = (val, update) => {
-      if (selectedCateg) {
+      if (selectedCateg.value) {
         update(() => Categ.value);
         return;
       }
@@ -67,41 +74,23 @@ export default {
       update(() => filtered);
     };
 
-    const addProduct = async () => {
+    const AddProd = async () => {
       try {
         const payload = {
-          user_id: user_id.value,
-          branch_id: branch_id.value,
+          my_user_id: userId.value,
           prod_name: prod_name.value,
           prod_desc: prod_desc.value,
           prod_price: prod_price.value,
-          category_name: selectedCateg ? selectedCateg.category_name : null,
+          prod_branch_id: branchId.value,
+          category_name: selectedCateg.value
+            ? selectedCateg.value.category_name
+            : null,
         };
-
-        // Set a loading indicator
-        fetchingCateg.value = true;
 
         const response = await api.post("/AddProd", payload);
         console.log(response.data);
-
-        // Reset the form fields after successful submission
-        prod_name.value = "";
-        prod_desc.value = "";
-        prod_price.value = "";
-        selectedCateg.value = null;
       } catch (error) {
-        console.error("Error during AddItem:", error);
-        // Enhance debugging by logging the entire error object
-        console.error(error);
-        // You can also check if the error has a response for more details
-        if (error.response) {
-          console.error("Response data:", error.response.data);
-          console.error("Response status:", error.response.status);
-          console.error("Response headers:", error.response.headers);
-        }
-      } finally {
-        // Reset loading indicator regardless of success or failure
-        fetchingCateg.value = false;
+        console.error("Error during AddProd:", error);
       }
     };
 
@@ -119,33 +108,35 @@ export default {
 
     const fetchProfile = async () => {
       try {
+        const token = sessionStorage.getItem("token");
+        fetchingCateg.value = true;
+
         const response = await api.get(`/profile/${token}`);
-        const profileData = response.data;
-        branch_id.value = profileData.branch_id;
-        user_id.value = profileData.user_id;
+        profileData.value = response.data;
+
+        // Extract branch_id and user_id
+        branchId.value = profileData.value.user.branch_id;
+        userId.value = profileData.value.user.user_id;
       } catch (error) {
-        console.error("Error fetching user profile:", error);
+        console.error("Error fetching profile data:", error);
+      } finally {
+        fetchingCateg.value = false;
       }
     };
 
-    // Fetch data on component mount
-    onMounted(() => {
-      fetchCateg();
-      fetchProfile();
-    });
-
     return {
-      Categ,
-      selectedCateg,
-      fetchingCateg,
-      branch_id,
-      user_id,
       prod_name,
       prod_desc,
       prod_price,
-      handleSelectChange,
+      branchId,
+      userId,
+      profileData,
+      selectedCateg,
+      fetchingCateg,
       filterCateg,
-      addProduct,
+      handleSelectChange,
+      Categ,
+      AddProd,
     };
   },
 };
