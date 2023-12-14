@@ -1,5 +1,5 @@
 <template>
-  <q-form @submit.prevent="addProduct">
+  <q-form @submit.prevent="AddProd">
     <q-input v-model="prod_name" label="Item name" :dense="dense" />
     <q-input v-model="prod_desc" label="Description" :dense="dense" />
     <q-input v-model="prod_price" label="Price" :dense="dense" />
@@ -28,9 +28,8 @@
     />
   </q-form>
 </template>
-
 <script>
-import { ref, onMounted } from "vue";
+import { ref } from "vue";
 import { api } from "src/boot/axios";
 
 export default {
@@ -39,11 +38,8 @@ export default {
     const selectedCateg = ref(null);
     const fetchingCateg = ref(false);
     const token = sessionStorage.getItem("token");
-    const branch_id = ref("");
-    const user_id = ref("");
-    const prod_name = ref("");
-    const prod_desc = ref("");
-    const prod_price = ref("");
+    const branchId = ref("");
+    const userId = ref("");
 
     const handleSelectChange = () => {
       document.activeElement.blur();
@@ -70,11 +66,11 @@ export default {
     const addProduct = async () => {
       try {
         const payload = {
-          user_id: user_id.value,
-          branch_id: branch_id.value,
-          prod_name: prod_name.value,
-          prod_desc: prod_desc.value,
-          prod_price: prod_price.value,
+          my_user_id: userId.value,
+          branch_id: branchId.value,
+          prod_name: prodName.value,
+          prod_desc: prodDesc.value,
+          prod_price: prodPrice.value,
           category_name: selectedCateg ? selectedCateg.category_name : null,
         };
 
@@ -83,12 +79,6 @@ export default {
 
         const response = await api.post("/AddProd", payload);
         console.log(response.data);
-
-        // Reset the form fields after successful submission
-        prod_name.value = "";
-        prod_desc.value = "";
-        prod_price.value = "";
-        selectedCateg.value = null;
       } catch (error) {
         console.error("Error during AddItem:", error);
         // Enhance debugging by logging the entire error object
@@ -121,28 +111,23 @@ export default {
       try {
         const response = await api.get(`/profile/${token}`);
         const profileData = response.data;
-        branch_id.value = profileData.branch_id;
-        user_id.value = profileData.user_id;
+        branchId.value = profileData.branch_id;
+        userId.value = profileData.user_id;
       } catch (error) {
         console.error("Error fetching user profile:", error);
       }
     };
 
     // Fetch data on component mount
-    onMounted(() => {
-      fetchCateg();
-      fetchProfile();
-    });
+    fetchCateg();
+    fetchProfile();
 
     return {
       Categ,
       selectedCateg,
       fetchingCateg,
-      branch_id,
-      user_id,
-      prod_name,
-      prod_desc,
-      prod_price,
+      branchId,
+      userId,
       handleSelectChange,
       filterCateg,
       addProduct,

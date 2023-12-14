@@ -39,7 +39,7 @@
       <q-btn class="q-mr-md" flat rounded v-if="$q.screen.gt.xs">
         <q-icon name="notifications" size="sm" />
       </q-btn>
-      <router-link to="/settings">
+      <router-link to="/Branch_settings">
         <q-avatar class="q-mr-md" clickable>
           <img
             src="https://scontent.fmnl13-2.fna.fbcdn.net/v/t39.30808-6/289414022_1203904480373456_2428413500028325985_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=efb6e6&_nc_eui2=AeFqwnoOZjDkyMBcuvpdLT-GRqFTvwUxfAlGoVO_BTF8CUL2x8W-PZWCVTeG_EEYQvJm9IBJ8soiTHcCo1iXYcU5&_nc_ohc=_2puhHggeOMAX-3kbyH&_nc_zt=23&_nc_ht=scontent.fmnl13-2.fna&oh=00_AfBF056F2kETrCfpCXvxfO2-MZiE-USLNQBXklQ5qoNgJw&oe=6578236D"
@@ -70,7 +70,7 @@
           clickable
           v-ripple
           :class="{ 'active-item': $route.path === '/dashboard' }"
-          to="/dashboard"
+          to="/Branch_dashboard"
         >
           <q-item-section avatar>
             <q-icon name="dashboard" />
@@ -80,7 +80,7 @@
           clickable
           v-ripple
           :class="{ 'active-item': $route.path === '/inventory' }"
-          to="/inventory"
+          to="/Branch_inventory"
         >
           <q-item-section avatar>
             <q-icon name="inventory_2" />
@@ -90,7 +90,7 @@
           clickable
           v-ripple
           :class="{ 'active-item': $route.path === '/restock' }"
-          to="/restock"
+          to="/Branch_restock"
         >
           <q-item-section avatar>
             <q-icon name="autorenew" />
@@ -101,7 +101,7 @@
           clickable
           v-ripple
           :class="{ 'active-item': $route.path === '/sales' }"
-          to="/sales"
+          to="/Branch_sales"
         >
           <q-item-section avatar>
             <q-icon name="trending_up" />
@@ -114,7 +114,7 @@
           clickable
           v-ripple
           :class="{ 'active-item': $route.path === '/userManagement' }"
-          to="/userManagement"
+          to="/Branch_userManagement"
         >
           <q-item-section avatar>
             <q-icon name="manage_accounts" />
@@ -125,7 +125,7 @@
           clickable
           v-ripple
           :class="{ 'active-item': $route.path === '/branch' }"
-          to="/branch"
+          to="/Branch_branch"
         >
           <q-item-section avatar>
             <q-icon name="store" />
@@ -137,7 +137,7 @@
           clickable
           v-ripple
           :class="{ 'active-item': $route.path === '/mapping' }"
-          to="/mapping"
+          to="/Branch_mapping"
         >
           <q-item-section avatar>
             <q-icon name="map" />
@@ -150,7 +150,7 @@
           clickable
           v-ripple
           :class="{ 'active-item': $route.path === '/tutorial' }"
-          to="/tutorial"
+          to="/Branch_tutorial"
         >
           <q-item-section avatar>
             <q-icon name="help_outline" />
@@ -162,7 +162,7 @@
           clickable
           v-ripple
           :class="{ 'active-item': $route.path === '/settings' }"
-          to="/settings"
+          to="/Branch_settings"
         >
           <q-item-section avatar>
             <q-icon name="settings" />
@@ -175,7 +175,7 @@
                 clickable
                 v-ripple
                 :class="{ 'active-item': $route.path === '/message' }"
-                to="/message"
+                to="/Branch_message"
               >
                 <q-item-section avatar>
                   <q-icon name="inbox" />

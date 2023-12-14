@@ -36,7 +36,24 @@ const requireAdmin = (to, from, next) => {
     next();
   }
 };
+const requireBranchAdmin = (to, from, next) => {
+  // Check if the route requires admin role
+  if (to.meta.requiresAdmin) {
+    // Check if the user has the admin role in session storage
+    const userRole = sessionStorage.getItem("user_role");
 
+    if (!userRole || userRole !== "branch_admin") {
+      // Redirect to login if not authenticated or not an admin
+      next("/login");
+    } else {
+      // Continue to the route if authenticated and has the admin role
+      next();
+    }
+  } else {
+    // Continue to the route if it doesn't require admin role
+    next();
+  }
+};
 const requireCashier = (to, from, next) => {
   // Check if the route requires cashier role
   if (to.meta.requiresCashier) {
@@ -141,6 +158,83 @@ const routes = [
         component: () => import("pages/Admin/Convo.vue"),
         meta: { requiresAuth: true, requiresAdmin: true },
         beforeEnter: requireAdmin,
+      },
+    ],
+  },
+  {
+    // Branch Admin
+    path: "/Branch_Dashboar",
+    component: () => import("layouts/Branch.vue"),
+    meta: { requiresAuth: true, requiresAdmin: true },
+    beforeEnter: requireBranchAdmin,
+    children: [
+      {
+        path: "/Branch_dashboard",
+        component: () => import("pages/Branch/Dashboard.vue"),
+        meta: { requiresAuth: true, requiresAdmin: true },
+        beforeEnter: requireBranchAdmin,
+      },
+      {
+        path: "/Branch_inventory",
+        component: () => import("pages/Branch/Inventory.vue"),
+        meta: { requiresAuth: true, requiresAdmin: true },
+        beforeEnter: requireBranchAdmin,
+      },
+      {
+        path: "/Branch_restock",
+        component: () => import("pages/Branch/Restock.vue"),
+        meta: { requiresAuth: true, requiresAdmin: true },
+        beforeEnter: requireBranchAdmin,
+      },
+      {
+        path: "/Branch_userManagement",
+        component: () => import("pages/Branch/UserManagement.vue"),
+        meta: { requiresAuth: true, requiresAdmin: true },
+        beforeEnter: requireBranchAdmin,
+      },
+      {
+        path: "/Branch_mapping",
+        component: () => import("pages/Branch/Mapping.vue"),
+      },
+      {
+        path: "/Branch_settings",
+        component: () => import("pages/Branch/Settings.vue"),
+        meta: { requiresAuth: true, requiresAdmin: true },
+        beforeEnter: requireBranchAdmin,
+      },
+      {
+        path: "/Branch_branch",
+        component: () => import("pages/Branch/BranchManagement.vue"),
+        meta: { requiresAuth: true, requiresAdmin: true },
+        beforeEnter: requireBranchAdmin,
+      },
+      {
+        path: "/Branch_message",
+        component: () => import("pages/Branch/Message.vue"),
+      },
+      {
+        path: "/Branch_notifications",
+        component: () => import("pages/Branch/Notification.vue"),
+        meta: { requiresAuth: true, requiresAdmin: true },
+        beforeEnter: requireBranchAdmin,
+      },
+      {
+        path: "/Branch_scanner",
+        component: () => import("pages/Branch/Scanner.vue"),
+        meta: { requiresAuth: true, requiresAdmin: true },
+        beforeEnter: requireBranchAdmin,
+      },
+      {
+        path: "/Branch_sales",
+        component: () => import("pages/Branch/Sales.vue"),
+        meta: { requiresAuth: true, requiresAdmin: true },
+        beforeEnter: requireBranchAdmin,
+      },
+      {
+        path: "/Branch_convo",
+        component: () => import("pages/Branch/Convo.vue"),
+        meta: { requiresAuth: true, requiresAdmin: true },
+        beforeEnter: requireBranchAdmin,
       },
     ],
   },

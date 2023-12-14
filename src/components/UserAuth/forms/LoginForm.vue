@@ -64,17 +64,31 @@ export default {
           // Redirect to the dashboard
           if (user_role === "admin") {
             this.$router.push("/dashboard");
+            Notify.create({
+              message: "Login General Admin successfully!",
+              color: "teal",
+              position: "bottom",
+              timeout: 3000, // Adjust timeout as needed
+            });
           } else if (user_role === "cashier") {
             this.$router.push("/POS");
+            Notify.create({
+              message: "Login as Cashier successfully!",
+              color: "teal",
+              position: "bottom",
+              timeout: 3000, // Adjust timeout as needed
+            });
+          } else if (user_role === "branch_admin") {
+            this.$router.push("/Branch_dashboard");
+            Notify.create({
+              message: "Login as Branch Admin successfully!",
+              color: "teal",
+              position: "bottom",
+              timeout: 3000, // Adjust timeout as needed
+            });
           }
 
           // Display a success notification
-          Notify.create({
-            message: "Login successful!",
-            color: "teal",
-            position: "bottom",
-            timeout: 3000, // Adjust timeout as needed
-          });
         }
       } catch (error) {
         console.error("Error during login:", error);
