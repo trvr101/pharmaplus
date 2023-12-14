@@ -1,4 +1,4 @@
-<!-- <template>
+<template>
   <q-card
     flat
     :bordered="!$q.dark.isActive"
@@ -52,53 +52,4 @@ export default {
     this.stopPolling(); // Stop polling when the component is destroyed
   },
 };
-</script> -->
-<template>
-  <div>
-    <div v-if="profileData">
-      <p>Branch ID: {{ branchId }}</p>
-      <p>User ID: {{ userId }}</p>
-    </div>
-    <div v-else>
-      <p>Loading profile data...</p>
-    </div>
-  </div>
-</template>
-
-<script>
-import { api } from "src/boot/axios";
-
-export default {
-  data() {
-    return {
-      profileData: null,
-      branchId: null,
-      userId: null,
-    };
-  },
-  async mounted() {
-    await this.fetchProfile();
-  },
-  methods: {
-    async fetchProfile() {
-      try {
-        const token = sessionStorage.getItem("token");
-
-        // Assuming `api` is your Axios instance or API module
-        const response = await api.get(`/profile/${token}`);
-        this.profileData = response.data;
-
-        // Extract branch_id and user_id
-        this.branchId = this.profileData.user.branch_id;
-        this.userId = this.profileData.user.user_id;
-      } catch (error) {
-        console.error("Error fetching profile data:", error);
-      }
-    },
-  },
-};
 </script>
-
-<style>
-/* Your component styles */
-</style>
