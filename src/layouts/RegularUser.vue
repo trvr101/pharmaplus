@@ -3,7 +3,16 @@
     <q-header class="bg-teal text-white" style="border-radius: 0 0 20px 20px">
       <q-toolbar>
         <q-toolbar-title class="text-center q-ml-lg">
-          Pharmaplus+
+          <img
+            style="
+              height: 35px;
+              filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(230deg)
+                brightness(1000%);
+            "
+            class="q-mt-sm colored-img"
+            src="/pharmapluslogo.png"
+            alt="Pharma Plus Logo"
+          />
         </q-toolbar-title>
 
         <q-btn dense flat round icon="menu" @click="toggleRightDrawer" />

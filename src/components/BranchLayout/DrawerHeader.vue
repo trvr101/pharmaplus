@@ -23,8 +23,16 @@
           'q-ml-md': $q.screen.gt.sm,
           ' absolute-center text-body1': $q.screen.lt.sm,
         }"
-        >PharmaPlus+</q-toolbar-title
-      >
+        ><img
+          style="
+            height: 35px;
+            filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(230deg)
+              brightness(1000%);
+          "
+          class="q-mt-sm colored-img"
+          src="/pharmapluslogo.png"
+          alt="Pharma Plus Logo"
+      /></q-toolbar-title>
       <q-space />
       <!-- Dark Mode toggle -->
       <q-toggle

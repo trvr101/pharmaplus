@@ -25,7 +25,7 @@
       ></q-fab-action
       ><q-fab-action
         color="primary"
-        @click="open('bottom')"
+        @click="open"
         icon="add"
         :class="{
           'text-grey-3  bg-secondary ': $q.dark.isActive,

@@ -1,7 +1,7 @@
 <template>
-  <div class="row">
+  <div class="row q-mt-sm">
     <q-card
-      class="my-card my-card-inventory col"
+      class="my-card my-card-inventory col q-pa-lg"
       flat
       :bordered="!$q.dark.isActive"
     >
@@ -31,7 +31,7 @@
               rounded
               class="q-ma-lg"
               icon="add"
-              @click="openDialog"
+              @click="open('bottom')"
               label="Add Branch"
               unelevated
               :class="{
@@ -84,6 +84,30 @@
       </q-table>
     </q-card>
   </div>
+  <q-dialog v-model="dialog" :position="position">
+    <q-card
+      style="width: 100vw; height: 40dvh; border-radius: 40px"
+      maximized
+      class="q-pa-lg"
+    >
+      <div class="text-h6 text-center">Add Branch</div>
+      <q-form @submit.prevent="AddBranch">
+        <q-input v-model="text" label="Branch Name" :dense="dense" />
+        <q-btn
+          unelevated
+          rounded
+          label="Add Product"
+          class="full-width q-ma-lg"
+          type="submit"
+          v-close-popup
+          :class="{
+            'text-teal-3 bg-secondary ': $q.dark.isActive,
+            'bg-cyan-9 text-grey-3': !$q.dark.isActive,
+          }"
+        />
+      </q-form>
+    </q-card>
+  </q-dialog>
 </template>
 
 <script>
@@ -91,8 +115,23 @@ import { api } from "src/boot/axios";
 import { ref } from "vue";
 export default {
   setup() {
+    const dialog = ref(false);
+    const position = ref("bottom");
+
+    const open = (pos) => {
+      position.value = pos;
+      dialog.value = true;
+    };
+
+    const close = () => {
+      dialog.value = false;
+    };
     return {
       filter: ref(""),
+      dialog,
+      position,
+      open,
+      close,
     };
   },
   data() {

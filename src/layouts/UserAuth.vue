@@ -20,7 +20,21 @@
         class="absolute-top-left q-mt-lg q-ml-sm"
       ></q-btn>
 
-      <h4 class="text-primary text-center q-pa-lg">PharmaPlus+</h4>
+      <h4 class="text-primary text-center q-pa-lg">
+        <img
+          style="
+            filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(230deg)
+              brightness(50%);
+          "
+          class="q-mt-sm colored-img absolute-center"
+          :class="{
+            'lg-height': $q.screen.gt.sm,
+            'sm-height': $q.screen.lt.sm,
+          }"
+          src="/pharmapluslogo.png"
+          alt="Pharma Plus Logo"
+        />
+      </h4>
 
       <div class="fixed-bottom-right">
         <q-card-section horizontal>
@@ -95,3 +109,11 @@ export default {
   },
 };
 </script>
+<style>
+.sm-height {
+  height: 65px;
+}
+.lg-height {
+  height: 80px;
+}
+</style>
