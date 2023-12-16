@@ -1,27 +1,35 @@
-import { store } from 'quasar/wrappers'
-import { createStore } from 'vuex'
+import { store } from "quasar/wrappers";
+import { createStore } from "vuex";
+import { api } from "src/boot/axios";
 
-// import example from './module-example'
-
-/*
- * If not building with SSR mode, you can
- * directly export the Store instantiation;
- *
- * The function below can be async too; either use
- * async/await or return a Promise which resolves
- * with the Store instance.
- */
-
-export default store(function (/* { ssrContext } */) {
+export default store(function () {
   const Store = createStore({
-    modules: {
-      // example
+    state: {
+      userProfile: null,
     },
+    mutations: {
+      setUserProfile(state, profile) {
+        state.userProfile = profile;
+      },
+    },
+    actions: {
+      async fetchUserProfile({ commit }, token) {
+        try {
+          // Make your actual API request using Axios
+          const response = await api.get(`/profile/${token}`);
+          const profile = response.data.user; // Assuming the user profile is in the 'user' property of the response
 
-    // enable strict mode (adds overhead!)
-    // for dev mode and --debug builds only
-    strict: process.env.DEBUGGING
-  })
+          commit("setUserProfile", profile);
+        } catch (error) {
+          console.error("Error fetching user profile:", error);
+        }
+      },
+    },
+    modules: {
+      // your other modules if any
+    },
+    strict: process.env.DEBUGGING,
+  });
 
-  return Store
-})
+  return Store;
+});

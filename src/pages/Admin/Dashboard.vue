@@ -51,6 +51,7 @@
               'col-12 no-margin no-padding': $q.screen.lt.sm,
             }"
           >
+            <PieGraph />
             <notes />
           </div>
         </div>
@@ -76,6 +77,7 @@ import card1 from "components/MainLayout/dashboard/card1";
 import card2 from "components/MainLayout/dashboard/card2";
 import card3 from "components/MainLayout/dashboard/card3";
 import calendar from "components/MainLayout/dashboard/calendar";
+import PieGraph from "components/MainLayout/dashboard/piegraph";
 import notes from "components/MainLayout/dashboard/notes";
 import mainchart from "components/MainLayout/dashboard/mainchart";
 import table1 from "components/MainLayout/dashboard/dashboard_tbl1";
@@ -89,6 +91,7 @@ export default {
     notes,
     table1,
     mainchart,
+    PieGraph,
   },
 
   setup() {

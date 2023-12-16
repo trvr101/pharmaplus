@@ -6,8 +6,9 @@
     class="text-dark MainLayout"
     :class="{ 'text-teal-2 bg-grey-10 ': $q.dark.isActive }"
   >
+    <div></div>
     <DrawerHeader />
-    <q-page-container>
+    <q-page-container v-if="userProfileFetched">
       <router-view
         :class="{
           'q-ma-sm q-mt-md': $q.screen.gt.sm,
@@ -19,6 +20,7 @@
     <FabDialog />
   </q-layout>
 </template>
+
 <script>
 import DrawerHeader from "components/MainLayout/DrawerHeader";
 import Footer from "components/MainLayout/Footer";
@@ -29,6 +31,42 @@ export default {
     DrawerHeader,
     Footer,
     FabDialog,
+  },
+  data() {
+    return {
+      userProfileFetched: false,
+    };
+  },
+  created() {
+    const token = sessionStorage.getItem("token");
+
+    if (token) {
+      // If a token is available, call the fetchUserProfile action
+      this.$store
+        .dispatch("fetchUserProfile", token)
+        .then(() => {
+          // Set a flag when the user profile has been fetched
+          this.userProfileFetched = true;
+        })
+        .catch((error) => {
+          console.error("Error fetching user profile:", error);
+        });
+    } else {
+      // Handle the case where there's no token
+      console.error("Token not available. Unable to fetch user profile.");
+    }
+  },
+  computed: {
+    getUserId() {
+      return this.userProfileFetched
+        ? this.$store.state.userProfile?.user_id
+        : null;
+    },
+    getBranchId() {
+      return this.userProfileFetched
+        ? this.$store.state.userProfile?.branch_id
+        : null;
+    },
   },
 };
 </script>

@@ -21,35 +21,64 @@ export default {
   data() {
     return {
       totalItems: 0,
+      pollingInterval: null,
     };
   },
   created() {
-    this.startPolling();
+    this.fetchUserProfile();
+  },
+  computed: {
+    getBranchId() {
+      return this.userProfileFetched
+        ? this.$store.state.userProfile?.branch_id
+        : null;
+    },
   },
   methods: {
-    fetchData() {
-      // Replace 'YOUR_API_ENDPOINT' with your actual API endpoint
-      api
-        .get("/main/count-unique-items")
-        .then((response) => {
-          this.totalItems = response.data.count;
-        })
-        .catch((error) => {
-          console.error("Error fetching data:", error);
-        });
+    fetchUserProfile() {
+      const token = sessionStorage.getItem("token");
+
+      if (token) {
+        this.$store
+          .dispatch("fetchUserProfile", token)
+          .then(() => {
+            this.userProfileFetched = true;
+            this.countUniqueItems();
+
+            // Start polling every 60 seconds (adjust as needed)
+            this.pollingInterval = setInterval(() => {
+              this.countUniqueItems();
+            }, 1000);
+          })
+          .catch((error) => {
+            console.error("Error fetching user profile:", error);
+          });
+      } else {
+        console.error("Token not available. Unable to fetch user profile.");
+      }
     },
-    startPolling() {
-      this.fetchData(); // Initial fetch
-      this.pollingTimer = setInterval(() => {
-        this.fetchData(); // Fetch data at regular intervals
-      }, 1000); // Poll every 5 seconds (adjust as needed)
-    },
-    stopPolling() {
-      clearInterval(this.pollingTimer);
+    countUniqueItems() {
+      const branchId = this.getBranchId;
+
+      if (branchId) {
+        api
+          .get(`branch/count-unique-items/${branchId}`)
+          .then((response) => {
+            this.totalItems = response.data.count; // Assuming your API response has a 'count' property
+          })
+          .catch((error) => {
+            console.error("Error fetching count:", error);
+          });
+      } else {
+        console.error("Branch ID not available.");
+      }
     },
   },
   beforeDestroy() {
-    this.stopPolling(); // Stop polling when the component is destroyed
+    // Clear the polling interval when the component is destroyed
+    if (this.pollingInterval) {
+      clearInterval(this.pollingInterval);
+    }
   },
 };
 </script>
