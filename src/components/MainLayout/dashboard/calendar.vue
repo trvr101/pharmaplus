@@ -12,7 +12,7 @@
   >
     <!-- timeline of the schedule -->
     <q-timeline
-      color="teal-4"
+      color="cyan-9"
       :class="{ 'text-grey-3 bg-primary ': $q.dark.isActive }"
     >
       <q-timeline-entry

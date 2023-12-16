@@ -5,7 +5,7 @@
     class="q-ma-sm"
     :class="{
       ' bg-secondary ': $q.dark.isActive,
-      'bg-teal': !$q.dark.isActive,
+      'bg-cyan-9': !$q.dark.isActive,
     }"
   >
     <q-toolbar>
@@ -60,7 +60,7 @@
     :breakpoint="500"
     :bordered="!$q.dark.isActive"
     :class="{
-      'bg-teal': !$q.dark.isActive,
+      'bg-cyan-9': !$q.dark.isActive,
       'bg-teal-1 item-dark': !$q.dark.isActive,
     }"
   >

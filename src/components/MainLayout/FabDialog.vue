@@ -10,7 +10,7 @@
       class="fixed-bottom-right"
       :class="{
         'text-grey-3  bg-secondary ': $q.dark.isActive,
-        'text-white  bg-teal ': !$q.dark.isActive,
+        'text-white  bg-cyan-9 ': !$q.dark.isActive,
       }"
     >
       <q-fab-action
@@ -20,7 +20,7 @@
         to="/scanner"
         :class="{
           'text-grey-3  bg-secondary ': $q.dark.isActive,
-          'text-white  bg-teal ': !$q.dark.isActive,
+          'text-white  bg-cyan-9 ': !$q.dark.isActive,
         }"
       ></q-fab-action
       ><q-fab-action
@@ -29,7 +29,7 @@
         icon="add"
         :class="{
           'text-grey-3  bg-secondary ': $q.dark.isActive,
-          'text-white  bg-teal ': !$q.dark.isActive,
+          'text-white  bg-cyan-9 ': !$q.dark.isActive,
         }"
       ></q-fab-action>
       <q-fab-action
@@ -37,7 +37,7 @@
         :icon="$q.fullscreen.isActive ? 'fullscreen_exit' : 'fullscreen'"
         :class="{
           'text-grey-3  bg-secondary ': $q.dark.isActive,
-          'text-white  bg-teal ': !$q.dark.isActive,
+          'text-white  bg-cyan-9 ': !$q.dark.isActive,
         }"
       ></q-fab-action>
     </q-fab>

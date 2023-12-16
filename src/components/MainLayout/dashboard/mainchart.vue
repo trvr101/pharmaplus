@@ -69,7 +69,7 @@ export default {
         colors: ["teal"], // Set the line color to teal
       },
       fill: {
-        colors: ["rgba(134, 253, 197, 0.4)"], // Set the fill color to teal with 30% opacity
+        colors: ["rgba(134, 233, 253, 0.4)"], // Set the fill color to teal with 30% opacity
       },
       xaxis: {
         type: "datetime",

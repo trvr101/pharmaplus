@@ -72,13 +72,13 @@
 </template>
 <script>
 import { ref } from "vue";
-import card1 from "components/MainLayout/dashboard/card1";
-import card2 from "components/MainLayout/dashboard/card2";
-import card3 from "components/MainLayout/dashboard/card3";
-import calendar from "components/MainLayout/dashboard/calendar";
-import notes from "components/MainLayout/dashboard/notes";
-import mainchart from "components/MainLayout/dashboard/mainchart";
-import table1 from "components/MainLayout/dashboard/dashboard_tbl1";
+import card1 from "components/BranchLayout/dashboard/card1";
+import card2 from "components/BranchLayout/dashboard/card2";
+import card3 from "components/BranchLayout/dashboard/card3";
+import calendar from "components/BranchLayout/dashboard/calendar";
+import notes from "components/BranchLayout/dashboard/notes";
+import mainchart from "components/BranchLayout/dashboard/mainchart";
+import table1 from "components/BranchLayout/dashboard/dashboard_tbl1";
 
 export default {
   components: {

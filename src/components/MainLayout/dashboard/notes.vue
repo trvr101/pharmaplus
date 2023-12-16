@@ -45,7 +45,7 @@
                 class="full-width q-ma-lg"
                 :class="{
                   'text-teal-3 bg-secondary ': $q.dark.isActive,
-                  'bg-teal text-grey-3': !$q.dark.isActive,
+                  'bg-cyan-9 text-grey-3': !$q.dark.isActive,
                 }"
                 type="submit"
                 @click="closeAddNotesDialog"
