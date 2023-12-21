@@ -93,18 +93,18 @@
     >
       <div class="text-h6 text-center">Add Branch</div>
       <q-form @submit.prevent="AddBranch">
-        <q-input v-model="text" label="Branch Name" :dense="dense" />
+        <q-input v-model="branch_name" label="Branch Name" :dense="dense" />
         <q-btn
           unelevated
           rounded
           label="Add Product"
           class="full-width q-ma-lg"
-          type="submit"
-          v-close-popup
           :class="{
             'text-teal-3 bg-secondary ': $q.dark.isActive,
             'bg-cyan-9 text-grey-3': !$q.dark.isActive,
           }"
+          type="submit"
+          v-close-popup
         />
       </q-form>
     </q-card>
@@ -114,10 +114,15 @@
 <script>
 import { api } from "src/boot/axios";
 import { ref } from "vue";
+import { Notify } from "quasar";
+
 export default {
   setup() {
     const dialog = ref(false);
     const position = ref("bottom");
+    const filter = ref("");
+    const branchData = ref([]);
+    const branch_name = ref("");
 
     const open = (pos) => {
       position.value = pos;
@@ -127,21 +132,57 @@ export default {
     const close = () => {
       dialog.value = false;
     };
+
+    const AddBranch = async () => {
+      try {
+        const payload = {
+          branch_name: branch_name.value,
+        };
+
+        const response = await api.post("/addBranch", payload);
+        console.log(response.data);
+
+        // Show a success notification
+        Notify.create({
+          color: "teal",
+          position: "bottom",
+          message: "Branch added successfully",
+        });
+
+        // Close the dialog
+        close();
+      } catch (error) {
+        console.error("Error during AddBranch:", error);
+        console.error(error);
+
+        if (error.response) {
+          console.error("Response data:", error.response.data);
+          console.error("Response status:", error.response.status);
+          console.error("Response headers:", error.response.headers);
+        }
+
+        // Show an error notification
+        Notify.create({
+          color: "negative",
+          position: "bottom",
+          message: "Error adding branch",
+        });
+      }
+    };
+
     return {
-      filter: ref(""),
+      filter,
       dialog,
       position,
       open,
       close,
+      branchData,
+      branch_name,
+      AddBranch,
     };
   },
-  data() {
-    return {
-      branchData: [],
-    };
-  },
+
   mounted() {
-    // Fetch data from your REST API using Axios
     api
       .get("/branch")
       .then((response) => {
