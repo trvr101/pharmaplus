@@ -168,24 +168,64 @@ export default {
       ],
       dialog: false,
       selectedProduct: {},
+      userProfileFetched: false,
     };
   },
+  created() {
+    this.fetchUserProfile();
+  },
+  computed: {
+    getBranchId() {
+      return this.userProfileFetched
+        ? this.$store.state.userProfile?.branch_id
+        : null;
+    },
+  },
   mounted() {
-    this.fetchData();
+    // Fetch data only if the user profile is fetched successfully
+    if (this.userProfileFetched) {
+      this.fetchData();
+    }
   },
   methods: {
-    fetchData() {
-      api
-        .get("/ProdList")
-        .then((response) => {
-          this.products = response.data;
-        })
-        .catch((error) => {
-          console.error("Error fetching data:", error);
-        });
+    fetchUserProfile() {
+      const token = sessionStorage.getItem("token");
+
+      if (token) {
+        this.$store
+          .dispatch("fetchUserProfile", token)
+          .then(() => {
+            this.userProfileFetched = true;
+            // Fetch data once the user profile is successfully fetched
+            this.fetchData();
+
+            // Start polling every 60 seconds (adjust as needed)
+            this.pollingInterval = setInterval(() => {
+              this.fetchData();
+            }, 1000);
+          })
+          .catch((error) => {
+            console.error("Error fetching user profile:", error);
+          });
+      } else {
+        console.error("Token not available. Unable to fetch user profile.");
+      }
     },
-    onRowClick(product) {
-      console.log("Clicked row with product_id:", product.product_id);
+    fetchData() {
+      const branchId = this.getBranchId;
+
+      if (branchId) {
+        api
+          .get(`/branch/inventory/${branchId}`)
+          .then((response) => {
+            this.products = response.data;
+          })
+          .catch((error) => {
+            console.error("Error fetching data:", error);
+          });
+      } else {
+        console.error("Branch ID not available.");
+      }
     },
     onRowClick(product) {
       this.selectedProduct = product;

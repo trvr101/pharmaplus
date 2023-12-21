@@ -40,7 +40,6 @@ export default {
   },
   methods: {
     async register() {
-      // ...
       try {
         const response = await api.post("/register", {
           invitationCode: this.invitationCode,
@@ -58,25 +57,40 @@ export default {
           sessionStorage.setItem("token", token);
           sessionStorage.setItem("user_role", user_role);
 
-          // Redirect based on user role
-          if (user_role === "admin") {
-            this.$router.push("/dashboard");
-          } else if (user_role === "branch_admin") {
-            this.$router.push("/branch_admin");
-          } else if (user_role === "cashier") {
-            this.$router.push("/POS");
-          } else {
-            // Add a default redirection if needed
-            this.$router.push("/");
-          }
+          console.log("User Role:", user_role);
 
-          Notify.create("Registered successfully");
+          // Redirect based on user role
+          this.redirectBasedOnUserRole(user_role);
+
+          Notify.create({
+            message: "Registered successfully!",
+            color: "teal",
+            position: "bottom",
+            timeout: 3000, // Adjust timeout as needed
+          });
         }
       } catch (error) {
         console.error("Registration failed:", error);
         this.message = "failed";
       }
-      // ...
+    },
+
+    redirectBasedOnUserRole(user_role) {
+      switch (user_role) {
+        case "admin":
+          this.$router.push("/dashboard");
+          break;
+        case "branch_admin":
+          this.$router.push("/branch_admin");
+          break;
+        case "cashier":
+          this.$router.push("/POS");
+          break;
+        default:
+          // Add a default redirection if needed
+          this.$router.push("/");
+          break;
+      }
     },
   },
 };
