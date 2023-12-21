@@ -1,5 +1,6 @@
 <template>
   <q-form @submit.prevent="register">
+    <q-input required v-model="invitationCode" label="Invitation Code" />
     <q-input required v-model="email" label="Email" />
     <q-input required v-model="password" label="Password" type="password" />
     <q-input
@@ -30,6 +31,7 @@ import { Notify } from "quasar";
 export default {
   data() {
     return {
+      invitationCode: "",
       email: "",
       password: "",
       passwordConfirm: "",
@@ -41,6 +43,7 @@ export default {
       // ...
       try {
         const response = await api.post("/register", {
+          invitationCode: this.invitationCode,
           email: this.email,
           password: this.password,
         });
