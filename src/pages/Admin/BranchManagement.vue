@@ -89,6 +89,7 @@
       style="width: 100vw; height: 40dvh; border-radius: 40px"
       maximized
       class="q-pa-lg"
+      flat
     >
       <div class="text-h6 text-center">Add Branch</div>
       <q-form @submit.prevent="AddBranch">
