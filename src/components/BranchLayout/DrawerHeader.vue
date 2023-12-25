@@ -77,7 +77,7 @@
         <q-item
           clickable
           v-ripple
-          :class="{ 'active-item': $route.path === '/dashboard' }"
+          :class="{ 'active-item': $route.path === '/Branch_dashboard' }"
           to="/Branch_dashboard"
         >
           <q-item-section avatar>
@@ -87,7 +87,7 @@
         ><q-item
           clickable
           v-ripple
-          :class="{ 'active-item': $route.path === '/inventory' }"
+          :class="{ 'active-item': $route.path === '/Branch_inventory' }"
           to="/Branch_inventory"
         >
           <q-item-section avatar>
@@ -97,7 +97,7 @@
         ><q-item
           clickable
           v-ripple
-          :class="{ 'active-item': $route.path === '/restock' }"
+          :class="{ 'active-item': $route.path === '/Branch_restock' }"
           to="/Branch_restock"
         >
           <q-item-section avatar>
@@ -108,7 +108,7 @@
         <q-item
           clickable
           v-ripple
-          :class="{ 'active-item': $route.path === '/sales' }"
+          :class="{ 'active-item': $route.path === '/Branch_sales' }"
           to="/Branch_sales"
         >
           <q-item-section avatar>
@@ -121,7 +121,7 @@
         <q-item
           clickable
           v-ripple
-          :class="{ 'active-item': $route.path === '/userManagement' }"
+          :class="{ 'active-item': $route.path === '/Branch_userManagement' }"
           to="/Branch_userManagement"
         >
           <q-item-section avatar>
@@ -132,7 +132,7 @@
         <q-item
           clickable
           v-ripple
-          :class="{ 'active-item': $route.path === '/branch' }"
+          :class="{ 'active-item': $route.path === '/Branch_branch' }"
           to="/Branch_branch"
         >
           <q-item-section avatar>
@@ -144,7 +144,7 @@
         <q-item
           clickable
           v-ripple
-          :class="{ 'active-item': $route.path === '/mapping' }"
+          :class="{ 'active-item': $route.path === '/Branch_mapping' }"
           to="/Branch_mapping"
         >
           <q-item-section avatar>
@@ -169,7 +169,7 @@
         <q-item
           clickable
           v-ripple
-          :class="{ 'active-item': $route.path === '/settings' }"
+          :class="{ 'active-item': $route.path === '/Branch_settings' }"
           to="/Branch_settings"
         >
           <q-item-section avatar>

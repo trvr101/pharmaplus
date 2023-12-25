@@ -1,5 +1,5 @@
 <template>
-  <div class="row q-mt-sm">
+  <div class="row q-mt-md q-ma-sm">
     <q-card
       class="my-card my-card-inventory col q-pa-lg"
       flat
@@ -15,7 +15,7 @@
         :filter="filter"
       >
         <template v-slot:top-right>
-          <div class="row">
+          <div class="row items-center">
             <q-input
               dense
               debounce="300"
@@ -77,7 +77,7 @@
               {{ props.row.BA_invite_code }}
             </q-td>
             <q-td key="created_at" :props="props">
-              {{ props.row.created_at }}
+              {{ formatDate(props.row.created_at) }}
             </q-td>
           </q-tr>
         </template>
@@ -170,6 +170,11 @@ export default {
       }
     };
 
+    const formatDate = (date) => {
+      // Implement your date formatting logic here
+      return date ? new Date(date).toLocaleDateString() : "N/A";
+    };
+
     return {
       filter,
       dialog,
@@ -179,6 +184,7 @@ export default {
       branchData,
       branch_name,
       AddBranch,
+      formatDate,
     };
   },
 

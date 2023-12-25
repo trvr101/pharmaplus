@@ -43,9 +43,6 @@ import quasarUserOptions from './quasar-user-options.js'
 
 
 
-console.info('[Quasar] Running ELECTRON.')
-
-
 
 const publicPath = ``
 
@@ -155,7 +152,9 @@ createQuasarApp(createApp, quasarUserOptions)
       
       import(/* webpackMode: "eager" */ 'boot/axios'),
       
-      import(/* webpackMode: "eager" */ 'boot/apexcharts')
+      import(/* webpackMode: "eager" */ 'boot/apexcharts'),
+      
+      import(/* webpackMode: "eager" */ 'boot/addressbar-color')
       
     ]).then(bootFiles => {
       const boot = mapFn(bootFiles).filter(entry => typeof entry === 'function')

@@ -25,13 +25,14 @@
       ></q-fab-action
       ><q-fab-action
         color="primary"
-        @click="open"
+        @click="open('bottom')"
         icon="add"
         :class="{
           'text-grey-3  bg-secondary ': $q.dark.isActive,
           'text-white  bg-cyan-9 ': !$q.dark.isActive,
         }"
       ></q-fab-action>
+
       <q-fab-action
         @click="$q.fullscreen.toggle()"
         :icon="$q.fullscreen.isActive ? 'fullscreen_exit' : 'fullscreen'"

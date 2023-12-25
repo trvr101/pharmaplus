@@ -25,12 +25,18 @@
 import DrawerHeader from "components/MainLayout/DrawerHeader";
 import Footer from "components/MainLayout/Footer";
 import FabDialog from "components/MainLayout/FabDialog";
+import { useQuasar } from "quasar";
 
 export default {
   components: {
     DrawerHeader,
     Footer,
     FabDialog,
+  },
+  setup() {
+    // equivalent to calling this on creating the component
+    const $q = useQuasar();
+    $q.addressbarColor.set("cyan-9");
   },
   data() {
     return {

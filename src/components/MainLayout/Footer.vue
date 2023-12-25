@@ -5,7 +5,7 @@
     v-if="$q.screen.lt.sm"
     :class="{
       'text-grey-3 bg-secondary ': $q.dark.isActive,
-      'bg-teal shadow-up-1': !$q.dark.isActive,
+      'bg-cyan-9 shadow-up-1': !$q.dark.isActive,
     }"
   >
     <q-toolbar>

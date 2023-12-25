@@ -1,11 +1,16 @@
 <template>
-  <q-card flat :bordered="!$q.dark.isActive" class="my-card">
-    <div id="donut-chart" style="width: 100%; height: 100%">
-      <apexchart
-        type="donut"
-        :options="chartOptions"
-        :series="series"
-      ></apexchart>
+  <q-card flat :bordered="!$q.dark.isActive" class="my-card q-pa-md">
+    <div>
+      <div
+        id="donut-chart"
+        class="fit row wrap justify-center items-center content-center"
+      >
+        <apexchart
+          type="donut"
+          :options="chartOptions"
+          :series="series"
+        ></apexchart>
+      </div>
     </div>
   </q-card>
 </template>
@@ -22,26 +27,18 @@ export default {
       colors: ["rgba(2, 117, 133, 0.566)"],
       stroke: {
         curve: "smooth",
-        width: 1, // Adjust the width to make the line thinner
-        colors: ["teal"], // Set the line color to teal
+        width: 1,
+        colors: ["teal"],
       },
-      responsive: [
-        {
-          breakpoint: 480,
-          options: {
-            chart: {
-              width: 200,
-            },
-            legend: {
-              position: "bottom",
-            },
-          },
-        },
-      ],
+      chart: {
+        width: "100%", // Set the width to 100% for responsiveness
+        height: "400px", // Set a specific height or adjust as needed
+        type: "donut",
+      },
       plotOptions: {
         pie: {
           donut: {
-            size: "50%", // Adjust the size of the donut hole
+            size: "50%",
           },
         },
       },

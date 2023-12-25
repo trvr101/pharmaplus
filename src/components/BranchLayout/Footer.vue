@@ -14,14 +14,14 @@
         class="text-grey-3 row justify-center tabs-container"
         no-caps
       >
-        <q-route-tab class="col" to="/dashboard" name="home">
+        <q-route-tab class="col" to="/Branch_dashboard" name="home">
           <q-icon name="home" size="xs" />
         </q-route-tab>
 
-        <q-route-tab class="col" to="/notifications" name="notifications"
+        <q-route-tab class="col" to="/Branch_notifications" name="notifications"
           ><q-icon name="notifications" size="xs" />
         </q-route-tab>
-        <q-route-tab class="col" to="/settings" name="qr_code_scanner"
+        <q-route-tab class="col" to="/Branch_settings" name="qr_code_scanner"
           ><q-icon name="person" size="xs"
         /></q-route-tab>
         <q-toggle

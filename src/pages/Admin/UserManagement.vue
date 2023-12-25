@@ -1,24 +1,57 @@
 <template>
   <div>
-    <q-table :rows="userList" :columns="columns" row-key="user_id">
-      <template v-slot:body-cell-avatar="props">
-        <div class="fit row wrap justify-center content-start q-pa-md">
-          <q-avatar color="teal" text-color="white" size="md">
-            {{ getInitials(props.row.first_name, props.row.last_name) }}
-          </q-avatar>
-        </div>
-      </template>
-      <template v-slot:body-cell-[column]="props">
-        {{ props.row[column.name] }}
-      </template>
-    </q-table>
+    <q-card
+      class="my-card my-card-inventory col q-pa-lg"
+      flat
+      :bordered="!$q.dark.isActive"
+    >
+      <q-table
+        :rows="userList"
+        :columns="columns"
+        title="User List"
+        row-key="user_id"
+        :filter="filter"
+      >
+        <template v-slot:top-right>
+          <div class="row items-center">
+            <q-input
+              dense
+              debounce="300"
+              v-model="filter"
+              placeholder="Search"
+              class="q-mt-lg"
+            >
+              <template v-slot:append>
+                <q-icon name="search" />
+              </template>
+            </q-input>
+          </div>
+        </template>
+        <template v-slot:body-cell-avatar="props">
+          <div class="fit row wrap justify-center content-start q-pa-md">
+            <q-avatar color="teal" text-color="white" size="md">
+              {{ getInitials(props.row.first_name, props.row.last_name) }}
+            </q-avatar>
+          </div>
+        </template>
+        <template v-slot:body-cell-[column]="props">
+          {{ props.row[column.name] }}
+        </template>
+      </q-table>
+    </q-card>
   </div>
 </template>
 
 <script>
 import { api } from "src/boot/axios";
-
+import { ref } from "vue";
 export default {
+  setup() {
+    const filter = ref("");
+    return {
+      filter,
+    };
+  },
   data() {
     return {
       userList: [],
