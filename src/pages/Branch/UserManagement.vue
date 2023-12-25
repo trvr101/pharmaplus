@@ -30,7 +30,6 @@ export default {
           field: "avatar",
           format: (val) => `<q-avatar>${val}</q-avatar>`,
         },
-
         {
           name: "first_name",
           label: "First Name",
@@ -67,13 +66,30 @@ export default {
       ],
     };
   },
+  computed: {
+    getBranchId() {
+      return this.$store.state.userProfile?.branch_id;
+    },
+  },
   mounted() {
     this.fetchUserList();
+
+    // Start polling every 60 seconds (adjust as needed)
+    this.pollingInterval = setInterval(() => {
+      this.fetchUserList();
+    }, 1000);
+  },
+  beforeDestroy() {
+    // Clear the polling interval when the component is destroyed
+    if (this.pollingInterval) {
+      clearInterval(this.pollingInterval);
+    }
   },
   methods: {
     async fetchUserList() {
       try {
-        const response = await api.get("/UserList");
+        const branchId = this.getBranchId;
+        const response = await api.get(`/branch/UserList/${branchId}`);
         this.userList = response.data;
       } catch (error) {
         console.error("Error fetching user list:", error);

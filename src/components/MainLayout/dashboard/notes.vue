@@ -142,7 +142,6 @@
     </q-card-section>
   </q-card>
 </template>
-
 <script>
 import { ref } from "vue";
 import { api } from "src/boot/axios";
@@ -165,6 +164,13 @@ export default {
   methods: {
     async AddNotes() {
       try {
+        const token = sessionStorage.getItem("token");
+
+        if (!token) {
+          console.error("Token not available in sessionStorage.");
+          return;
+        }
+
         const response = await api.post("/AddNotes", {
           note_title: this.note_title,
           note_content: this.note_content,
@@ -195,7 +201,14 @@ export default {
 
     async fetchNotes() {
       try {
-        const response = await api.get("/NotesList"); // Replace with your API endpoint
+        const token = sessionStorage.getItem("token");
+
+        if (!token) {
+          console.error("Token not available in sessionStorage.");
+          return;
+        }
+
+        const response = await api.get(`/notesList/${token}`); // Replace with your API endpoint
         this.notes = response.data;
       } catch (error) {
         console.error("Error fetching notes:", error);
@@ -203,6 +216,13 @@ export default {
     },
     async updateNoteStatus(note) {
       try {
+        const token = sessionStorage.getItem("token");
+
+        if (!token) {
+          console.error("Token not available in sessionStorage.");
+          return;
+        }
+
         const response = await api.put(`/UpdateNoteStatus/${note.note_id}`, {
           status: note.status === "done", // Convert to boolean
         });
@@ -215,6 +235,13 @@ export default {
     async deleteNoteConfirm(noteId) {
       if (window.confirm("Are you sure you want to delete this note?")) {
         try {
+          const token = sessionStorage.getItem("token");
+
+          if (!token) {
+            console.error("Token not available in sessionStorage.");
+            return;
+          }
+
           const response = await api.delete(`/DeleteNote/${noteId}`);
           console.log(response.data);
         } catch (error) {

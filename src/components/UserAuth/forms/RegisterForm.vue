@@ -59,8 +59,8 @@ export default {
 
           console.log("User Role:", user_role);
 
-          // Redirect based on user role
-          this.redirectBasedOnUserRole(user_role);
+          // Redirect based on the first two letters of the invitationCode
+          this.redirectBasedOnInvitationCode(this.invitationCode);
 
           Notify.create({
             message: "Registered successfully!",
@@ -75,16 +75,15 @@ export default {
       }
     },
 
-    redirectBasedOnUserRole(user_role) {
-      switch (user_role) {
-        case "admin":
-          this.$router.push("/dashboard");
-          break;
-        case "branch_admin":
-          this.$router.push("/branch_admin");
-          break;
-        case "cashier":
+    redirectBasedOnInvitationCode(invitationCode) {
+      const firstTwoLetters = invitationCode.substring(0, 2).toUpperCase();
+
+      switch (firstTwoLetters) {
+        case "CS":
           this.$router.push("/POS");
+          break;
+        case "BA":
+          this.$router.push("/Branch_dashboard");
           break;
         default:
           // Add a default redirection if needed

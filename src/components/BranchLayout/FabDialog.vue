@@ -79,9 +79,9 @@
 <script>
 import { useRoute, useRouter } from "vue-router";
 import { ref, onMounted } from "vue";
-import AddItem from "components/MainLayout/forms/AddItem";
-import AddNotes from "components/MainLayout/forms/AddNotes";
-import AddSched from "components/MainLayout/forms/AddSched";
+import AddItem from "components/BranchLayout/forms/AddItem";
+import AddNotes from "components/BranchLayout/forms/AddNotes";
+import AddSched from "components/BranchLayout/forms/AddSched";
 
 export default {
   components: {
