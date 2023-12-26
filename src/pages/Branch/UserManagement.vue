@@ -1,15 +1,43 @@
 <template>
   <div>
-    <q-table :rows="userList" :columns="columns" row-key="user_id">
+    <q-table
+      :rows="userList"
+      :columns="columns"
+      row-key="user_id"
+      :dense="dense"
+    >
       <template v-slot:body-cell-avatar="props">
-        <div class="fit row wrap justify-center content-start q-pa-md">
+        <div
+          class="fit row wrap justify-center items-center content-center q-py-sm"
+        >
           <q-avatar color="teal" text-color="white" size="md">
             {{ getInitials(props.row.first_name, props.row.last_name) }}
           </q-avatar>
         </div>
       </template>
-      <template v-slot:body-cell-[column]="props">
-        {{ props.row[column.name] }}
+      <template v-slot:body-cell-actions="props">
+        <div class="fit row wrap justify-center content-start q-py-sm">
+          <q-btn
+            @click="viewUser(props.row)"
+            icon="remove_red_eye"
+            size="sm"
+            flat
+          />
+          <q-btn
+            @click="editUser(props.row)"
+            icon="edit"
+            size="sm"
+            class="q-ml-md"
+            flat=""
+          />
+          <q-btn
+            @click="deleteUser(props.row)"
+            icon="delete"
+            size="sm"
+            class="q-ml-md"
+            flat
+          />
+        </div>
       </template>
     </q-table>
   </div>
@@ -63,33 +91,28 @@ export default {
           align: "left",
           field: "created_at",
         },
+        {
+          name: "actions",
+          label: "Actions",
+          align: "center",
+          field: "actions",
+        },
       ],
     };
   },
-  computed: {
-    getBranchId() {
-      return this.$store.state.userProfile?.branch_id;
-    },
-  },
   mounted() {
     this.fetchUserList();
-
-    // Start polling every 60 seconds (adjust as needed)
-    this.pollingInterval = setInterval(() => {
-      this.fetchUserList();
-    }, 1000);
-  },
-  beforeDestroy() {
-    // Clear the polling interval when the component is destroyed
-    if (this.pollingInterval) {
-      clearInterval(this.pollingInterval);
-    }
   },
   methods: {
     async fetchUserList() {
       try {
-        const branchId = this.getBranchId;
-        const response = await api.get(`/branch/UserList/${branchId}`);
+        const token = sessionStorage.getItem("token");
+        if (!token) {
+          console.error("Token not found in session storage");
+          return;
+        }
+
+        const response = await api.get(`/BranchUserList/${token}`);
         this.userList = response.data;
       } catch (error) {
         console.error("Error fetching user list:", error);
@@ -97,6 +120,18 @@ export default {
     },
     getInitials(firstName, lastName) {
       return `${firstName.charAt(0)}${lastName.charAt(0)}`;
+    },
+    viewUser(user) {
+      console.log("View user:", user);
+      // Add logic for viewing user
+    },
+    editUser(user) {
+      console.log("Edit user:", user);
+      // Add logic for editing user
+    },
+    deleteUser(user) {
+      console.log("Delete user:", user);
+      // Add logic for deleting user
     },
   },
 };
