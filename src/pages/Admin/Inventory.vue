@@ -1,216 +1,228 @@
 <template>
   <div>
-    <div class="row">
-      <div :class="{ 'col-4': $q.screen.gt.sm, 'col-12': $q.screen.lt.sm }">
-        <q-card
-          class="my-card my-card-inventory"
-          flat
-          :bordered="!$q.dark.isActive"
-        >
-          <div class="q-pa-lg">
-            <q-select
-              label="Category"
-              color="teal"
-              v-model="categoryFilter"
-              :options="categoryOptions"
-              use-input
-              input-debounce="0"
-              @filter="filterFn"
-              style="width: 250px"
-              class="full-width"
-            />
-          </div>
-        </q-card>
-      </div>
-      <div :class="{ 'col-4': $q.screen.gt.sm, 'col-12': $q.screen.lt.sm }">
-        <q-card
-          class="my-card my-card-inventory"
-          flat
-          :bordered="!$q.dark.isActive"
-        >
-          <div class="q-pa-lg">
-            <q-select
-              label="Branch"
-              color="teal"
-              v-model="branchFilter"
-              :options="branchOptions"
-              use-input
-              input-debounce="0"
-              @filter="filterFn"
-              style="width: 250px"
-              class="full-width"
-            />
-          </div>
-        </q-card>
-      </div>
-      <div :class="{ 'col-4': $q.screen.gt.sm, 'col-12': $q.screen.lt.sm }">
-        <q-card
-          class="my-card my-card-inventory"
-          flat
-          :bordered="!$q.dark.isActive"
-        >
-          <div class="q-pa-lg">
-            <q-select
-              label="Status"
-              color="teal"
-              v-model="statusFilter"
-              :options="statusOptions"
-              use-input
-              input-debounce="0"
-              @filter="filterFn"
-              style="width: 250px"
-              class="full-width"
-            />
-          </div>
-        </q-card>
-      </div>
-    </div>
-    <q-card
-      class="my-card my-card-inventory"
-      flat
-      :bordered="!$q.dark.isActive"
-    >
-      <table class="q-table">
-        <thead>
-          <tr>
-            <th
-              v-for="column in columns"
-              :key="column.name"
-              style="text-align: left"
-            >
-              {{ column.label }}
-            </th>
-          </tr>
-        </thead>
-
-        <tbody>
-          <tr
-            v-for="product in products"
-            :key="product.product_id"
-            @click="onRowClick(product)"
-          >
-            <td v-for="column in columns" :key="column.name">
-              {{ product[column.field] }}
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </q-card>
-    <q-dialog v-model="dialog" position="bottom">
-      <q-card
-        style="width: 100vw; height: 60dvh; border-radius: 40px 40px 0 0"
-        maximized
-        class="q-pa-md"
+    <q-card flat :bordered="!$q.dark.isActive" class="my-card">
+      <q-table
+        :rows="filteredProducts"
+        :columns="columns"
+        row-key="product_id"
+        title="Product List"
+        class="q-pa-md q-ma-lg"
+        rowsPerPage="0"
+        rows-per-page-label="Records per page :"
+        :rows-per-page-options="[12]"
+        :filter="filter"
       >
-        <q-card-section>
-          <q-card-title> Product Details </q-card-title>
-          <!-- Display product details here -->
-          <div v-for="column in columns" :key="column.name">
-            <strong>{{ column.label }}:</strong>
-            {{ selectedProduct[column.field] }}
-          </div>
-        </q-card-section>
+        <template v-slot:top-right>
+          <q-input
+            dense
+            debounce="300"
+            v-model="filter"
+            placeholder="Search"
+            class="q-mt-lg"
+          >
+            <template v-slot:append>
+              <q-icon name="search" />
+            </template>
+          </q-input>
+        </template>
 
-        <q-card-actions align="right">
-          <q-btn label="Close" color="primary" @click="closeDialog" />
-        </q-card-actions>
-      </q-card>
-    </q-dialog>
+        <template v-slot:body-cell-status="props">
+          <q-td :props="props">
+            <div
+              class="fit row wrap justify-center items-center content-center"
+            >
+              <q-chip
+                :color="getStatusColor(props.row.status)"
+                text-color="white"
+                outline
+                class="q-unselectable"
+              >
+                {{ props.row.status }}
+              </q-chip>
+            </div>
+          </q-td>
+        </template>
+
+        <template v-slot:body-cell-action="props">
+          <q-td :props="props">
+            <q-btn
+              icon="edit"
+              @click="editProduct(props.row)"
+              class="q-mr-xs"
+              flat
+              color="cyan-9"
+              rounded
+            />
+
+            <q-btn
+              icon="history"
+              @click="viewAuditHistory(props.row)"
+              class="q-mr-xs"
+              flat
+              color="cyan-9"
+              rounded
+            />
+            <q-btn
+              icon="delete"
+              @click="deleteProduct(props.row)"
+              class="q-mr-xs"
+              flat
+              color="cyan-9"
+              rounded
+            />
+          </q-td>
+        </template>
+      </q-table>
+    </q-card>
   </div>
 </template>
 
 <script>
+import { ref } from "vue";
 import { api } from "src/boot/axios";
+import { Notify } from "quasar";
+import { useRouter } from "vue-router";
 
 export default {
+  setup() {
+    const filter = ref("");
+    const filteredProducts = ref([]);
+    const router = useRouter();
+
+    const editProduct = (product) => {
+      // Implement your edit logic here
+      console.log("Edit product:", product);
+    };
+
+    const deleteProduct = (product) => {
+      // Implement your delete logic here
+      console.log("Delete product:", product);
+    };
+
+    const viewAuditHistory = (product) => {
+      console.log("View audit history:", product);
+      const token = sessionStorage.getItem("token");
+
+      // Use router.push to navigate to the desired route
+      router.push(`/ProductAudit/${token}/${product.product_id}`);
+    };
+
+    const getStatusColor = (status) => {
+      return status === "available" ? "cyan-9" : "grey";
+    };
+
+    return {
+      filter,
+      filteredProducts,
+      editProduct,
+      deleteProduct,
+      viewAuditHistory,
+      getStatusColor,
+    };
+  },
+
   data() {
     return {
-      products: [],
+      productList: [],
       columns: [
-        {
-          name: "product_id",
-          label: "Product ID",
-          align: "left",
-          field: "product_id",
-        },
+        { name: "index", label: "#", align: "center", field: "index" },
+        { name: "upc", label: "UPC", align: "left", field: "upc" },
         {
           name: "product_name",
           label: "Product Name",
           align: "left",
           field: "product_name",
+          sortable: true,
         },
         {
           name: "description",
           label: "Description",
           align: "left",
           field: "description",
+          sortable: true,
+        },
+        {
+          name: "category",
+          label: "Category",
+          align: "left",
+          field: "category",
+          sortable: true,
+        },
+        {
+          name: "price",
+          label: "Price",
+          align: "left",
+          field: "price",
+          sortable: true,
         },
         {
           name: "quantity",
           label: "Quantity",
           align: "left",
           field: "quantity",
+          sortable: true,
         },
-        { name: "price", label: "Price", align: "left", field: "price" },
         {
-          name: "category",
-          label: "Category",
+          name: "branch_id",
+          label: "Branch ID",
           align: "left",
-          field: "category",
+          field: "branch_id",
+          sortable: true,
         },
         {
           name: "status",
           label: "Status",
-          align: "left",
+          align: "center",
           field: "status",
+          sortable: true,
         },
-        { name: "status", label: "Status", align: "left", field: "status" },
         {
-          name: "created_at",
-          label: "Created At",
-          align: "left",
-          field: "created_at",
+          name: "action",
+          label: "Action",
+          align: "center",
+          field: "action",
+          sortable: true,
         },
       ],
-      dialog: false,
-      selectedProduct: {},
     };
   },
-  mounted() {
-    this.fetchData();
-  },
+
   methods: {
-    fetchData() {
-      api
-        .get("/ProdList")
-        .then((response) => {
-          this.products = response.data;
-        })
-        .catch((error) => {
-          console.error("Error fetching data:", error);
+    async fetchProductList() {
+      try {
+        const response = await api.get("/ProdList");
+        this.productList = response.data;
+
+        // Add an index to each row
+        this.productList.forEach((product, index) => {
+          product.index = index + 1;
         });
+
+        this.filteredProducts = this.productList;
+      } catch (error) {
+        console.error("Error fetching product list:", error);
+        Notify.create({
+          type: "negative",
+          message: "Error fetching product list",
+        });
+      }
     },
-    onRowClick(product) {
-      console.log("Clicked row with product_id:", product.product_id);
-    },
-    onRowClick(product) {
-      this.selectedProduct = product;
-      this.dialog = true;
-    },
-    closeDialog() {
-      this.dialog = false;
-    },
+  },
+
+  mounted() {
+    this.fetchProductList();
   },
 };
 </script>
 
-<style>
-.my-card-inventory {
-  margin: 5px;
-  border-radius: 20px;
-  width: auto;
+<style scoped>
+.my-card {
+  border-radius: 25px;
 }
-.inventory-container {
-  height: 100%;
+.q-unselectable {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
 }
 </style>

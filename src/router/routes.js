@@ -163,6 +163,10 @@ const routes = [
         path: "/UserProfile/:token",
         component: () => import("pages/Admin/UserProfile.vue"),
       },
+      {
+        path: "/ProductAudit/:token/:product_id",
+        component: () => import("pages/Admin/ProductAudit.vue"),
+      },
     ],
   },
   {
@@ -243,6 +247,10 @@ const routes = [
       {
         path: "/userProfile/:token",
         component: () => import("pages/Branch/UserProfile.vue"),
+      },
+      {
+        path: "/branch/productAudit/:token/:product_id",
+        component: () => import("pages/Branch/ProductAudit.vue"),
       },
     ],
   },
