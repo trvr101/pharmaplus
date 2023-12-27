@@ -52,7 +52,7 @@
           />
           <q-dialog v-model="confirm" :position="position">
             <q-card
-              style="width: 100vw; height: 45dvh; border-radius: 40px"
+              style="width: 100vw; height: 45dvh; border-radius: 40px 40px 0 0"
               maximized
               class="q-pa-md"
             >

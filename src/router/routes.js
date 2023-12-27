@@ -159,6 +159,10 @@ const routes = [
         meta: { requiresAuth: true, requiresAdmin: true },
         beforeEnter: requireAdmin,
       },
+      {
+        path: "/UserProfile/:token",
+        component: () => import("pages/Admin/UserProfile.vue"),
+      },
     ],
   },
   {

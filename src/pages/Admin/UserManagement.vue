@@ -1,41 +1,75 @@
 <template>
   <div>
-    <q-card
-      class="my-card my-card-inventory col q-pa-lg"
-      flat
-      :bordered="!$q.dark.isActive"
-    >
+    <q-card flat :bordered="!$q.dark.isActive" class="my-card">
       <q-table
         :rows="userList"
         :columns="columns"
-        title="User List"
         row-key="user_id"
-        :filter="filter"
+        title="User Management"
+        class="q-pa-md q-ma-lg"
+        rowsPerPage="0"
+        rows-per-page-label="Records per page :"
+        :rows-per-page-options="[10]"
       >
-        <template v-slot:top-right>
-          <div class="row items-center">
-            <q-input
-              dense
-              debounce="300"
-              v-model="filter"
-              placeholder="Search"
-              class="q-mt-lg"
-            >
-              <template v-slot:append>
-                <q-icon name="search" />
-              </template>
-            </q-input>
-          </div>
-        </template>
         <template v-slot:body-cell-avatar="props">
-          <div class="fit row wrap justify-center content-start q-pa-md">
-            <q-avatar color="teal" text-color="white" size="md">
+          <q-td :props="props">
+            <q-avatar
+              color="teal"
+              text-color="white"
+              size="md"
+              class="q-unselectable"
+            >
               {{ getInitials(props.row.first_name, props.row.last_name) }}
             </q-avatar>
-          </div>
+          </q-td>
         </template>
-        <template v-slot:body-cell-[column]="props">
-          {{ props.row[column.name] }}
+        <template v-slot:body-cell-status="props">
+          <q-td :props="props">
+            <div
+              class="fit row wrap justify-center items-center content-center"
+            >
+              <q-chip
+                :color="getStatusColor(props.row.status)"
+                text-color="white"
+                outline
+                class="q-unselectable"
+              >
+                {{ props.row.status }}
+              </q-chip>
+            </div>
+          </q-td>
+        </template>
+        <template v-slot:body-cell-actions="props">
+          <q-td :props="props">
+            <div class="fit row no-wrap justify-center content-start q-py-sm">
+              <q-btn
+                @click="viewUser(props.row)"
+                icon="remove_red_eye"
+                size="sm"
+                flat
+                rounded
+                color="teal-7"
+              >
+                <q-tooltip transition-show="scale" transition-hide="scale">
+                  view user
+                </q-tooltip>
+              </q-btn>
+
+              <q-btn
+                @click="suspendUser(props.row)"
+                icon="remove_circle"
+                size="sm"
+                class="q-ml-md"
+                flat
+                rounded
+                color="teal-7"
+              >
+                <q-tooltip transition-show="scale" transition-hide="scale">
+                  suspend user
+                </q-tooltip>
+              </q-btn>
+            </div>
+          </q-td>
         </template>
       </q-table>
     </q-card>
@@ -44,69 +78,95 @@
 
 <script>
 import { api } from "src/boot/axios";
-import { ref } from "vue";
+
 export default {
-  setup() {
-    const filter = ref("");
-    return {
-      filter,
-    };
-  },
   data() {
     return {
       userList: [],
       columns: [
         {
           name: "avatar",
-          label: "Avatar",
+          label: "",
           align: "center",
           field: "avatar",
           format: (val) => `<q-avatar>${val}</q-avatar>`,
         },
-
         {
           name: "first_name",
           label: "First Name",
           align: "left",
           field: "first_name",
+          sortable: true,
         },
         {
           name: "last_name",
           label: "Last Name",
           align: "left",
           field: "last_name",
+          sortable: true,
         },
-        // Include other columns as needed
-        { name: "email", label: "Email", align: "left", field: "email" },
+        {
+          name: "email",
+          label: "Email",
+          align: "left",
+          field: "email",
+          sortable: true,
+        },
         {
           name: "user_role",
           label: "User Role",
           align: "left",
           field: "user_role",
+          sortable: true,
         },
         {
           name: "branch_id",
           label: "Branch ID",
           align: "left",
           field: "branch_id",
+          sortable: true,
         },
-        { name: "status", label: "Status", align: "left", field: "status" },
+        {
+          name: "status",
+          label: "Status",
+          align: "center",
+          field: "status",
+          sortable: true,
+        },
         {
           name: "created_at",
           label: "Created At",
           align: "left",
           field: "created_at",
+          sortable: true,
+        },
+        {
+          name: "actions",
+          label: "Actions",
+          align: "center",
+          field: "actions",
         },
       ],
+      pollingInterval: null,
     };
   },
   mounted() {
     this.fetchUserList();
+    this.pollingInterval = setInterval(this.fetchUserList, 1000);
+  },
+  beforeDestroy() {
+    clearInterval(this.pollingInterval);
   },
   methods: {
     async fetchUserList() {
       try {
-        const response = await api.get("/UserList");
+        const token = sessionStorage.getItem("token");
+        if (!token) {
+          console.error("Token not found in session storage");
+          return;
+        }
+
+        const response = await api.get(`/UserList`);
         this.userList = response.data;
       } catch (error) {
         console.error("Error fetching user list:", error);
@@ -115,10 +175,38 @@ export default {
     getInitials(firstName, lastName) {
       return `${firstName.charAt(0)}${lastName.charAt(0)}`;
     },
+    viewUser(user) {
+      console.log("View user:", user);
+      this.$router.push(`/UserProfile/${user.token}`);
+    },
+    suspendUser(user) {
+      console.log("Suspend user:", user);
+      // Add logic for deleting user
+    },
+    getStatusColor(status) {
+      switch (status) {
+        case "active":
+          return "teal";
+        case "inactive":
+          return "grey";
+        case "suspended":
+          return "red-12";
+        default:
+          return "teal"; // or any default color
+      }
+    },
   },
 };
 </script>
 
 <style scoped>
-/* Add your custom styles here */
+.my-card {
+  border-radius: 25px;
+}
+.q-unselectable {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
 </style>

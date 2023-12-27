@@ -45,7 +45,7 @@
 
   <q-dialog v-model="dialog" :position="position">
     <q-card
-      style="width: 100vw; height: 60dvh; border-radius: 40px"
+      style="width: 100vw; height: 60dvh; border-radius: 40px 40px 0 0"
       maximized
       class="q-pa-md"
     >

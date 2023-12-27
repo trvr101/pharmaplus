@@ -98,7 +98,7 @@
     </q-card>
     <q-dialog v-model="dialog" position="bottom">
       <q-card
-        style="width: 100vw; height: 60dvh; border-radius: 40px"
+        style="width: 100vw; height: 60dvh; border-radius: 40px 40px 0 0"
         maximized
         class="q-pa-md"
       >
@@ -157,6 +157,12 @@ export default {
           label: "Category",
           align: "left",
           field: "category",
+        },
+        {
+          name: "status",
+          label: "Status",
+          align: "left",
+          field: "status",
         },
         { name: "status", label: "Status", align: "left", field: "status" },
         {

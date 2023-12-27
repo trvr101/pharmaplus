@@ -74,6 +74,7 @@
               key="CS_invite_code"
               :props="props"
               @click="copyToClipboard(props.row.CS_invite_code)"
+              class="cursor-pointer"
             >
               {{ props.row.CS_invite_code }}
             </q-td>
@@ -81,6 +82,7 @@
               key="BA_invite_code"
               :props="props"
               @click="copyToClipboard(props.row.BA_invite_code)"
+              class="cursor-pointer"
             >
               {{ props.row.BA_invite_code }}
             </q-td>
@@ -94,7 +96,7 @@
   </div>
   <q-dialog v-model="dialog" :position="position">
     <q-card
-      style="width: 100vw; height: 40dvh; border-radius: 40px"
+      style="width: 100vw; height: 40dvh; border-radius: 40px 40px  0 0"
       maximized
       class="q-pa-lg"
       flat

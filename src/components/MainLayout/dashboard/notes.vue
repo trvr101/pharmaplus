@@ -56,39 +56,6 @@
       </q-expansion-item>
 
       <!-- Edit Notes Dialog -->
-      <q-dialog v-model="editDialog" @hide="resetEditData">
-        <q-card>
-          <q-card-section>
-            <q-form @submit.prevent="editNote">
-              <!-- Edit Title Input -->
-              <q-input
-                v-model="editedNoteTitle"
-                label="Edit Title:"
-                :label-color="secondary"
-                :dense="dense"
-              />
-              <!-- Edit Description Input -->
-              <q-input
-                v-model="editedNoteText"
-                type="textarea"
-                label="Edit Description"
-              />
-              <!-- Update Notes Button -->
-              <q-btn
-                unelevated
-                rounded
-                label="Update Notes"
-                class="full-width q-ma-lg"
-                :class="{
-                  'text-teal-3 bg-secondary ': $q.dark.isActive,
-                  'bg-teal text-grey-3': !$q.dark.isActive,
-                }"
-                type="submit"
-              />
-            </q-form>
-          </q-card-section>
-        </q-card>
-      </q-dialog>
 
       <!-- Display Notes Expansion Items -->
       <q-expansion-item
