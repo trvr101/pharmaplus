@@ -1,6 +1,9 @@
 <template>
   <div class="no-scroll hide-scrollbar overflow-hidden-y">
     <div id="map" style="height: 94dvh; width: 96.3dvw"></div>
+    <div id="popup" class="ol-popup">
+      <div id="popup-content"></div>
+    </div>
   </div>
 </template>
 
@@ -9,6 +12,12 @@ import "ol/ol.css";
 import { Map, View } from "ol";
 import TileLayer from "ol/layer/Tile";
 import OSM from "ol/source/OSM";
+import { fromLonLat } from "ol/proj";
+import { Feature } from "ol";
+import Point from "ol/geom/Point";
+import { Vector as VectorLayer } from "ol/layer";
+import { Vector as VectorSource } from "ol/source";
+import Overlay from "ol/Overlay";
 
 export default {
   mounted() {
@@ -16,17 +25,6 @@ export default {
   },
   methods: {
     initMap() {
-      // Check if map state is stored in local storage
-      const storedMapState = localStorage.getItem("mapState");
-      let initialCenter = [121.4069, 13.0565];
-      let initialZoom = 10;
-
-      if (storedMapState) {
-        const { center, zoom } = JSON.parse(storedMapState);
-        initialCenter = center;
-        initialZoom = zoom;
-      }
-
       const map = new Map({
         target: "map",
         layers: [
@@ -35,19 +33,48 @@ export default {
           }),
         ],
         view: new View({
-          center: initialCenter,
-          zoom: initialZoom,
+          center: fromLonLat([121.4069, 13.0565]),
+          zoom: 10,
         }),
       });
 
-      // Save the map state to local storage on view change
-      map.getView().on("change:center", () => {
-        const center = map.getView().getCenter();
-        const zoom = map.getView().getZoom();
-        localStorage.setItem("mapState", JSON.stringify({ center, zoom }));
+      // Add a marker at the specified location
+      const marker = new Feature({
+        geometry: new Point(fromLonLat([121.178, 13.3761])),
       });
 
-      // You can add more features or customize the map as needed
+      const vectorLayer = new VectorLayer({
+        source: new VectorSource({
+          features: [marker],
+        }),
+      });
+
+      map.addLayer(vectorLayer);
+
+      // Create an overlay to show information on hover
+      const popup = new Overlay({
+        element: document.getElementById("popup"),
+        positioning: "bottom-center",
+        stopEvent: false,
+        offset: [0, -50],
+      });
+      map.addOverlay(popup);
+
+      // Show information on hover
+      map.on("pointermove", (event) => {
+        const feature = map.forEachFeatureAtPixel(event.pixel, (feature) => {
+          return feature;
+        });
+
+        if (feature) {
+          const coordinates = feature.getGeometry().getCoordinates();
+          popup.setPosition(coordinates);
+          document.getElementById("popup-content").innerHTML =
+            "Provincial Hospital";
+        } else {
+          popup.setPosition(undefined);
+        }
+      });
     },
   },
 };
@@ -56,5 +83,39 @@ export default {
 <style>
 #map {
   height: 400px;
+}
+
+.ol-popup {
+  display: none;
+  position: absolute;
+  background-color: white;
+  padding: 5px;
+  border-radius: 5px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+}
+
+.ol-popup:after,
+.ol-popup:before {
+  top: 100%;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+}
+
+.ol-popup:after {
+  border-top-color: white;
+  border-width: 10px;
+  left: 50%;
+  margin-left: -10px;
+}
+
+.ol-popup:before {
+  border-top-color: white;
+  border-width: 11px;
+  left: 50%;
+  margin-left: -11px;
 }
 </style>

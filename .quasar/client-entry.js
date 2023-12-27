@@ -157,7 +157,7 @@ createQuasarApp(createApp, quasarUserOptions)
       
       import(/* webpackMode: "eager" */ 'boot/apexcharts'),
       
-      import(/* webpackMode: "eager" */ 'boot/addressbar-color')
+      import(/* webpackMode: "eager" */ 'boot/addressbar')
       
     ]).then(bootFiles => {
       const boot = mapFn(bootFiles).filter(entry => typeof entry === 'function')

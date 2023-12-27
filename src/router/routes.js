@@ -236,6 +236,10 @@ const routes = [
         meta: { requiresAuth: true, requiresAdmin: true },
         beforeEnter: requireBranchAdmin,
       },
+      {
+        path: "/userProfile/:token",
+        component: () => import("pages/Branch/UserProfile.vue"),
+      },
     ],
   },
   {

@@ -1,7 +1,12 @@
 <template>
   <q-form @submit.prevent="login">
     <q-input v-model="email" label="Email" :dense="dense" />
-    <q-input v-model="password" label="Password" :dense="dense" />
+    <q-input
+      v-model="password"
+      label="Password"
+      :dense="dense"
+      type="password"
+    />
     <q-btn
       unelevated
       rounded

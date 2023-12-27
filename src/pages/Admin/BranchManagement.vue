@@ -70,10 +70,18 @@
             <q-td key="email" :props="props">
               {{ props.row.email }}
             </q-td>
-            <q-td key="CS_invite_code" :props="props">
+            <q-td
+              key="CS_invite_code"
+              :props="props"
+              @click="copyToClipboard(props.row.CS_invite_code)"
+            >
               {{ props.row.CS_invite_code }}
             </q-td>
-            <q-td key="BA_invite_code" :props="props">
+            <q-td
+              key="BA_invite_code"
+              :props="props"
+              @click="copyToClipboard(props.row.BA_invite_code)"
+            >
               {{ props.row.BA_invite_code }}
             </q-td>
             <q-td key="created_at" :props="props">
@@ -175,6 +183,22 @@ export default {
       return date ? new Date(date).toLocaleDateString() : "N/A";
     };
 
+    const copyToClipboard = (value) => {
+      const input = document.createElement("input");
+      input.value = value;
+      document.body.appendChild(input);
+      input.select();
+      input.setSelectionRange(0, 99999);
+      document.execCommand("copy");
+      document.body.removeChild(input);
+
+      Notify.create({
+        color: "teal",
+        position: "bottom",
+        message: "Content copied to clipboard",
+      });
+    };
+
     return {
       filter,
       dialog,
@@ -185,6 +209,7 @@ export default {
       branch_name,
       AddBranch,
       formatDate,
+      copyToClipboard,
     };
   },
 
@@ -200,3 +225,8 @@ export default {
   },
 };
 </script>
+<style>
+.my-card {
+  border-radius: 25px;
+}
+</style>
