@@ -1,14 +1,25 @@
 <template>
   <div>
     <q-card flat :bordered="!$q.dark.isActive" class="my-card">
+      <q-btn
+        @click="$router.go(-1)"
+        class="float-top-left q-ma-lg"
+        unelevated
+        rounded
+        outline
+        color="teal"
+        icon="arrow_back"
+      >
+      </q-btn>
       <q-table
         :rows="productHistory"
         :columns="columns"
         row-key="audit_id"
         :title="product_name + ' History'"
-        class="q-pa-md q-ma-lg"
+        class="q-pa-md q-mb-lg q-mx-lg"
         :rows-per-page-options="[10]"
       >
+        <!-- add back button use arrow icon -->
         <!-- Template for the 'Type' column -->
         <template v-slot:body-cell-type="props">
           <q-td :props="props">

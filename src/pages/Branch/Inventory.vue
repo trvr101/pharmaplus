@@ -6,10 +6,10 @@
         :columns="columns"
         row-key="product_id"
         title="Product List"
-        class="q-pa-md q-ma-lg"
+        class="q-pa-md q-mb-lg q-mx-lg"
         rowsPerPage="0"
         rows-per-page-label="Records per page :"
-        :rows-per-page-options="[12]"
+        :rows-per-page-options="[10]"
         :filter="filter"
       >
         <template v-slot:top-right>
@@ -181,7 +181,6 @@ export default {
           label: "Action",
           align: "center",
           field: "action",
-          sortable: true,
         },
       ],
     };

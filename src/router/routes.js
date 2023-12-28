@@ -245,7 +245,7 @@ const routes = [
         beforeEnter: requireBranchAdmin,
       },
       {
-        path: "/userProfile/:token",
+        path: "/BranchUserProfile/:token",
         component: () => import("pages/Branch/UserProfile.vue"),
       },
       {

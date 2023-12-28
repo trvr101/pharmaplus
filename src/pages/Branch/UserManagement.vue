@@ -13,54 +13,62 @@
         separator="none"
       >
         <template v-slot:body-cell-avatar="props">
-          <div
-            class="fit row wrap justify-center items-center content-center q-py-sm"
-          >
-            <q-avatar color="teal" text-color="white" size="md">
-              {{ getInitials(props.row.first_name, props.row.last_name) }}
-            </q-avatar>
-          </div>
+          <q-td :props="props">
+            <div
+              class="fit row wrap justify-center items-center content-center"
+            >
+              <q-avatar color="teal" text-color="white" size="md">
+                {{ getInitials(props.row.first_name, props.row.last_name) }}
+              </q-avatar>
+            </div>
+          </q-td>
         </template>
         <template v-slot:body-cell-status="props">
-          <div class="fit row wrap justify-center items-center content-center">
-            <q-chip
-              :color="getStatusColor(props.row.status)"
-              text-color="white"
-              outline
+          <q-td :props="props">
+            <div
+              class="fit row wrap justify-center items-center content-center"
             >
-              {{ props.row.status }}
-            </q-chip>
-          </div>
+              <q-chip
+                :color="getStatusColor(props.row.status)"
+                text-color="white"
+                outline
+              >
+                {{ props.row.status }}
+              </q-chip>
+            </div>
+          </q-td>
         </template>
         <template v-slot:body-cell-actions="props">
-          <div class="fit row no-wrap justify-center content-start q-py-sm">
-            <q-btn
-              @click="viewUser(props.row)"
-              icon="remove_red_eye"
-              size="sm"
-              flat
-              rounded
-              color="teal-7"
-            >
-              <q-tooltip transition-show="scale" transition-hide="scale">
-                view user
-              </q-tooltip>
-            </q-btn>
+          <q-td :props="props">
+            <div class="fit row no-wrap justify-center content-start">
+              <q-btn
+                @click="viewUser(props.row)"
+                icon="remove_red_eye"
+                size="sm"
+                flat
+                rounded
+                color="teal-7"
+              >
+                <q-tooltip transition-show="scale" transition-hide="scale">
+                  view user
+                </q-tooltip>
+              </q-btn>
 
-            <q-btn
-              @click="suspendUser(props.row)"
-              icon="remove_circle"
-              size="sm"
-              class="q-ml-md"
-              flat
-              rounded
-              color="teal-7"
-            >
-              <q-tooltip transition-show="scale" transition-hide="scale">
-                suspend user
-              </q-tooltip>
-            </q-btn>
-          </div>
+              <q-btn
+                @click="suspendUser(props.row)"
+                icon="remove_circle"
+                size="sm"
+                class="q-ml-md"
+                flat
+                rounded
+                color="teal-7"
+              >
+                <q-tooltip transition-show="scale" transition-hide="scale">
+                  suspend user
+                </q-tooltip>
+              </q-btn>
+            </div>
+          </q-td>
         </template>
       </q-table>
     </q-card>
@@ -168,7 +176,7 @@ export default {
     },
     viewUser(user) {
       console.log("View user:", user);
-      this.$router.push(`/userProfile/${user.token}`);
+      this.$router.push(`/BranchUserProfile/${user.token}`);
     },
     suspendUser(user) {
       console.log("Suspend user:", user);

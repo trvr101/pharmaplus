@@ -23,10 +23,10 @@
 
 <script>
 import { ref } from "vue";
-import card1 from "components/MainLayout/restock/card1";
-import card2 from "components/MainLayout/restock/card2";
-import card3 from "components/MainLayout/restock/card3";
-import table1 from "components/MainLayout/restock/restock_tbl1";
+import card1 from "components/BranchLayout/restock/card1";
+import card2 from "components/BranchLayout/restock/card2";
+import card3 from "components/BranchLayout/restock/card3";
+import table1 from "components/BranchLayout/restock/restock_tbl1";
 export default {
   components: {
     card1,

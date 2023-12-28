@@ -1,12 +1,21 @@
 <template>
   <div>
     <q-card flat :bordered="!$q.dark.isActive" class="my-card">
+      <q-btn
+        @click="$router.go(-1)"
+        class="float-top-left q-ma-lg text-cyan-9"
+        unelevated
+        rounded
+        outline
+        icon="arrow_back"
+      >
+      </q-btn>
       <q-table
         :rows="productHistory"
         :columns="columns"
         row-key="audit_id"
         :title="product_name + ' History'"
-        class="q-pa-md q-ma-lg"
+        class="q-pa-md q-mb-lg q-mx-lg"
         :rows-per-page-options="[10]"
       >
         <!-- Template for the 'Type' column -->
