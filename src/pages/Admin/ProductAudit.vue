@@ -89,43 +89,44 @@ export default {
   },
   methods: {
     async fetchProductHistory() {
-      try {
-        const token = this.$route.params.token;
-        const product_id = this.$route.params.product_id;
-        const response = await api.get(`/ProductAudit/${token}/${product_id}`);
-        this.productHistory = response.data.map((entry, index) => ({
-          ...entry,
-          index: index + 1,
-        }));
+      const token = this.$route.params.token;
+      const product_id = this.$route.params.product_id;
+      const response = await api.get(`/ProductAudit/${token}/${product_id}`);
+      this.productHistory = response.data.map((entry, index) => ({
+        ...entry,
+        index: index + 1,
+      }));
 
-        // Set product_name from the first entry in the productHistory array
-        if (this.productHistory.length > 0) {
-          this.product_name = this.productHistory[0].product_name;
-        }
-      } catch (error) {
-        console.error("Error fetching product history:", error);
-        Notify.create({
-          type: "negative",
-          message: "Error fetching product history",
-        });
+      // Set product_name from the first entry in the productHistory array
+      if (this.productHistory.length > 0) {
+        this.product_name = this.productHistory[0].product_name;
       }
     },
     getTypeColor(type) {
-      // Add logic to determine the color based on the type
-      // For example:
       switch (type) {
         case "outbound":
           return "teal";
         case "inbound":
           return "cyan-9";
-        // Add more cases as needed
         default:
           return "default";
       }
     },
+    startPolling() {
+      this.fetchProductHistory();
+      this.pollingTimer = setInterval(() => {
+        this.fetchProductHistory();
+      }, 1000);
+    },
+    stopPolling() {
+      clearInterval(this.pollingTimer);
+    },
   },
   mounted() {
-    this.fetchProductHistory();
+    this.startPolling();
+  },
+  beforeDestroy() {
+    this.stopPolling();
   },
 };
 </script>

@@ -90,20 +90,16 @@ export default {
     const router = useRouter();
 
     const editProduct = (product) => {
-      // Implement your edit logic here
       console.log("Edit product:", product);
     };
 
     const deleteProduct = (product) => {
-      // Implement your delete logic here
       console.log("Delete product:", product);
     };
 
     const viewAuditHistory = (product) => {
       console.log("View audit history:", product);
       const token = sessionStorage.getItem("token");
-
-      // Use router.push to navigate to the desired route
       router.push(`/ProductAudit/${token}/${product.product_id}`);
     };
 
@@ -125,8 +121,20 @@ export default {
     return {
       productList: [],
       columns: [
-        { name: "index", label: "#", align: "center", field: "index" },
-        { name: "upc", label: "UPC", align: "left", field: "upc" },
+        {
+          name: "index",
+          label: "#",
+          align: "center",
+          field: "index",
+          sortable: true,
+        },
+        {
+          name: "upc",
+          label: "UPC",
+          align: "left",
+          field: "upc",
+          sortable: true,
+        },
         {
           name: "product_name",
           label: "Product Name",
@@ -192,12 +200,9 @@ export default {
       try {
         const response = await api.get("/ProdList");
         this.productList = response.data;
-
-        // Add an index to each row
         this.productList.forEach((product, index) => {
           product.index = index + 1;
         });
-
         this.filteredProducts = this.productList;
       } catch (error) {
         console.error("Error fetching product list:", error);
@@ -207,10 +212,23 @@ export default {
         });
       }
     },
+    startPolling() {
+      this.fetchProductList(); // Initial fetch
+      this.pollingTimer = setInterval(() => {
+        this.fetchProductList(); // Fetch data at regular intervals
+      }, 1000); // Poll every 5 seconds (adjust as needed)
+    },
+    stopPolling() {
+      clearInterval(this.pollingTimer);
+    },
   },
 
   mounted() {
-    this.fetchProductList();
+    this.startPolling(); // Start polling when the component is mounted
+  },
+
+  beforeDestroy() {
+    this.stopPolling(); // Stop polling when the component is about to be destroyed
   },
 };
 </script>

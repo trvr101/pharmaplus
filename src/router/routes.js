@@ -109,12 +109,7 @@ const routes = [
         meta: { requiresAuth: true, requiresAdmin: true },
         beforeEnter: requireAdmin,
       },
-      {
-        path: "/restock",
-        component: () => import("pages/Admin/Restock.vue"),
-        meta: { requiresAuth: true, requiresAdmin: true },
-        beforeEnter: requireAdmin,
-      },
+
       {
         path: "/userManagement",
         component: () => import("pages/Admin/UserManagement.vue"),
@@ -141,6 +136,7 @@ const routes = [
         meta: { requiresAuth: true, requiresAdmin: true },
         beforeEnter: requireAdmin,
       },
+
       {
         path: "/scanner",
         component: () => import("pages/Admin/Scanner.vue"),
@@ -167,6 +163,12 @@ const routes = [
         path: "/ProductAudit/:token/:product_id",
         component: () => import("pages/Admin/ProductAudit.vue"),
       },
+      {
+        path: "/restock/:token/:product_id",
+        component: () => import("pages/Admin/Restock.vue"),
+        meta: { requiresAuth: true, requiresAdmin: true },
+        beforeEnter: requireAdmin,
+      },
     ],
   },
   {
@@ -189,7 +191,7 @@ const routes = [
         beforeEnter: requireBranchAdmin,
       },
       {
-        path: "/Branch_restock",
+        path: "/branch/restock/:token/:product_id",
         component: () => import("pages/Branch/Restock.vue"),
         meta: { requiresAuth: true, requiresAdmin: true },
         beforeEnter: requireBranchAdmin,

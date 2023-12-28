@@ -46,22 +46,38 @@
         <template v-slot:body-cell-action="props">
           <q-td :props="props">
             <q-btn
-              icon="edit"
-              @click="editProduct(props.row)"
-              class="q-mr-xs"
-              flat
-              color="cyan-9"
-              rounded
-            />
-
-            <q-btn
               icon="history"
               @click="viewAuditHistory(props.row)"
               class="q-mr-xs"
               flat
               color="cyan-9"
               rounded
-            />
+              ><q-tooltip transition-show="scale" transition-hide="scale">
+                history
+              </q-tooltip></q-btn
+            ><q-btn
+              icon="autorenew"
+              @click="restockproduct(props.row)"
+              class="q-mr-xs"
+              flat
+              color="cyan-9"
+              rounded
+              ><q-tooltip transition-show="scale" transition-hide="scale">
+                restock
+              </q-tooltip></q-btn
+            >
+            <q-btn
+              icon="edit"
+              @click="editProduct(props.row)"
+              class="q-mr-xs"
+              flat
+              color="cyan-9"
+              rounded
+              ><q-tooltip transition-show="scale" transition-hide="scale">
+                edit
+              </q-tooltip></q-btn
+            >
+
             <q-btn
               icon="delete"
               @click="deleteProduct(props.row)"
@@ -69,7 +85,10 @@
               flat
               color="cyan-9"
               rounded
-            />
+              ><q-tooltip transition-show="scale" transition-hide="scale">
+                delete
+              </q-tooltip></q-btn
+            >
           </q-td>
         </template>
       </q-table>
@@ -90,20 +109,21 @@ export default {
     const router = useRouter();
 
     const editProduct = (product) => {
-      // Implement your edit logic here
       console.log("Edit product:", product);
     };
 
     const deleteProduct = (product) => {
-      // Implement your delete logic here
       console.log("Delete product:", product);
+    };
+    const restockproduct = (product) => {
+      console.log("Restock:", product);
+      const token = sessionStorage.getItem("token");
+      router.push(`/branch/restock/${token}/${product.product_id}`);
     };
 
     const viewAuditHistory = (product) => {
       console.log("View audit history:", product);
       const token = sessionStorage.getItem("token");
-
-      // Use router.push to navigate to the desired route
       router.push(`/branch/productAudit/${token}/${product.product_id}`);
     };
 
@@ -116,6 +136,7 @@ export default {
       filteredProducts,
       editProduct,
       deleteProduct,
+      restockproduct,
       viewAuditHistory,
       getStatusColor,
     };
@@ -125,8 +146,20 @@ export default {
     return {
       productList: [],
       columns: [
-        { name: "index", label: "#", align: "center", field: "index" },
-        { name: "upc", label: "UPC", align: "left", field: "upc" },
+        {
+          name: "index",
+          label: "#",
+          align: "center",
+          field: "index",
+          sortable: true,
+        },
+        {
+          name: "upc",
+          label: "UPC",
+          align: "left",
+          field: "upc",
+          sortable: true,
+        },
         {
           name: "product_name",
           label: "Product Name",
@@ -192,12 +225,9 @@ export default {
         const token = sessionStorage.getItem("token");
         const response = await api.get(`/ProdList/${token}`);
         this.productList = response.data;
-
-        // Add an index to each row
         this.productList.forEach((product, index) => {
           product.index = index + 1;
         });
-
         this.filteredProducts = this.productList;
       } catch (error) {
         console.error("Error fetching product list:", error);
@@ -207,10 +237,23 @@ export default {
         });
       }
     },
+    startPolling() {
+      this.fetchProductList();
+      this.pollingTimer = setInterval(() => {
+        this.fetchProductList();
+      }, 1000);
+    },
+    stopPolling() {
+      clearInterval(this.pollingTimer);
+    },
   },
 
   mounted() {
-    this.fetchProductList();
+    this.startPolling();
+  },
+
+  beforeDestroy() {
+    this.stopPolling();
   },
 };
 </script>

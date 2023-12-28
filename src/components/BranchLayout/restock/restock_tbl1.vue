@@ -45,56 +45,59 @@
 
         <template v-slot:body-cell-action="props">
           <q-td :props="props">
-            <q-form
-              class="fit row no-wrap justify-evenly items-center content-center"
-            >
-              <q-input
-                filled
-                v-model="restock"
-                label="Restock Quantity"
-                dense
-                type="number"
-                style="width: 150px"
-                class="custom-rounded-input"
-              />
-              <q-input
-                filled
-                label="Expiration Date"
-                v-model="date"
-                mask="date"
-                :rules="['date']"
-                dense
-                class="q-pa-none q-ma-none"
-                style="width: 175px"
+            <q-form @submit.prevent="AddQuantity(props.row.product_id)">
+              <div
+                class="fit row no-wrap justify-evenly items-center content-center"
               >
-                <template v-slot:append>
-                  <q-icon name="event" class="cursor-pointer">
-                    <q-popup-proxy
-                      cover
-                      transition-show="scale"
-                      transition-hide="scale"
-                    >
-                      <q-date v-model="date" minimal>
-                        <div class="row items-center justify-end">
-                          <q-btn
-                            v-close-popup
-                            label="Close"
-                            color="primary"
-                            flat
-                          />
-                        </div>
-                      </q-date>
-                    </q-popup-proxy>
-                  </q-icon>
-                </template>
-              </q-input>
-              <q-btn
-                icon="send"
-                color="teal"
-                class="bg-grey-3 text-teal"
-                rounded
-                unelevated
-              />
+                <q-input
+                  filled
+                  v-model="props.row.restock"
+                  label="Restock Quantity"
+                  dense
+                  type="number"
+                  style="width: 150px"
+                  class="custom-rounded-input"
+                />
+                <q-input
+                  filled
+                  label="Expiration Date"
+                  v-model="props.row.date"
+                  mask="date"
+                  :rules="['date']"
+                  dense
+                  class="q-pa-none q-ma-none"
+                  style="width: 175px"
+                >
+                  <template v-slot:append>
+                    <q-icon name="event" class="cursor-pointer">
+                      <q-popup-proxy
+                        cover
+                        transition-show="scale"
+                        transition-hide="scale"
+                      >
+                        <q-date v-model="props.row.date" minimal>
+                          <div class="row items-center justify-end">
+                            <q-btn
+                              v-close-popup
+                              label="Close"
+                              color="primary"
+                              flat
+                            />
+                          </div>
+                        </q-date>
+                      </q-popup-proxy>
+                    </q-icon>
+                  </template>
+                </q-input>
+                <q-btn
+                  icon="send"
+                  color="teal"
+                  class="bg-grey-3 text-teal"
+                  rounded
+                  unelevated
+                  type="submit"
+                />
+              </div>
             </q-form>
           </q-td>
         </template>
@@ -115,24 +118,6 @@ export default {
     const filteredProducts = ref([]);
     const router = useRouter();
 
-    const editProduct = (product) => {
-      // Implement your edit logic here
-      console.log("Edit product:", product);
-    };
-
-    const deleteProduct = (product) => {
-      // Implement your delete logic here
-      console.log("Delete product:", product);
-    };
-
-    const viewAuditHistory = (product) => {
-      console.log("View audit history:", product);
-      const token = sessionStorage.getItem("token");
-
-      // Use router.push to navigate to the desired route
-      router.push(`/branch/productAudit/${token}/${product.product_id}`);
-    };
-
     const getStatusColor = (status) => {
       return status === "available" ? "cyan-9" : "grey";
     };
@@ -140,9 +125,6 @@ export default {
     return {
       filter,
       filteredProducts,
-      editProduct,
-      deleteProduct,
-      viewAuditHistory,
       getStatusColor,
     };
   },
@@ -189,13 +171,6 @@ export default {
           sortable: true,
         },
         {
-          name: "branch_id",
-          label: "Branch ID",
-          align: "left",
-          field: "branch_id",
-          sortable: true,
-        },
-        {
           name: "status",
           label: "Status",
           align: "center",
@@ -222,14 +197,70 @@ export default {
         // Add an index to each row
         this.productList.forEach((product, index) => {
           product.index = index + 1;
+          product.restock = 0; // Initialize restock for each row
+          product.date = null; // Initialize date for each row
         });
 
         this.filteredProducts = this.productList;
+
+        // Log the values for the first row
+        if (this.filteredProducts.length > 0) {
+          console.log(
+            "Restock value for the first row:",
+            this.filteredProducts[0].restock
+          );
+          console.log(
+            "Date value for the first row:",
+            this.filteredProducts[0].date
+          );
+        }
       } catch (error) {
         console.error("Error fetching product list:", error);
         Notify.create({
           type: "negative",
           message: "Error fetching product list",
+        });
+      }
+    },
+    async AddQuantity(product_id) {
+      try {
+        const token = sessionStorage.getItem("token");
+        const response = await api.post(`/AddQuantity/${product_id}`, {
+          quantity: product.restock,
+          user_id: "your_user_id", // replace with the actual user_id
+          branch_id: "your_branch_id", // replace with the actual branch_id
+        });
+
+        if (response.data.msg === "okay") {
+          Notify.create({
+            type: "positive",
+            message: "Quantity added successfully",
+          });
+
+          // Log the values after updating
+          console.log(
+            "Restock value after updating:",
+            this.filteredProducts.find((p) => p.product_id === product_id)
+              .restock
+          );
+          console.log(
+            "Date value after updating:",
+            this.filteredProducts.find((p) => p.product_id === product_id).date
+          );
+
+          // Update the product list or perform any other necessary updates
+          this.fetchProductList();
+        } else {
+          Notify.create({
+            type: "negative",
+            message: "Failed to add quantity",
+          });
+        }
+      } catch (error) {
+        console.error("Error adding quantity:", error);
+        Notify.create({
+          type: "negative",
+          message: "Error adding quantity",
         });
       }
     },
@@ -250,5 +281,11 @@ export default {
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
+}
+.custom-rounded-input {
+  border-radius: 10px; /* Adjust the value as needed */
+}
+.q-table {
+  overflow-x: hidden;
 }
 </style>

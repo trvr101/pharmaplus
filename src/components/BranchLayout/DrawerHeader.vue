@@ -93,17 +93,7 @@
           <q-item-section avatar>
             <q-icon name="inventory_2" />
           </q-item-section>
-          <q-item-section> Inventory </q-item-section> </q-item
-        ><q-item
-          clickable
-          v-ripple
-          :class="{ 'active-item': $route.path === '/Branch_restock' }"
-          to="/Branch_restock"
-        >
-          <q-item-section avatar>
-            <q-icon name="autorenew" />
-          </q-item-section>
-          <q-item-section> Restock </q-item-section>
+          <q-item-section> Inventory </q-item-section>
         </q-item>
         <q-item
           clickable
