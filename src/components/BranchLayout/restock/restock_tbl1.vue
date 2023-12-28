@@ -46,7 +46,7 @@
         <template v-slot:body-cell-action="props">
           <q-td :props="props">
             <q-form
-              class="fit row wrap justify-center items-center content-center"
+              class="fit row no-wrap justify-evenly items-center content-center"
             >
               <q-input
                 filled
@@ -54,14 +54,18 @@
                 label="Restock Quantity"
                 dense
                 type="number"
+                style="width: 150px"
+                class="custom-rounded-input"
               />
               <q-input
                 filled
+                label="Expiration Date"
                 v-model="date"
                 mask="date"
                 :rules="['date']"
                 dense
                 class="q-pa-none q-ma-none"
+                style="width: 175px"
               >
                 <template v-slot:append>
                   <q-icon name="event" class="cursor-pointer">
@@ -70,7 +74,7 @@
                       transition-show="scale"
                       transition-hide="scale"
                     >
-                      <q-date v-model="date">
+                      <q-date v-model="date" minimal>
                         <div class="row items-center justify-end">
                           <q-btn
                             v-close-popup
@@ -84,6 +88,13 @@
                   </q-icon>
                 </template>
               </q-input>
+              <q-btn
+                icon="send"
+                color="teal"
+                class="bg-grey-3 text-teal"
+                rounded
+                unelevated
+              />
             </q-form>
           </q-td>
         </template>
