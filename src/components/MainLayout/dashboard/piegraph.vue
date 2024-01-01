@@ -16,14 +16,15 @@
 </template>
 
 <script>
-import { ref } from "vue";
+import { ref, onMounted, onBeforeUnmount } from "vue";
+import { api } from "src/boot/axios";
 
 export default {
   name: "DonutChart",
   setup() {
-    const series = ref([44, 55, 13, 43, 22]);
+    const series = ref([]);
     const chartOptions = ref({
-      labels: ["Branch A", "Branch B", "Branch C", "Branch D", "Branch E"],
+      labels: [],
       colors: ["rgba(2, 117, 133, 0.566)"],
       stroke: {
         curve: "smooth",
@@ -31,8 +32,8 @@ export default {
         colors: ["teal"],
       },
       chart: {
-        width: "100%", // Set the width to 100% for responsiveness
-        height: "400px", // Set a specific height or adjust as needed
+        width: "100%",
+        height: "400px",
         type: "donut",
       },
       plotOptions: {
@@ -42,6 +43,32 @@ export default {
           },
         },
       },
+    });
+
+    const fetchData = async () => {
+      try {
+        const response = await api.get("/countStocksPerBranch");
+        const data = response.data;
+
+        chartOptions.value.labels = data.stocks_per_branch.map(
+          (branch) => branch.branch_name
+        );
+        series.value = data.stocks_per_branch.map(
+          (branch) => branch.total_stocks
+        );
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    const fetchDataInterval = setInterval(fetchData, 20000); // Poll every 20 seconds
+
+    onMounted(() => {
+      fetchData(); // Fetch data on component mount
+    });
+
+    onBeforeUnmount(() => {
+      clearInterval(fetchDataInterval); // Clear the interval when the component is unmounted
     });
 
     return { series, chartOptions };

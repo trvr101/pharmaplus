@@ -197,20 +197,12 @@ export default {
 
   methods: {
     async fetchProductList() {
-      try {
-        const response = await api.get("/ProdList");
-        this.productList = response.data;
-        this.productList.forEach((product, index) => {
-          product.index = index + 1;
-        });
-        this.filteredProducts = this.productList;
-      } catch (error) {
-        console.error("Error fetching product list:", error);
-        Notify.create({
-          type: "negative",
-          message: "Error fetching product list",
-        });
-      }
+      const response = await api.get("/ProdList");
+      this.productList = response.data;
+      this.productList.forEach((product, index) => {
+        product.index = index + 1;
+      });
+      this.filteredProducts = this.productList;
     },
     startPolling() {
       this.fetchProductList(); // Initial fetch
