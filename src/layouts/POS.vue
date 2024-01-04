@@ -73,41 +73,19 @@
       v-model="rightDrawerOpen"
       side="right"
       bordered
-      :width="400"
-      class="q-mt-lg"
+      :width="350"
+      style="border-radius: none"
     >
-      <q-list class="full-height">
-        <q-item
-          clickable
-          v-ripple
-          v-for="(product, index) in drawerProducts"
-          :key="index"
-        >
-          <q-item-section>{{ product.product_name }}</q-item-section>
-          <q-item-section class="text-right">{{
-            product.quantity
-          }}</q-item-section>
-        </q-item>
-        <q-separator />
-        <q-space />
-        <div class="absolute-bottom q-pa-md">
-          <q-btn
-            class="full-width bg-teal text-grey-3"
-            flat
-            label="Save Transaction"
-          />
-          <q-input
-            v-model="search"
-            rounded
-            type="search"
-            label-color="grey-8"
-            class="full-width q-pa-sm text-grey-8"
-            dense
-            outline
-            label="Input Here"
-          ></q-input>
-        </div>
-      </q-list>
+    </q-drawer>
+
+    <q-drawer
+      show-if-above
+      v-model="leftDrawerOpen"
+      side="left"
+      bordered
+      :width="75"
+      style="border-radius: none"
+    >
     </q-drawer>
 
     <q-page-container class="q-ma-lg">
@@ -115,12 +93,13 @@
         flat
         bordered
         grid
-        title="Treats"
+        title="Products"
         :rows="rows"
         :columns="columns"
         row-key="name"
         :filter="filter"
         hide-header
+        :rows-per-page-options="[24]"
         card-class="bg-teal text-white"
       >
         <template v-slot:top-right>
@@ -177,6 +156,7 @@ import { api } from "src/boot/axios";
 export default {
   setup() {
     const rightDrawerOpen = ref(false);
+    const leftDrawerOpen = ref(false);
     const filter = ref("");
     const rows = ref([]);
     const selectedProductsList = ref([]);
@@ -235,6 +215,7 @@ export default {
 
     return {
       rightDrawerOpen,
+      leftDrawerOpen,
       filter,
       columns,
       rows,

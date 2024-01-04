@@ -61,7 +61,7 @@ export default {
       }
     };
 
-    const fetchDataInterval = setInterval(fetchData, 20000); // Poll every 20 seconds
+    const fetchDataInterval = setInterval(fetchData, 3000); // Poll every 20 seconds
 
     onMounted(() => {
       fetchData(); // Fetch data on component mount

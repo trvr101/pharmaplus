@@ -17,7 +17,7 @@
         row-key="audit_id"
         :title="product_name + ' History'"
         class="q-pa-md q-mb-lg q-mx-lg"
-        :rows-per-page-options="[10]"
+        :rows-per-page-options="[20]"
       >
         <!-- add back button use arrow icon -->
         <!-- Template for the 'Type' column -->
@@ -26,7 +26,7 @@
             <q-chip
               :color="getTypeColor(props.row.type)"
               text-color="white"
-              outline
+              :outline="props.row.type === 'inbound'"
               class="q-unselectable"
             >
               {{ props.row.type }}
