@@ -18,10 +18,9 @@
           :columns="columns"
           row-key="product_id"
           :filter="filter"
-          hide-header
           :rows-per-page-options="[16]"
           @row-click="handleRowClick"
-          :rows-class="'custom-row-class'"
+          card-class="bg-teal text-white"
         >
           <template v-slot:top-right>
             <q-input
@@ -50,26 +49,22 @@
       <q-card
         flat
         :bordered="!$q.dark.isActive"
-        class="my-card q-mb-sm"
-        style="height: 90dvh"
-        v-if="$q.screen.gt.sm"
+        class="my-card"
+        style="height: 91dvh"
       >
-        <div class="q-pa-md">
+        <div class="q-pt-md">
           <q-card-section class="text-h6 text-center"
             >Current Transaction</q-card-section
           >
+          <div class="text-center text-caption">
+            Order Token: {{ generatedToken }}
+          </div>
           <q-card-section>
-            <q-input
-              v-model="generatedToken"
-              :readonly="true"
-              borderless
-              dense
-              flat
-              class="text-caption q-unselectable"
-            ></q-input>
+            <CurrentTransaction :order_token="generatedToken" />
           </q-card-section>
           <q-card-actions>
             <q-form
+              @submit.prevent="AddProd"
               class="full-width absolute-bottom q-pa-md"
               :class="{ 'absolute-bottom': $q.screen.gt.sm }"
             >
@@ -84,12 +79,78 @@
         </div>
       </q-card>
     </div>
+    <q-page-sticky
+      position="bottom-right"
+      :offset="fabPos"
+      @keydown="handleKeyDown"
+    >
+      <q-fab
+        icon="keyboard_arrow_left"
+        direction="left"
+        class="fixed-bottom-right"
+        :class="{
+          'text-grey-3  bg-secondary ': $q.dark.isActive,
+          'text-white  bg-teal ': !$q.dark.isActive,
+        }"
+        persistent
+        @blur="closeFab"
+      >
+        <!-- Your FAB actions go here -->
+        <q-fab-action
+          @click="onClick"
+          icon="pause_circle_outline"
+          :class="{
+            'text-grey-3  bg-secondary ': $q.dark.isActive,
+            'text-white  bg-grey-9 ': !$q.dark.isActive,
+          }"
+          ><q-tooltip> Hold Transaction </q-tooltip></q-fab-action
+        >
+        <q-fab-action
+          color="primary"
+          icon="highlight_off"
+          :class="{
+            'text-grey-3  bg-secondary ': $q.dark.isActive,
+            'text-white  bg-red-9 ': !$q.dark.isActive,
+          }"
+          ><q-tooltip> Clear All </q-tooltip></q-fab-action
+        ><q-fab-action
+          icon="check_circle_outline"
+          :class="{
+            'text-grey-3  bg-secondary ': $q.dark.isActive,
+            'text-white  bg-green-9 ': !$q.dark.isActive,
+          }"
+          @click="SubmitCurrentTransaction"
+          ><q-tooltip> Submit </q-tooltip></q-fab-action
+        >
+
+        <q-fab-action
+          @click="$q.fullscreen.toggle()"
+          :icon="$q.fullscreen.isActive ? 'fullscreen_exit' : 'fullscreen'"
+          :class="{
+            'text-grey-3  bg-secondary ': $q.dark.isActive,
+            'text-white  bg-teal ': !$q.dark.isActive,
+          }"
+        ></q-fab-action>
+      </q-fab>
+    </q-page-sticky>
   </div>
 </template>
 
 <script>
 import { api } from "src/boot/axios";
+import { ref, onMounted } from "vue";
+import { Notify } from "quasar";
+import CurrentTransaction from "components/Cashier/CurrentTransaction";
 export default {
+  components: {
+    CurrentTransaction,
+  },
+  setup() {
+    const fabPos = ref([-18, window.innerHeight / 2]);
+    return {
+      fabPos,
+    };
+  },
   data() {
     return {
       generatedToken: this.tokenMaker(10),
@@ -104,17 +165,18 @@ export default {
           sortable: true,
         },
         {
-          name: "upc",
-          label: "UPC",
-          align: "left",
-          field: "upc",
-          sortable: true,
-        },
-        {
           name: "description",
           label: "Description",
           align: "left",
           field: "description",
+          sortable: true,
+        },
+
+        {
+          name: "category",
+          label: "Category",
+          align: "center",
+          field: "category",
           sortable: true,
         },
         {
@@ -129,27 +191,6 @@ export default {
           label: "Price",
           align: "center",
           field: "price",
-          sortable: true,
-        },
-        {
-          name: "category",
-          label: "Category",
-          align: "center",
-          field: "category",
-          sortable: true,
-        },
-        {
-          name: "status",
-          label: "Status",
-          align: "center",
-          field: "status",
-          sortable: true,
-        },
-        {
-          name: "created_at",
-          label: "Created At",
-          align: "center",
-          field: "created_at",
           sortable: true,
         },
       ],
@@ -167,6 +208,53 @@ export default {
         console.error("Error fetching data:", error);
       }
     },
+    async SubmitCurrentTransaction() {
+      try {
+        const token = sessionStorage.getItem("token");
+        const response = await api.post(
+          `/POS/SubmitOrder/5000/${this.generatedToken}/${token}`
+        );
+        console.log("API response:", response.data);
+      } catch (error) {
+        console.error("Error submitting transaction:", error);
+      }
+    },
+
+    async AddProd() {
+      // Validate quantity to ensure it is not negative
+      if (this.AddProduct == "") {
+        Notify.create({
+          type: "negative",
+          message: "Cannot be blank",
+        });
+        return;
+      }
+
+      const token = sessionStorage.getItem("token");
+
+      try {
+        const response = await api.post(
+          `/POS/AddItem/${token}/${this.generatedToken}`, // Fix here
+          {
+            UPCAndQuantity: this.AddProduct,
+          }
+        );
+
+        // Handle response as needed
+        // Example: Notify.create({ type: 'positive', message: 'Quantity added successfully' });
+
+        // Reset form fields after successful submission
+        this.AddProduct = null;
+      } catch (error) {
+        // Handle error
+        console.log(this.generatedToken); // Fix here
+        Notify.create({
+          type: "negative",
+          message: "Error adding quantity",
+        });
+      }
+    },
+
     tokenMaker(length) {
       const characters =
         "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
@@ -199,6 +287,13 @@ export default {
   },
   mounted() {
     this.fetchData();
+    this.pollingInterval = setInterval(() => {
+      this.fetchData();
+    }, 1000);
+  },
+  beforeDestroy() {
+    // Clear the polling interval when the component is destroyed
+    clearInterval(this.pollingInterval);
   },
 };
 </script>

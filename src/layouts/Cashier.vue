@@ -16,15 +16,15 @@
         }"
       />
     </q-page-container>
-    <Footer />
     <FabDialog />
+    <Footer />
   </q-layout>
 </template>
 
 <script>
 import DrawerHeader from "components/Cashier/DrawerHeader";
 import Footer from "components/MainLayout/Footer";
-import FabDialog from "components/MainLayout/FabDialog";
+import FabDialog from "components/Cashier/FabDialog";
 import { useQuasar } from "quasar";
 
 export default {
