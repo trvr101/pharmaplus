@@ -92,11 +92,9 @@ export default {
     const editProduct = (product) => {
       console.log("Edit product:", product);
     };
-
     const deleteProduct = (product) => {
       console.log("Delete product:", product);
     };
-
     const viewAuditHistory = (product) => {
       console.log("View audit history:", product);
       const token = sessionStorage.getItem("token");

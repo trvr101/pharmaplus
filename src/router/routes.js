@@ -258,14 +258,14 @@ const routes = [
   },
   {
     // for cashier with token only
-    path: "/POS",
-    component: () => import("layouts/POS.vue"),
+    path: "/Cashier",
+    component: () => import("layouts/Cashier.vue"),
     meta: { requiresAuth: true, requiresCashier: true },
     beforeEnter: requireCashier,
     children: [
       {
         path: "/POS",
-        component: () => import("pages/POS/HomePOS.vue"),
+        component: () => import("pages/Cashier/CashierMain.vue"),
       },
     ],
   },
