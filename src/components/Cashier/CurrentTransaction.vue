@@ -6,7 +6,9 @@
       row-key="current_transaction_id"
       flat
       :seperator="none"
+      :rows-per-page-options="[]"
       no-data-label=" "
+      :hide-pagination="true"
     >
       <template v-slot:no-data="{ icon, message, filter }">
         <div class="full-width row flex-center text-accent q-gutter-sm">
@@ -15,7 +17,7 @@
       </template>
     </q-table>
     <q-space />
-    <div class="q-pl-xs">Total: {{ total }}</div>
+    <div class="q-pl-xs absolute-bottom">Total: {{ total }}</div>
   </div>
 </template>
 

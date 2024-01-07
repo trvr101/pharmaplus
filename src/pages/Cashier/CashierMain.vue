@@ -59,9 +59,10 @@
           <div class="text-center text-caption">
             Order Token: {{ generatedToken }}
           </div>
-          <q-card-section>
-            <CurrentTransaction :order_token="generatedToken" />
-          </q-card-section>
+          <CurrentTransaction
+            :order_token="generatedToken"
+            class="q-pa-sm"
+          ></CurrentTransaction>
           <q-card-actions>
             <q-form
               @submit.prevent="AddProd"
@@ -215,6 +216,7 @@ export default {
           `/POS/SubmitOrder/5000/${this.generatedToken}/${token}`
         );
         console.log("API response:", response.data);
+        this.regenerateToken();
       } catch (error) {
         console.error("Error submitting transaction:", error);
       }
@@ -310,5 +312,11 @@ export default {
 }
 .custom-row-class {
   border-radius: 15px;
+}
+.q-table__grid-item-card {
+  border-radius: 15px;
+}
+.q-table__grid-item-value {
+  font-size: small;
 }
 </style>
