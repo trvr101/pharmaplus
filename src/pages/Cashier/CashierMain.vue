@@ -247,14 +247,22 @@ export default {
 
         // Reset form fields after successful submission
         this.AddProduct = null;
-      } catch (error) {
-        // Handle error
-        console.log(this.generatedToken); // Fix here
-        Notify.create({
-          type: "negative",
-          message: "Error adding quantity",
-        });
-      }
+        if (response.data.error) {
+          Notify.create({
+            message: response.data.msg,
+            color: "negative",
+            position: "bottom",
+            timeout: 3000,
+          });
+        } else {
+          Notify.create({
+            message: response.data.msg,
+            color: "teal",
+            position: "bottom",
+            timeout: 1000, // Adjust timeout as needed
+          });
+        }
+      } catch (error) {}
     },
 
     tokenMaker(length) {
